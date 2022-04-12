@@ -141,7 +141,7 @@ const UserRegisterPage = () => {
                                 </Box>
 
                                 <Box sx={{mt: 3}}>
-                                    <small onClick={linkLogin} className='register-link'>没有账户？点此注册</small>
+                                    <small onClick={linkLogin} className='register-link'>已有账户？点此登录</small>
                                 </Box>
                             </Box> :
                             <Box>
@@ -150,7 +150,7 @@ const UserRegisterPage = () => {
                                 </Box>
 
                                 <Box sx={{mt: 3}}>
-                                    <small onClick={linkLogin} className='register-link'>没有账户？点此注册</small>
+                                    <small onClick={linkLogin} className='register-link'>已有账户？点此登录</small>
                                 </Box>
                             </Box> 
                         }

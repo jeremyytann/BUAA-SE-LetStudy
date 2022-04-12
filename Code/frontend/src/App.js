@@ -16,7 +16,7 @@ function App() {
           <Route path='/login' element={<UserLoginPage />}/>
           <Route path='/register' element={<UserRegisterPage />}/>
           <Route path='/profile/:username' element={<UserProfilePage />}/>
-          <Route path='/settings' element={<UserSettingsPage />}/>
+          <Route path='/settings/:tab' element={<UserSettingsPage />}/>
         </Routes>
       </div>
     </Router>

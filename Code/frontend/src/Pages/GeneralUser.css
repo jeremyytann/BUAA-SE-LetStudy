@@ -41,3 +41,16 @@ body {
     cursor: pointer;
     font-size: 16px;
 }
+
+.activated-setting {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nonactivated-setting {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: sub;
+    color: grey;
+}

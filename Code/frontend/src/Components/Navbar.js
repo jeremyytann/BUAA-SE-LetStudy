@@ -44,7 +44,7 @@ const Navbar = () => {
     }
 
     const linkSettings = () => {
-        navigate('/settings')
+        navigate('/settings/password')
     }
 
     const linkNotices = () => {
