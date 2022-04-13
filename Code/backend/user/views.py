@@ -1,6 +1,6 @@
 from .models import GeneralUser, User
-from django.http import HttpResponse, JsonResponse
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -36,7 +36,6 @@ def userEditOrDelete(request, pk):
 
     # change password
     if request.method == 'PUT':
-        print(request.user)
         if request.user.id != user.id:
             return jsons([], 403)
         
