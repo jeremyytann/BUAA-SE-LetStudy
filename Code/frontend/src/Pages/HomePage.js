@@ -12,7 +12,7 @@ const Homepage = () => {
     }
 
     return (
-        <div className='testing-body'>
+        <div>
             <Navbar />
             {user} logged in.
         </div>

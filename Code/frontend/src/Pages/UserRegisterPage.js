@@ -57,9 +57,9 @@ const UserRegisterPage = () => {
         <div>
             <Navbar />
 
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 11}}>
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 14}}>
                 <Box sx={{backgroundColor: 'white', width: '40%', minWidth: '400px', borderRadius: '30px', height: '650px'}}>
-                    <form className='register-box' onSubmit={Register}>
+                    <form onSubmit={Register}>
                         <Box sx={{mt: 6}}>
                             <h1 className='login-text'>注册</h1>
                         </Box>

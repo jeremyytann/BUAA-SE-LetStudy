@@ -1,6 +1,7 @@
 from .models import GeneralUser, User
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 import json
 
 # Create your views here.
@@ -25,6 +26,36 @@ def userRegister(request):
             return jsons([dict(generalUser.body())])
     
     return jsons([], 400)
+
+@login_required
+def userEditOrDelete(request, pk):
+    try:
+        user = GeneralUser.objects.get(id = pk)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404)
+
+    # change password
+    if request.method == 'PUT':
+        print(request.user)
+        if request.user.id != user.id:
+            return jsons([], 403)
+        
+        data = json.loads(request.body)
+
+        user.username = user.username
+        user.set_password(data['newpass'])
+        user.save()
+
+        login(request, user)
+    
+        return jsons([dict(user.body())])
+    # delete account
+    elif request.method == 'DELETE':
+        if request.user.id != user.id:
+            return jsons([], 403)
+        
+        user.delete()
+        return jsons()
 
 # Login
 def userLogin(request):

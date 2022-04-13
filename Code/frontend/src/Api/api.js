@@ -55,9 +55,26 @@ class Api {
 		return data;
 	}
 
+	userChangePass = async(id, newpass) => {
+		let data = await this.put(`/users/${id}/edit/`, {newpass})
+		return data;
+	}
+
+	userDelete = async(id) => {
+		let data = await this.delete(`/users/${id}/delete/`)
+
+		// clear cookies and return to login page
+		Cookies.remove('username');
+		Cookies.remove('user_id');
+		Cookies.remove('sessionid');
+
+		return data
+	}
+
     userLogin = async (username, password) => {
         let data = await this.post('/users/login/', {username, password});
 		console.log(data);
+
         if (data['errorCode'] === 0) {
             const cookies = data['cookies'];
             Cookies.set('user_id', cookies['user_id']);

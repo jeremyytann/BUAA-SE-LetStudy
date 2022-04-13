@@ -44,7 +44,7 @@ const UserLoginPage = () => {
         <Box>
             <Navbar />
             
-            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 11}}>
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 14}}>
                 <Box sx={{backgroundColor: 'white', width: '40%', minWidth: '400px', borderRadius: '30px', height: '650px'}}>
                     <form onSubmit={Login}>
                         <Box sx={{mt: 6}}>

@@ -54,3 +54,43 @@ body {
     font-weight: sub;
     color: grey;
 }
+
+.setting-text {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.password-disabled-box {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 350px;
+    height: 50px;
+    border: 0px;
+    border-radius: 10px;
+    text-indent: 25px;
+    font-size: 20px;
+    color: grey;
+}
+
+.password-input-box {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 350px;
+    height: 50px;
+    border: 0px;
+    border-radius: 10px;
+    text-indent: 25px;
+    font-size: 20px;
+    color: black;
+}
+
+.changepass-button {
+    background: #E0A96D;
+    width: 220px;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}

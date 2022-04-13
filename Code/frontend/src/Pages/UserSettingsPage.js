@@ -4,6 +4,8 @@ import Cookies from 'js-cookie'
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 import { Grid, Box } from '@mui/material';
 import './GeneralUser.css'
+import UserPasswordForm from '../Components/UserPasswordForm';
+import UserTerminate from '../Components/UserTerminate';
 
 const UserSettingsPage = () => {
     const { tab } = useParams();
@@ -34,11 +36,10 @@ const UserSettingsPage = () => {
         <Box>
             <Navbar />
 
-            <Box display='flex' justifyContent='center' sx={{mt: 3, mx: 5}}>
+            <Box sx={{mt: 5, mx: 5}}>
                 <Grid container>
-                    <Grid height={500} item xs={3}>
-
-                        <Box borderRadius={10} sx={{backgroundColor: 'white', height: '100%', width: '90%'}}>
+                    <Grid item xs={3}>
+                        <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '90%'}}>
                             <Box paddingTop={8} sx={{fontSize: '40px', fontWeight: 'bold'}}>
                                 <small>设置</small>
                             </Box>
@@ -73,9 +74,16 @@ const UserSettingsPage = () => {
                         </Box>
                     </Grid>
 
-                    <Grid height={500} item xs={9}>
+                    <Grid item xs={9}>
                         <Box borderRadius={10} sx={{backgroundColor: 'white', height: '100%', width: '100%'}}>
-                            {tab}
+                            <Box>
+                                { tab === 'password' ? <UserPasswordForm /> : ''}
+                            </Box>
+                            
+                            <Box>
+                                { tab === 'terminate' ? <UserTerminate /> : ''}
+                            </Box>
+                            
                         </Box>
                     </Grid>
                 </Grid>

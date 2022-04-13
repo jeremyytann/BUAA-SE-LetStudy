@@ -84,7 +84,7 @@ const Navbar = () => {
     }
 
     return (
-        <Box sx={{alignItems: 'center', margin: '10px 0px 0px 0px'}}>
+        <Box sx={{margin: '10px 0px 0px 0px'}}>
             <Grid container alignItems='center'>
                 <Grid item xs={4}>
                     
