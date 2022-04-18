@@ -37,7 +37,7 @@ const UserRegisterPage = () => {
             } else {
                 Cookies.set('user_id', data.data[0].id);
                 Cookies.set('username', data.data[0].username);
-                navigate('/')
+                navigate('/rooms/all/1')
             }
         }
     }
@@ -50,7 +50,7 @@ const UserRegisterPage = () => {
     let user = Cookies.get('username');
 
     if (user !== undefined) {
-        return <Navigate to='/'/>
+        return <Navigate to='/rooms/all/1'/>
     }
 
     return (

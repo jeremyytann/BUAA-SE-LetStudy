@@ -13,19 +13,24 @@ def jsons(data = None, errorCode = 0, cookies = ''):
     return JsonResponse({'errorCode': errorCode, 'data': data, 'cookies': cookies})
 
 @login_required
-def noteImageCreate(request, pk):
+def noteImageCreate(request, note_id):
     try:
-        user = GeneralUser.objects.get(id = request.user.id)
-    except GeneralUser.DoesNotExist:
-        return jsons([], 403, 0)
-    
-    try:
-        note = Note.objects.get(id = pk)
+        note = Note.objects.get(id = note_id)
     except Note.DoesNotExist:
         return jsons([], 403, 0)
     
-    if user.id != note.user.id:
+    data = NoteImage.objects.create(note = note, image = request.FILES.get('image'))
+    return jsons([dict(data.body())])
+
+def noteImageGet(request, note_id):
+    try:
+        note = Note.objects.get(id = note_id)
+    except Note.DoesNotExist:
         return jsons([], 403, 0)
-    
-    image = NoteImage.objects.create(note = note, image = request.FILES.get('images'))
+
+    image = NoteImage.objects.get(note = note)
+
+    if image is None:
+        return jsons()
+
     return jsons([dict(image.body())])

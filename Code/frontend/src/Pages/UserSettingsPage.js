@@ -36,7 +36,7 @@ const UserSettingsPage = () => {
         <Box>
             <Navbar />
 
-            <Box sx={{mt: 5, mx: 5}}>
+            <Box mt={5} mx={10}>
                 <Grid container>
                     <Grid item xs={3}>
                         <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '90%'}}>
@@ -83,7 +83,6 @@ const UserSettingsPage = () => {
                             <Box>
                                 { tab === 'terminate' ? <UserTerminate /> : ''}
                             </Box>
-                            
                         </Box>
                     </Grid>
                 </Grid>

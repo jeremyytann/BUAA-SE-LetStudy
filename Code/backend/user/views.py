@@ -23,6 +23,9 @@ def userRegister(request):
             generalUser.username = data['username']
             generalUser.set_password(data['password'])
             generalUser.save()
+
+            login(request, generalUser)
+            
             return jsons([dict(generalUser.body())])
     
     return jsons([], 400)

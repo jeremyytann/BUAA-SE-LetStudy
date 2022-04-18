@@ -25,7 +25,7 @@ const UserLoginPage = () => {
             setPassword('');
             setError('用户名或密码错误');
         } else {
-            navigate('/');
+            navigate('/rooms/public/1');
         }
     }
 
@@ -33,7 +33,7 @@ const UserLoginPage = () => {
     let user = Cookies.get('username');
     
     if (user !== undefined) {
-        return <Navigate to='/' />
+        return <Navigate to='/rooms/public/1' />
     }
 
     const linkRegister = () => {

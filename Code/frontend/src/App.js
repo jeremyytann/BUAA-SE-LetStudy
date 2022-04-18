@@ -3,20 +3,32 @@ import './Pages/GeneralUser.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserLoginPage from './Pages/UserLoginPage';
 import UserRegisterPage from './Pages/UserRegisterPage';
-import UserHomePage from './Pages/UserHomePage';
+import UserLandPage from './Pages/UserLandPage';
 import UserProfilePage from './Pages/UserProfilePage';
 import UserSettingsPage from './Pages/UserSettingsPage';
+import UserRoomPage from './Pages/UserRoomPage';
+import UserNotePage from './Pages/UserNotePage';
+import UserQuestionPage from './Pages/UserQuestionPage';
+import NoteViewPage from './Pages/NoteViewPage';
+import NoteCreatePage from './Pages/NoteCreatePage';
+import QuestionCreatePage from './Pages/QuestionCreatePage';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path='/' element={<UserHomePage />}/>
+          <Route path='/' element={<UserLandPage />}/>
           <Route path='/login' element={<UserLoginPage />}/>
           <Route path='/register' element={<UserRegisterPage />}/>
           <Route path='/profile/:username' element={<UserProfilePage />}/>
           <Route path='/settings/:tab' element={<UserSettingsPage />}/>
+          <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
+          <Route path='/notes/create' element={<NoteCreatePage />}/>
+          <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
+          <Route path='/note/:id' element={<NoteViewPage />}/>
+          <Route path='/questions/create' element={<QuestionCreatePage />}/>
+          <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
         </Routes>
       </div>
     </Router>

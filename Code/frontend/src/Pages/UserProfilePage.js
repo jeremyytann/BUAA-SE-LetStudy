@@ -14,7 +14,6 @@ const UserProfilePage = () => {
         const fetchUser = async() => {
             const data = await api.userGetByUsername(username);
             setUser(data.data[0]);
-            console.log(data.data[0]);
         }
 
         fetchUser();

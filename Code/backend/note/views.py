@@ -21,12 +21,31 @@ def noteCreate(request):
             data = json.loads(request.body)
             category = Category.objects.get(name = data['category'])
 
-            note = Note.objects.create(user = user)
+            note = Note.objects.create(user = user, category = category)
             note.title = data['title']
             note.description = data['description']
-            note.category = category
             note.save()
 
             return jsons([dict(note.body())])
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0)
+
+def noteGet(request, pk):
+    try:
+        note = Note.objects.get(id = pk)
+    except Note.DoesNotExist:
+        return jsons([], 404, 0)
+
+    return jsons([dict(note.body())])
+
+def noteGetAllByPage(request, page):
+    notes = Note.objects.all()
+    pages = (notes.count() + 15) / 16
+    notes = notes[((page - 1) * 16) : (page * 16)]
+
+    return jsons([dict(note.body()) for note in notes], 0, pages)
+
+def noteGetAllPageCount(request):
+    notes = Note.objects.all()
+    pages = (notes.count() + 15) / 16
+    return jsons([], 0, pages)

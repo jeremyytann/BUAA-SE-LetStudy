@@ -9,5 +9,6 @@ class Category(models.Model):
     
     def body(self):
         return {
+            'id': self.id,
             'name': self.name
         }

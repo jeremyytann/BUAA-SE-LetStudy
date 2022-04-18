@@ -94,3 +94,130 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+
+input[type='file'] {
+    display: none;
+}
+
+.custom-image-upload {
+    padding: 5px 0px;
+    border-bottom-style: ridge;
+    cursor: pointer;
+}
+
+.create-note-image {
+    border-radius: 40px;
+    width: 360px;
+    height: 360px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.create-note-category {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 230px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.create-note-title {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 950px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: black;
+    border: 0px;
+}
+
+.create-note-description {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1195px;
+    height: 425px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-indent: 25px each-line;
+    padding: 25px;
+    color: black;
+    border: 0px;
+    resize: none;
+}
+
+.note-view-image {
+    border-radius: 20px 20px 0 0;
+    width: 200px;
+    height: 200px;
+}
+
+.note-view-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-view-username {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-page-image {
+    border-radius: 20px;
+    width: 300px;
+    height: 300px;
+}
+
+.note-user-link {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.create-note-comment {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 400px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-indent: 25px each-line;
+    padding: 25px;
+    color: black;
+    border: 0px;
+    resize: none;
+}
+
+.note-comment-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.create-question-title {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1350px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: black;
+    border: 0px;
+}
+
+.create-question-description {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1595px;
+    height: 350px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-indent: 25px each-line;
+    padding: 25px;
+    color: black;
+    border: 0px;
+    resize: none;
+}
