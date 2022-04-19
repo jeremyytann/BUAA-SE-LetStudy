@@ -22,8 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path('answer/', include('answer.urls')),
     path('category/', include('category.urls')),
     path('comment/', include('comment.urls')),
+    path('followship/', include('followship.urls')),
     path('note/', include('note.urls')),
     path('note_image/', include('note_image.urls')),
     path('question/', include('question.urls')),

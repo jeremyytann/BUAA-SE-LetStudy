@@ -221,3 +221,56 @@ input[type='file'] {
     border: 0px;
     resize: none;
 }
+
+.question-view-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.question-view-background {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+}
+
+.question-view-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-description-text {
+    line-height: 2;
+}
+
+.question-description-text {
+    line-height: 2;
+}
+
+.answer-description-text {
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ask-button {
+    cursor: pointer;
+}
+
+.create-question-reply {
+    width: 360px;
+    height: 130px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-indent: 15px each-line;
+    padding: 15px;
+    color: black;
+    border: 0px;
+    resize: none;
+}
+
+.same-type-questions {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

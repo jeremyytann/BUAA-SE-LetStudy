@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from category.models import Category
 from user.models import GeneralUser
 from .models import Question
-import json
+import json, random
 
 # Create your views here.
 def jsons(data = None, errorCode = 0, page=0):
@@ -40,12 +40,40 @@ def questionGet(request, pk):
 
 def questionGetAllByPage(request, page):
     questions = Question.objects.all()
-    pages = (questions.count() + 15) / 16
-    questions = questions[((page - 1) * 16) : (page * 16)]
+    questionsList = list(questions)
+    pages = (questions.count() + 7) / 8
+    randoms = random.sample(questionsList, questions.count())
+    questions = randoms[((page - 1) * 8) : (page * 8)]
 
     return jsons([dict(question.body()) for question in questions], 0, pages)
 
 def questionGetAllPageCount(request):
     questions = Question.objects.all()
-    pages = (questions.count() + 15) / 16
+    pages = (questions.count() + 7) / 8
     return jsons([], 0, pages)
+
+def questionGetLatestByPage(request, page):
+    questions = Question.objects.all().order_by('-createdDate')
+    pages = (questions.count() + 7) / 8
+    questions = questions[((page - 1) * 8) : (page * 8)]
+
+    return jsons([dict(question.body()) for question in questions], 0, pages)
+
+def questionGetLatestPageCount(request):
+    questions = Question.objects.all().order_by('-createdDate')[:80]
+    pages = (questions.count() + 7) / 8
+    return jsons([], 0, pages)
+
+def questionGetByCategory(request, pk, count):
+    try:
+        question = Question.objects.get(id = pk)
+        category = Category.objects.get(name = question.category)
+        questions = list(Question.objects.filter(category = category).exclude(id = pk))
+
+        if (len(questions) == 0):
+            return jsons([], 404, 0)
+
+        randoms = random.sample(questions, count)
+        return jsons([dict(question.body()) for question in randoms], 0, 0)
+    except Category.DoesNotExist:
+        return jsons([], 404, 0)

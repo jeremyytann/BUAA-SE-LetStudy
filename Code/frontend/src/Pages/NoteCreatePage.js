@@ -13,7 +13,6 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 const NoteCreatePage = () => {
     const [image, setImage] = useState([]);
     const [imagePath, setImagePath] = useState([]);
-    const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [dialog, setDialog] = useState(false);
@@ -89,7 +88,6 @@ const NoteCreatePage = () => {
             const categoriesFromServer = await fetchAllCategory();
             setCategories(categoriesFromServer);
             setSelectedCategory(categoriesFromServer[0].name);
-            setSelectedCategoryId(categoriesFromServer[0].id);
         }
 
         getAllCategory();
@@ -191,7 +189,8 @@ const NoteCreatePage = () => {
                                                     value={description}
                                                     onChange={event => setDescription(event.target.value)}
                                                     type='text'
-                                                    placeholder='输入笔记内容' required/>
+                                                    placeholder='输入笔记内容' 
+                                                    maxLength='512' required/>
                                             </Box>
                                         </Box>
                                     </Box>

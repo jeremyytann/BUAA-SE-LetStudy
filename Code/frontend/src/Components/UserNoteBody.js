@@ -17,9 +17,19 @@ const UserNoteBody = () => {
             return data;
         }
 
+        const fetchLatestNotesByPage = async() => {
+            const data = await api.noteGetLatestByPage(page);
+            return data;
+        }
+
         const getAllNotesByPage = async() => {
-            const notes = await fetchAllNotesByPage();
-            setNotes(notes.data);
+            const notesFromServer = await fetchAllNotesByPage();
+            setNotes(notesFromServer.data);
+        }
+
+        const getLatestNotesByPage = async() => {
+            const notesFromServer = await fetchLatestNotesByPage();
+            setNotes(notesFromServer.data);
         }
 
         if (tab === 'all') {
@@ -27,7 +37,7 @@ const UserNoteBody = () => {
         } else if (tab === 'popular') {
             setNotes([])
         } else if (tab === 'latest') {
-            setNotes([])
+            getLatestNotesByPage();
         }
     }, [tab, page])
 

@@ -10,4 +10,8 @@ class GeneralUser(User):
         return self.username
 
     def body(self):
-        return {'id': self.id, 'username': self.username}
+        return {
+            'id': self.id, 
+            'username': self.username,
+            'created_date': self.joinDate
+        }

@@ -109,8 +109,6 @@ const NoteComments = () => {
                         </Box>
                     </Box> : ''
                 }
-
-
             </Box>
 
             <Box mx={3} mt={3} sx={{borderTop: '1px solid black'}}>
@@ -125,7 +123,7 @@ const NoteComments = () => {
                         onChange={event => setComment(event.target.value)}
                         type='text'
                         placeholder='输入留言内容' 
-                        maxLength='128' required/>             
+                        maxLength='64' required/>             
                 </Box>
 
                 <Box mt={2} mx={4} display='flex'>

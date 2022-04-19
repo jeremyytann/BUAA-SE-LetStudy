@@ -3,13 +3,14 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import json
+from datetime import date, datetime
 
 # Create your views here.
-def jsons(data = None, errorCode = 0, cookies = ''):
+def jsons(data = None, errorCode = 0, cookies = '', days = 0):
     if data is None:
         data = []
     
-    return JsonResponse({'errorCode': errorCode, 'data': data, 'cookies': cookies})
+    return JsonResponse({'errorCode': errorCode, 'data': data, 'cookies': cookies, 'days': days})
 
 # Register
 def userRegister(request):
@@ -27,7 +28,6 @@ def userRegister(request):
             login(request, generalUser)
             
             return jsons([dict(generalUser.body())])
-    
     return jsons([], 400)
 
 @login_required
@@ -87,13 +87,20 @@ def userLogout(request):
     return jsons([], 403)
 
 def userGetByUsername(request, username):
-    if (request.user.is_authenticated):
-        print(request.user)
-        print('logged in get profile')
-
     try:
         generalUser = GeneralUser.objects.get(username = username)
+        year = int(generalUser.joinDate.strftime("%Y"))
+        month = int(generalUser.joinDate.strftime("%m"))
+        day = int(generalUser.joinDate.strftime("%d"))
+        nowYear = int(datetime.now().strftime("%Y"))
+        nowMonth = int(datetime.now().strftime("%m"))
+        nowDay = int(datetime.now().strftime("%d"))
+
+        date1 = date(year, month, day)
+        date2 = date(nowYear, nowMonth, nowDay)
+        days = (date2 - date1).days
+
     except GeneralUser.DoesNotExist:
         return jsons([], 404)
-    
-    return jsons([dict(generalUser.body())])
+
+    return jsons([dict(generalUser.body())], 0, '', days)

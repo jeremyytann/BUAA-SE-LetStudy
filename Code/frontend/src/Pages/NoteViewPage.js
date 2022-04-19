@@ -88,7 +88,7 @@ const NoteViewPage = () => {
                                 <Grid container height='100%'>
                                     <Grid item xs={4}>
                                         <Box mt={5}>
-                                            <img className='note-page-image' src={ image? image.image_url : '0'}/>
+                                            <img className='note-page-image' src={ image? image.image_url : '0'} alt='img' />
                                         </Box>
 
                                         <Box mt={3}>
@@ -131,7 +131,7 @@ const NoteViewPage = () => {
 
                                         </Box>
                                         
-                                        <Box display='flex' mt={4} ml={1} mr={5} alignItems='center'>
+                                        <Box className='note-description-text' display='flex' mt={4} ml={1} mr={5} alignItems='center' textAlign='left'>
                                             {note.description}
                                         </Box>
                                     </Grid>

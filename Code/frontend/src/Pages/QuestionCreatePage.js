@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 import './GeneralUser.css'
 
 const QuestionCreatePage = () => {
-    const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [dialog, setDialog] = useState(false);
@@ -49,7 +48,6 @@ const QuestionCreatePage = () => {
             const categoriesFromServer = await fetchAllCategory();
             setCategories(categoriesFromServer);
             setSelectedCategory(categoriesFromServer[0].name);
-            setSelectedCategoryId(categoriesFromServer[0].id);
         }
 
         getAllCategory();
@@ -63,7 +61,9 @@ const QuestionCreatePage = () => {
         } else if (description === '') {
             setError('请输入笔记内容');
         } else {
+            const question = await api.questionCreate(title, description, selectedCategory)
             
+            navigate(`/question/${question.data[0].id}`)
         }
     }
 
@@ -141,7 +141,8 @@ const QuestionCreatePage = () => {
                                             value={description}
                                             onChange={event => setDescription(event.target.value)}
                                             type='text'
-                                            placeholder='输入问题内容' required/>
+                                            placeholder='输入问题内容'
+                                            maxLength='128' required/>
                                     </Box>
                                     
                                 </Box>

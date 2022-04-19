@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # database
+    'answer',
     'category',
     'comment',
+    'followship',
     'note',
     'note_image',
     'question',

@@ -6,5 +6,7 @@ urlpatterns = [
     path('<int:pk>/', views.noteGet),
 
     path('all/page/<int:page>/', views.noteGetAllByPage),
-    path('all/page_count/', views.noteGetAllPageCount)
+    path('all/page_count/', views.noteGetAllPageCount),
+
+    path('latest/page/<int:page>/', views.noteGetLatestByPage)
 ]

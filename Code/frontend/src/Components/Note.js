@@ -35,10 +35,10 @@ const Note = ({ note }) => {
     }
 
     return (
-        <Box mr={2.9} mb={2.2} onClick={linkNote} sx={{cursor: 'pointer'}}>
+        <Box borderRadius='20px' mr={2.9} mb={2.2} onClick={linkNote} sx={{cursor: 'pointer'}}>
             <Box>
                 <Box height='200px' sx={{borderRadius: '20px 20px 0 0'}}>
-                    <img className='note-view-image' src={ image? image.image_url : '0'}/>
+                    <img className='note-view-image' src={ image? image.image_url : '0'} alt='img' />
                 </Box>
                 
                 <Box>

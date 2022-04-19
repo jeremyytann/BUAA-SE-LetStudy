@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from category.models import Category
 from user.models import GeneralUser
 from note.models import Note
-import json
+import json, random
 
 # Create your views here.
 def jsons(data = None, errorCode = 0, page=0):
@@ -40,6 +40,15 @@ def noteGet(request, pk):
 
 def noteGetAllByPage(request, page):
     notes = Note.objects.all()
+    notesList = list(notes)
+    pages = (notes.count() + 15) / 16
+    randoms = random.sample(notesList, notes.count())
+    notes = randoms[((page - 1) * 16) : (page * 16)]
+
+    return jsons([dict(note.body()) for note in notes], 0, pages)
+
+def noteGetLatestByPage(request, page):
+    notes = Note.objects.all().order_by('-createdDate')
     pages = (notes.count() + 15) / 16
     notes = notes[((page - 1) * 16) : (page * 16)]
 

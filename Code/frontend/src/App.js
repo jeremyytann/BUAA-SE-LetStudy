@@ -12,6 +12,7 @@ import UserQuestionPage from './Pages/UserQuestionPage';
 import NoteViewPage from './Pages/NoteViewPage';
 import NoteCreatePage from './Pages/NoteCreatePage';
 import QuestionCreatePage from './Pages/QuestionCreatePage';
+import QuestionViewPage from './Pages/QuestionViewPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/note/:id' element={<NoteViewPage />}/>
           <Route path='/questions/create' element={<QuestionCreatePage />}/>
           <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
+          <Route path='/question/:id' element={<QuestionViewPage />}/>
         </Routes>
       </div>
     </Router>

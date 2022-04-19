@@ -84,7 +84,8 @@ const UserRegisterPage = () => {
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
-                                    placeholder='用户名' required/>
+                                    placeholder='用户名' 
+                                    maxLength='15' required/>
                                 </Box>
                             </Box> :
                             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 10}}>
@@ -98,7 +99,8 @@ const UserRegisterPage = () => {
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
-                                    placeholder='用户名' required/>
+                                    placeholder='用户名'
+                                    maxLength='15' required/>
                                 </Box>
                             </Box>
                         }

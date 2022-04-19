@@ -47,6 +47,17 @@ class Api {
 		}
   	}
 
+	/* ———————————————————— Answer API ———————————————————— */
+	answerCreate = async(description, questionId) => {
+		let data = await this.post('/answer/create/', {description, questionId});
+		return data;
+	}
+
+	answerGetAllByPage = async(questionId, page) => {
+		let data = await this.get(`/answer/${questionId}/page/${page}/`);
+		return data;
+	}
+
 	/* ———————————————————— Comment API ———————————————————— */
 	commentCreate = async(description, noteId) => {
 		let data = await this.post('/comment/create/', {description, noteId});
@@ -55,6 +66,22 @@ class Api {
 
 	commentGetByPage = async(noteId, page) => {
 		let data = await this.get(`/comment/${noteId}/page/${page}/`);
+		return data;
+	}
+
+	/* ———————————————————— Followship API ———————————————————— */
+	followshipCreate = async(followingId) => {
+		let data = await this.post('/followship/create/', {followingId});
+		return data;
+	}
+
+	followshipGet = async(followingUsername) => {
+		let data = await this.get(`/followship/${followingUsername}/`);
+		return data;
+	}
+
+	followshipDelete = async(followingId) => {
+		let data = await this.delete(`/followship/delete/${followingId}/`);
 		return data;
 	}
 
@@ -128,6 +155,11 @@ class Api {
 		return data;
 	}
 
+	noteGetLatestByPage = async(page) => {
+		let data = await this.get(`/note/latest/page/${page}/`);
+		return data;
+	}
+
 	/* ———————————————————— NoteImage API ———————————————————— */
 	noteImageCreate = async(noteId, form) => {
 		let data = await axios({
@@ -147,6 +179,42 @@ class Api {
 	/* ———————————————————— NoteImage API ———————————————————— */
 	categoryGetAll = async() => {
 		let data = await this.get('/category/');
+		return data;
+	}
+
+	/* ———————————————————— Question API ———————————————————— */
+	questionCreate = async(title, description, category) => {
+		let data = await this.post('/question/create/', {title, description, category})
+		return data;
+	}
+
+	questionGet = async(questionId) => {
+		let data = await this.get(`/question/${questionId}/`);
+		return data;
+	}
+
+	questionGetAllByPage = async(page) => {
+		let data = await this.get(`/question/all/page/${page}/`);
+		return data;
+	}
+
+	questionGetAllPageCount = async() => {
+		let data = await this.get('/question/all/page_count/');
+		return data;
+	}
+
+	questionGetLatestByPage = async(page) => {
+		let data = await this.get(`/question/latest/page/${page}/`);
+		return data;
+	}
+
+	questionGetLatestPageCount = async() => {
+		let data = await this.get('/question/latest/page_count/');
+		return data;
+	}
+
+	questionGetSameCategory = async(questionId, count) => {
+		let data = await this.get(`/question/${questionId}/category/${count}/`)
 		return data;
 	}
 }

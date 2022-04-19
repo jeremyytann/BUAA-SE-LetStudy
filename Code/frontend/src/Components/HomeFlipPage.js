@@ -35,13 +35,53 @@ const HomeFlipPage = ({ url }) => {
             return data;
         }
 
+        const fetchNoteLatestPageCount = async() => {
+            const data = await api.noteGetLatestPageCount();
+            return data;
+        }
+
+        const fetchQuestionAllPageCount = async() => {
+            const data = await api.questionGetAllPageCount();
+            return data;
+        }
+
+        const fetchQuestionLatestPageCount = async() => {
+            const data = await api.questionGetLatestPageCount();
+            return data;
+        }
+
         const getNoteAllPageCount = async() => {
             const data = await fetchNoteAllPageCount();
             setMaxPage(data.page);
         }
 
+        const getNoteLatestPageCount = async() => {
+            const data = await fetchNoteLatestPageCount();
+            setMaxPage(data.page);
+        }
+
+        const getQuestionAllPageCount = async() => {
+            const data = await fetchQuestionAllPageCount();
+            setMaxPage(data.page)
+        }
+
+        const getQuestionLatestPageCount = async() => {
+            const data = await fetchQuestionLatestPageCount();
+            setMaxPage(data.page)
+        }
+
         if (url === 'notes' && tab === 'all') {
             getNoteAllPageCount()
+        } else if (url === 'notes' && tab === 'popular') {
+            
+        } else if (url === 'notes' && tab === 'latest') {
+            getNoteLatestPageCount()
+        } else if (url === 'questions' && tab === 'all') {
+            getQuestionAllPageCount()
+        } else if (url === 'questions' && tab === 'popular') {
+
+        } else if (url === 'questions' && tab === 'latest') {
+            getQuestionLatestPageCount()
         }
     }, [tab, page, url])
     
