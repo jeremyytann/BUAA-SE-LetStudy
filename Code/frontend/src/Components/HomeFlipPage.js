@@ -35,6 +35,11 @@ const HomeFlipPage = ({ url }) => {
             return data;
         }
 
+        const fetchNotePopularPageCount = async() => {
+            const data = await api.noteGetPopularPageCount();
+            setMaxPage(data.page);
+        }
+
         const fetchNoteLatestPageCount = async() => {
             const data = await api.noteGetLatestPageCount();
             return data;
@@ -73,7 +78,7 @@ const HomeFlipPage = ({ url }) => {
         if (url === 'notes' && tab === 'all') {
             getNoteAllPageCount()
         } else if (url === 'notes' && tab === 'popular') {
-            
+            fetchNotePopularPageCount()
         } else if (url === 'notes' && tab === 'latest') {
             getNoteLatestPageCount()
         } else if (url === 'questions' && tab === 'all') {

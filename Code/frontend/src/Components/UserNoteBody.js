@@ -17,6 +17,11 @@ const UserNoteBody = () => {
             return data;
         }
 
+        const fetchPopularNotesByPage = async() => {
+            const data = await api.noteGetPopularByPage(page);
+            setNotes(data.data)
+        }
+
         const fetchLatestNotesByPage = async() => {
             const data = await api.noteGetLatestByPage(page);
             return data;
@@ -35,7 +40,7 @@ const UserNoteBody = () => {
         if (tab === 'all') {
             getAllNotesByPage();
         } else if (tab === 'popular') {
-            setNotes([])
+            fetchPopularNotesByPage();
         } else if (tab === 'latest') {
             getLatestNotesByPage();
         }

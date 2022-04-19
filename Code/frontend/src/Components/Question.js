@@ -3,6 +3,7 @@ import { Box } from '@mui/material'
 import api from '../Api/api'
 import { useNavigate } from 'react-router-dom'
 import '../Pages/GeneralUser.css'
+import { useState, useEffect } from 'react'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import InsertCommentRoundedIcon from '@mui/icons-material/InsertCommentRounded';
@@ -11,12 +12,29 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 const Question = ({ question }) => {
     let date = question.created_date.split('T')
     let time = date[1].split('.')
+    const [answersCount, setAnswersCount] = useState(0)
 
     const navigate = useNavigate();
 
     const linkQuestion = () => {
-        navigate(`/question/${question .id}`)
+        navigate(`/question/${question.id}`)
     }
+
+    useEffect(() => {
+        const fetchAllAnswerByPage = async() => {
+            const data = await api.answerGetAllByPage(question.id, 1);
+
+            if (data.count > 999 && data.count <= 9999) {
+                setAnswersCount((data.count / 1000).toFixed(1) + "k")
+            } else if (data.count > 9999) {
+                setAnswersCount((data.count / 10000).toFixed(1) + "w")
+            } else if (data.count <= 999) {
+                setAnswersCount(data.count)
+            }
+        }
+
+        fetchAllAnswerByPage();
+    }, [question])
 
     return (
         <Box className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} onClick={linkQuestion} sx={{cursor: 'pointer'}}>
@@ -72,7 +90,7 @@ const Question = ({ question }) => {
                         </Box>
                         
                         <Box ml={1.1}>
-                            1.1w
+                            {answersCount}
                         </Box>
                     </Box>
                 </Box>

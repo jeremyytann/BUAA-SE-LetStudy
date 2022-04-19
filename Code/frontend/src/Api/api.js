@@ -58,6 +58,27 @@ class Api {
 		return data;
 	}
 
+	/* ———————————————————— Collection API ———————————————————— */
+	collectionCreate = async(noteId, noteUserId) => {
+		let data = await this.post('/collection/create/', {noteId, noteUserId});
+		return data;
+	}
+
+	collectionGet = async(noteId) => {
+		let data = await this.get(`/collection/${noteId}/`);
+		return data;
+	}
+
+	collectionGetCount = async(noteId) => {
+		let data = await this.get(`/collection/count/${noteId}/`);
+		return data;
+	}
+
+	collectionDelete = async(noteId) => {
+		let data = await this.delete(`/collection/delete/${noteId}`);
+		return data;
+	}
+
 	/* ———————————————————— Comment API ———————————————————— */
 	commentCreate = async(description, noteId) => {
 		let data = await this.post('/comment/create/', {description, noteId});
@@ -134,6 +155,27 @@ class Api {
 		return data;
 	}
 
+	/* ———————————————————— Like API ———————————————————— */
+	likeCreate = async(noteId, noteUserId) => {
+		let data = await this.post('/like/create/', {noteId, noteUserId});
+		return data;
+	}
+
+	likeGet = async(noteId) => {
+		let data = await this.get(`/like/${noteId}/`);
+		return data;
+	}
+
+	likeGetCount = async(noteId) => {
+		let data = await this.get(`/like/count/${noteId}/`);
+		return data;
+	}
+
+	likeDelete = async(noteId) => {
+		let data = await this.delete(`/like/delete/${noteId}`);
+		return data;
+	}
+
 	/* ———————————————————— Note API ———————————————————— */
 	noteCreate = async(title, description, category) => {
 		let data = await this.post('/note/create/', {title, description, category});
@@ -145,18 +187,33 @@ class Api {
 		return data;
 	}
 
-	noteGetAllPageCount = async() => {
-		let data = await this.get('/note/all/page_count/');
-		return data;
-	}
-
 	noteGetAllByPage = async(page) => {
 		let data = await this.get(`/note/all/page/${page}/`);
 		return data;
 	}
 
+	noteGetAllPageCount = async() => {
+		let data = await this.get('/note/all/page_count/');
+		return data;
+	}
+
+	noteGetPopularByPage = async(page) => {
+		let data = await this.get(`/note/popular/page/${page}/`);
+		return data;
+	}
+
+	noteGetPopularPageCount = async() => {
+		let data = await this.get('/note/popular/page_count/');
+		return data;
+	}
+
 	noteGetLatestByPage = async(page) => {
 		let data = await this.get(`/note/latest/page/${page}/`);
+		return data;
+	}
+
+	noteGetLatestPageCount = async() => {
+		let data = await this.get('/note/latest/page_count/');
 		return data;
 	}
 

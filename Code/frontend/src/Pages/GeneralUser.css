@@ -173,9 +173,6 @@ input[type='file'] {
 
 .note-user-link {
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .create-note-comment {

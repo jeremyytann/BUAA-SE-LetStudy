@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     # database
     'answer',
     'category',
+    'collection',
     'comment',
     'followship',
+    'like',
     'note',
     'note_image',
     'question',

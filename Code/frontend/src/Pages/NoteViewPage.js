@@ -5,10 +5,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import NoteComments from '../Components/NoteComments'
 import api from '../Api/api'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './GeneralUser.css'
+import NoteFavLike from '../Components/NoteFavLike'
 
 const NoteViewPage = () => {
     const { id } = useParams();
@@ -96,29 +95,29 @@ const NoteViewPage = () => {
                                                 <span className='note-user-link' onClick={linkUser}>{note.user.username}</span>
                                             </Box>
 
-                                            <Box mt={2} fontSize={16}>
+                                            <Box mt={2} fontSize={16} mx={8} color='darkgrey'>
+                                                {note.category.name}
+                                            </Box>
+
+                                            <Box mt={2} fontSize={16} mx={8}>
                                                 于 {note.created_date} 分享
+                                            </Box>
+                                        </Box>
+
+                                        <Box mt={3}>
+                                            <Box>
+                                                <NoteFavLike noteUserId={note.user.id} />
                                             </Box>
                                         </Box>
                                     </Grid>
 
                                     <Grid item xs={8}>
                                         <Box mt={5} ml={1} mr={4} display='flex' alignItems='center'>
-                                            <Box display='flex' fontSize={22} width='70%' fontWeight='bold'>
+                                            <Box display='flex' fontSize={22} width='80%' fontWeight='bold'>
                                                 {note.title}
                                             </Box>
 
-                                            <Box ml={3}>
-                                                <FavoriteRoundedIcon fontSize='small' color='error' />
-                                            </Box>
-
-                                            <Box ml={2}>
-                                                <ThemeProvider theme={theme}>
-                                                    <StarRoundedIcon color='yellow' />
-                                                </ThemeProvider>
-                                            </Box>
-
-                                            <Box ml={3}>
+                                            <Box ml={4}>
                                                 <ThemeProvider theme={theme}>
                                                     <Button variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
                                                         <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
@@ -128,7 +127,6 @@ const NoteViewPage = () => {
                                         </Box>
 
                                         <Box mt={4} mr={4} sx={{borderTop: '1px solid black'}}>
-
                                         </Box>
                                         
                                         <Box className='note-description-text' display='flex' mt={4} ml={1} mr={5} alignItems='center' textAlign='left'>

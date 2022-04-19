@@ -9,12 +9,25 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 const Note = ({ note }) => {
     const [image, setImage] = useState([]);
+    const [likeCount, setLikeCount] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchNoteImage = async() => {
             const data = await api.noteImageGet(note.id);
             return data;
+        }
+
+        const fetchLikeCount = async() => {
+            const data = await api.likeGetCount(note.id);
+
+            if (data.count > 999 && data.count <= 9999) {
+                setLikeCount((data.count / 1000).toFixed(1) + "k")
+            } else if (data.count > 9999) {
+                setLikeCount((data.count / 10000).toFixed(1) + "w")
+            } else if (data.count <= 999) {
+                setLikeCount(data.count)
+            }
         }
 
         const getNoteImage = async() => {
@@ -27,6 +40,7 @@ const Note = ({ note }) => {
             }
         }
 
+        fetchLikeCount();
         getNoteImage();
     }, [note])
 
@@ -61,7 +75,7 @@ const Note = ({ note }) => {
                             <Box width='40%' display='flex' alignItems='center'>
                                 <FavoriteRoundedIcon fontSize='small' color='error' />
                                 <Box ml={0.7} mb={0.2} fontSize={14}>
-                                    1.1k
+                                    {likeCount}
                                 </Box>
                             </Box>
                         </Box>
