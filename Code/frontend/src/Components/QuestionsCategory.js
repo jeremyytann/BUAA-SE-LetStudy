@@ -10,17 +10,12 @@ const QuestionsCategory = () => {
     const [questions, setQuestions] = useState();
 
     useEffect(() => {
-        const fetchSameCategoryQuestions = async() => {
-            const data = await api.questionGetSameCategory(id, 6);
-            return data;
+        const fetchRandomQuestions = async() => {
+            const data = await api.questionGetByRandom(6);
+            setQuestions(data.data);
         }
 
-        const getSameCategoryQuestions = async() => {
-            const questionsFromServer = await fetchSameCategoryQuestions();
-            setQuestions(questionsFromServer.data);
-        }
-
-        getSameCategoryQuestions();
+        fetchRandomQuestions();
     }, [id])
 
     return (

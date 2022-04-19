@@ -50,6 +50,11 @@ const HomeFlipPage = ({ url }) => {
             return data;
         }
 
+        const fetchQuestionPopularPageCount = async() => {
+            const data = await api.questionGetPopularPageCount();
+            setMaxPage(data.page);
+        }
+
         const fetchQuestionLatestPageCount = async() => {
             const data = await api.questionGetLatestPageCount();
             return data;
@@ -84,7 +89,7 @@ const HomeFlipPage = ({ url }) => {
         } else if (url === 'questions' && tab === 'all') {
             getQuestionAllPageCount()
         } else if (url === 'questions' && tab === 'popular') {
-
+            fetchQuestionPopularPageCount()
         } else if (url === 'questions' && tab === 'latest') {
             getQuestionLatestPageCount()
         }

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from category.models import Category
 from user.models import GeneralUser
 from .models import Question
+from django.db.models import Count
 import json, random
 
 # Create your views here.
@@ -52,6 +53,17 @@ def questionGetAllPageCount(request):
     pages = (questions.count() + 7) / 8
     return jsons([], 0, pages)
 
+def questionGetPopularByPage(request, page):
+    questions = Question.objects.annotate(num_answers = Count('answered_question')).order_by('-num_answers')
+    pages = (questions.count() + 7) / 8
+    questions = questions[((page - 1) * 8) : (page * 8)]
+    return jsons([dict(question.body()) for question in questions], 0, pages)
+
+def questionGetPopularPageCount(request):
+    questions = Question.objects.annotate(num_answers = Count('answered_question')).order_by('-num_answers')
+    pages = (questions.count() + 7) / 8
+    return jsons([], 0, pages)
+
 def questionGetLatestByPage(request, page):
     questions = Question.objects.all().order_by('-createdDate')
     pages = (questions.count() + 7) / 8
@@ -64,16 +76,10 @@ def questionGetLatestPageCount(request):
     pages = (questions.count() + 7) / 8
     return jsons([], 0, pages)
 
-def questionGetByCategory(request, pk, count):
-    try:
-        question = Question.objects.get(id = pk)
-        category = Category.objects.get(name = question.category)
-        questions = list(Question.objects.filter(category = category).exclude(id = pk))
+def questionGetByRandom(request, count):
+    questions = Question.objects.all()
+    questionsList = list(questions)
+    randoms = random.sample(questionsList, questions.count())
+    questions = randoms[:count]
 
-        if (len(questions) == 0):
-            return jsons([], 404, 0)
-
-        randoms = random.sample(questions, count)
-        return jsons([dict(question.body()) for question in randoms], 0, 0)
-    except Category.DoesNotExist:
-        return jsons([], 404, 0)
+    return jsons([dict(question.body()) for question in questions], 0, 0)

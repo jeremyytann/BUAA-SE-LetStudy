@@ -14,30 +14,25 @@ const UserQuestionBody = () => {
     useEffect(() => {
         const fetchAllQuestionsByPage = async() => {
             const data = await api.questionGetAllByPage(page);
-            return data;
+            setQuestions(data.data);
+        }
+
+        const fetchPopularQuestionsByPage = async() => {
+            const data = await api.questionGetPopularByPage(page);
+            setQuestions(data.data)
         }
 
         const fetchLatestQuestionsByPage = async() => {
             const data = await api.questionGetLatestByPage(page);
-            return data;
-        }
-
-        const getAllQuestionsByPage = async() => {
-            const questionsFromServer = await fetchAllQuestionsByPage();
-            setQuestions(questionsFromServer.data);
-        }
-
-        const getLatestQuestionsByPage = async() => {
-            const questionsFromServer = await fetchLatestQuestionsByPage();
-            setQuestions(questionsFromServer.data);
+            setQuestions(data.data);
         }
 
         if (tab === 'all') {
-            getAllQuestionsByPage();
+            fetchAllQuestionsByPage();
         } else if (tab === 'popular') {
-            setQuestions([])
+            fetchPopularQuestionsByPage();
         } else if (tab === 'latest') {
-            getLatestQuestionsByPage();
+            fetchLatestQuestionsByPage();
         }
     }, [tab, page])
 

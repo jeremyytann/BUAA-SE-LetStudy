@@ -260,6 +260,16 @@ class Api {
 		return data;
 	}
 
+	questionGetPopularByPage = async(page) => {
+		let data = await this.get(`/question/popular/page/${page}/`);
+		return data;
+	}
+
+	questionGetPopularPageCount = async() => {
+		let data = await this.get('/question/popular/page_count/');
+		return data;
+	}
+
 	questionGetLatestByPage = async(page) => {
 		let data = await this.get(`/question/latest/page/${page}/`);
 		return data;
@@ -270,8 +280,8 @@ class Api {
 		return data;
 	}
 
-	questionGetSameCategory = async(questionId, count) => {
-		let data = await this.get(`/question/${questionId}/category/${count}/`)
+	questionGetByRandom = async(count) => {
+		let data = await this.get(`/question/random/${count}/`);
 		return data;
 	}
 }
