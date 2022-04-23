@@ -28,7 +28,15 @@ def answerCreate(request):
             return jsons([dict(answer.body())])
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0, 0)
-        
+
+def answerGet(request, pk):
+    try:
+        answer = Answer.objects.get(id = pk)
+    except Answer.DoesNotExist:
+        return jsons([], 404, 0)
+    
+    return jsons([dict(answer.body())])
+
 def answerGetByPage(request, questionId, page):
     question = Question.objects.get(id = questionId)
     answers = Answer.objects.filter(question = question).order_by('-createdDate')

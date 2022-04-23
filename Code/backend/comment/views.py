@@ -29,6 +29,14 @@ def commentCreate(request):
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0)
 
+def commentGet(request, pk):
+    try:
+        comment = Comment.objects.get(id = pk)
+    except Comment.DoesNotExist:
+        return jsons([], 404, 0)
+    
+    return jsons([dict(comment.body())])
+
 def commentGetByPage(request, noteId, page):
     note = Note.objects.get(id = noteId)
     comments = Comment.objects.filter(note = note).order_by('-createdDate')

@@ -53,8 +53,19 @@ class Api {
 		return data;
 	}
 
+	answerGet = async(answerId) => {
+		let data = await this.get(`/answer/${answerId}/`);
+		return data;
+	}
+
 	answerGetAllByPage = async(questionId, page) => {
 		let data = await this.get(`/answer/${questionId}/page/${page}/`);
+		return data;
+	}
+
+	/* ———————————————————— Bug API ———————————————————— */
+	bugCreate = async(type, title, description) => {
+		let data = await this.post('/bug/create/', {type, title, description});
 		return data;
 	}
 
@@ -82,6 +93,11 @@ class Api {
 	/* ———————————————————— Comment API ———————————————————— */
 	commentCreate = async(description, noteId) => {
 		let data = await this.post('/comment/create/', {description, noteId});
+		return data;
+	}
+
+	commentGet = async(commentId) => {
+		let data = await this.get(`/comment/${commentId}/`);
 		return data;
 	}
 
@@ -149,6 +165,11 @@ class Api {
 
         return data;
     }
+
+	userGet = async (id) => {
+		let data = await this.get(`/user/${id}/`);
+		return data;
+	}
 
 	userGetByUsername = async (username) => {
 		let data = await this.get(`/user/${username}/`);
@@ -282,6 +303,12 @@ class Api {
 
 	questionGetByRandom = async(count) => {
 		let data = await this.get(`/question/random/${count}/`);
+		return data;
+	}
+
+	/* ———————————————————— Report API ———————————————————— */
+	reportCreate = async(type, id, description) => {
+		let data = await this.post('/report/create/', {type, id, description});
 		return data;
 	}
 }

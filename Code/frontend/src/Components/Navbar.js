@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import BugReportIcon from '@mui/icons-material/BugReport';
 
 const Navbar = () => {
     let user = Cookies.get('username')
@@ -45,6 +46,10 @@ const Navbar = () => {
 
     const linkSettings = () => {
         navigate('/settings/password')
+    }
+
+    const linkBugCreate = () => {
+        navigate('/bugs/create')
     }
 
     const linkNotices = () => {
@@ -102,6 +107,7 @@ const Navbar = () => {
 
                 <Grid item xs={4}>
                     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+                        <BugReportIcon onClick={linkBugCreate} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
                         <NotificationsIcon onClick={linkNotices} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
                         <SettingsIcon onClick={linkSettings} fontSize="small" style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
 

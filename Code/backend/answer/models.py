@@ -15,7 +15,9 @@ class Answer(models.Model):
 
     def body(self):
         return {
+            'id': self.id,
             'description': self.description,
+            'question': self.question.body(),
             'user': self.user.body(),
             'created_date': self.createdDate
         }

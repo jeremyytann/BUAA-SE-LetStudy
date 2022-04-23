@@ -1,10 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material'
 import '../Pages/GeneralUser.css'
+import ReportGmailerrorredRoundedIcon from '@mui/icons-material/ReportGmailerrorredRounded';
 
 const NoteComment = ({ comment }) => {
     let date = comment.created_date.split('T')
     let time = date[1].split('.')
+    const navigate = useNavigate();
+
+    const linkReport = () => {
+        navigate(`/report/create/comment/${comment.id}`);
+    }
 
     return (
         <Box mb={2.5} height={60} maxHeight={60} width={445} maxWidth={445}>
@@ -19,6 +26,10 @@ const NoteComment = ({ comment }) => {
 
                 <Box ml={1} fontSize={14}>
                     { time[0] }
+                </Box>
+
+                <Box onClick={linkReport} ml={1.5} pt={0.5} sx={{cursor: 'pointer'}}>
+                    <ReportGmailerrorredRoundedIcon color='error' />
                 </Box>
             </Box>
 

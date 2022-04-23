@@ -23,6 +23,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('answer/', include('answer.urls')),
+    path('bug/', include('bug.urls')),
     path('category/', include('category.urls')),
     path('collection/', include('collection.urls')),
     path('comment/', include('comment.urls')),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('note/', include('note.urls')),
     path('note_image/', include('note_image.urls')),
     path('question/', include('question.urls')),
+    path('report/', include('report.urls')),
     path('user/', include('user.urls'))
 ]
 

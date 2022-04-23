@@ -72,7 +72,11 @@ const NoteViewPage = () => {
     }, [id])
 
     const linkUser = () => {
-        navigate(`/profile/${note.user.username}`)
+        navigate(`/profile/${note.user.username}`);
+    }
+
+    const linkReport = () => {
+        navigate(`/report/create/note/${id}`);
     }
 
     return (
@@ -119,7 +123,7 @@ const NoteViewPage = () => {
 
                                             <Box ml={4}>
                                                 <ThemeProvider theme={theme}>
-                                                    <Button variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                    <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
                                                         <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
                                                     </Button>
                                                 </ThemeProvider>

@@ -13,6 +13,8 @@ import NoteViewPage from './Pages/NoteViewPage';
 import NoteCreatePage from './Pages/NoteCreatePage';
 import QuestionCreatePage from './Pages/QuestionCreatePage';
 import QuestionViewPage from './Pages/QuestionViewPage';
+import ReportCreatePage from './Pages/ReportCreatePage';
+import BugCreatePage from './Pages/BugCreatePage';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<UserLandPage />}/>
+          <Route path='/bugs/create' element={<BugCreatePage />}/>
           <Route path='/login' element={<UserLoginPage />}/>
           <Route path='/register' element={<UserRegisterPage />}/>
           <Route path='/profile/:username' element={<UserProfilePage />}/>
@@ -31,6 +34,7 @@ function App() {
           <Route path='/questions/create' element={<QuestionCreatePage />}/>
           <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
           <Route path='/question/:id' element={<QuestionViewPage />}/>
+          <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
         </Routes>
       </div>
     </Router>

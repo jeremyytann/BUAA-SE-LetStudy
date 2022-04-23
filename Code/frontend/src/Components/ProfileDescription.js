@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Button } from '@mui/material';
 import Cookies from 'js-cookie'
@@ -7,6 +8,7 @@ import api from '../Api/api'
 
 const ProfileDescription = ({ user, days }) => {
     const [following, setFollowing] = useState([])
+    const navigate = useNavigate();
     let currentUser = Cookies.get('username');
 
     const theme = createTheme ({
@@ -70,7 +72,7 @@ const ProfileDescription = ({ user, days }) => {
     }
 
     const linkReport = () => {
-        
+        navigate(`/report/create/user/${user.id}`)
     }
 
     return (
@@ -120,11 +122,18 @@ const ProfileDescription = ({ user, days }) => {
                 </Box>
                 
                 <Box ml={3}>
-                    <ThemeProvider theme={theme}>
-                        <Button onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
-                            <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                        </Button>
-                    </ThemeProvider>
+                    { user.username === currentUser ? 
+                        <ThemeProvider theme={theme}>
+                            <Button disabled onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                            </Button>
+                        </ThemeProvider> :
+                        <ThemeProvider theme={theme}>
+                            <Button onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                            </Button>
+                        </ThemeProvider>
+                    }
                 </Box>
             </Box>
         </Box>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # database
     'answer',
+    'bug',
     'category',
     'collection',
     'comment',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'note',
     'note_image',
     'question',
+    'report',
     'user',
 ]
 

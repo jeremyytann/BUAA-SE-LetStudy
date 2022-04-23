@@ -6,6 +6,8 @@ import { Grid, Box } from '@mui/material';
 import './GeneralUser.css'
 import UserPasswordForm from '../Components/UserPasswordForm';
 import UserTerminate from '../Components/UserTerminate';
+import UserReports from '../Components/UserReports';
+import UserBugs from '../Components/UserBugs';
 
 const UserSettingsPage = () => {
     const { tab } = useParams();
@@ -82,6 +84,14 @@ const UserSettingsPage = () => {
                             
                             <Box>
                                 { tab === 'terminate' ? <UserTerminate /> : ''}
+                            </Box>
+
+                            <Box>
+                                { tab === 'reports' ? <UserReports /> : ''}
+                            </Box>
+
+                            <Box>
+                                { tab === 'bugs' ? <UserBugs /> : ''}
                             </Box>
                         </Box>
                     </Grid>

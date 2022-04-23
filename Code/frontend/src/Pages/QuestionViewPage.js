@@ -98,15 +98,19 @@ const QuestionViewPage = () => {
     }, [id, page, status])
 
     const linkQuestionCreate = () => {
-        navigate('/questions/create')
+        navigate('/questions/create');
     }
 
     const handlePageChange = (event, value) => {
-        setPage(value)
+        setPage(value);
     }
 
     const linkUserProfile = () => {
-        navigate(`/profile/${question.user.username}`)
+        navigate(`/profile/${question.user.username}`);
+    }
+
+    const linkReport = () => {
+        navigate(`/report/create/question/${id}`);
     }
 
     return (
@@ -119,16 +123,26 @@ const QuestionViewPage = () => {
                         <Grid item xs={9}>
                             <Box>
                                 <Box borderRadius={10} sx={{backgroundColor: 'white', height: '220px', width: '96%'}}>
-                                    <Box mx={5} paddingTop={4} fontSize={20} fontWeight='bold' display='flex'>
-                                        { question.title }
+                                    <Box display='flex'>
+                                        <Box ml={5} paddingTop={4} fontSize={20} width='85%' fontWeight='bold' display='flex'>
+                                            { question.title }
+                                        </Box>
+
+                                        <Box ml={2} paddingTop={3.5}>
+                                            <ThemeProvider theme={theme}>
+                                                <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                    <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                </Button>
+                                            </ThemeProvider>
+                                        </Box>
                                     </Box>
 
                                     <Box className='question-description-text' display='flex' mx={5} mt={2} height={75} fontSize={18} textAlign='left'>
                                         { question.description }
                                     </Box>
 
-                                    <Box display='flex' alignItems='center'>
-                                        <Box display='flex' width='95%' mt={2.5} mx={5}>
+                                    <Box display='flex'>
+                                        <Box display='flex' alignItems='center' width='95%' mt={2} mx={5}>
                                             <Box display='flex'>
                                                 <Box>
                                                     <AccessTimeRoundedIcon fontSize='small' />

@@ -15,6 +15,8 @@ class Comment(models.Model):
 
     def body(self):
         return {
+            'id': self.id,
+            'note': self.note.body(),
             'description': self.description,
             'user': self.user.body(),
             'created_date': self.createdDate

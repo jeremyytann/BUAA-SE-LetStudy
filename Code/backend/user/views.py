@@ -86,6 +86,13 @@ def userLogout(request):
 
     return jsons([], 403)
 
+def userGet(request, pk):
+    try:
+        generalUser = GeneralUser.objects.get(id = pk)
+        return jsons([dict(generalUser.body())])
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404)
+
 def userGetByUsername(request, username):
     try:
         generalUser = GeneralUser.objects.get(username = username)
