@@ -1,4 +1,4 @@
-from .models import GeneralUser, User
+from .models import GeneralUser
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -18,8 +18,8 @@ def userRegister(request):
         data = json.loads(request.body)
 
         try:
-            user = User.objects.get(username = data['username'])
-        except User.DoesNotExist:
+            user = GeneralUser.objects.get(username = data['username'])
+        except GeneralUser.DoesNotExist:
             generalUser = GeneralUser.objects.create()
             generalUser.username = data['username']
             generalUser.set_password(data['password'])
@@ -80,7 +80,6 @@ def userLogin(request):
 # Logout
 def userLogout(request):
     if request.user.is_authenticated:
-        print("logged out")
         logout(request)
         return jsons([], 0)
 

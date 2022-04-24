@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import { Navigate } from 'react-router-dom';
 
-const UserLandPage = () => {
+const AdminLandPage = () => {
     let user = Cookies.get('username');
     let admin = Cookies.get('admin')
     
@@ -13,8 +13,8 @@ const UserLandPage = () => {
     }
 
     return (
-        <Navigate to='/login'/>
+        <Navigate to='/admin/login'/>
     )
 }
 
-export default UserLandPage
+export default AdminLandPage

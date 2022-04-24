@@ -32,20 +32,32 @@ const Navbar = () => {
         }
     });
 
+    let admin = Cookies.get('admin')
+
     const Logout = async(e) => {
         e.preventDefault();
-        await api.userLogout();
-        
-        navigate('/login')
-        window.location.reload(false)
+
+        if (admin) {
+            await api.adminLogout();
+            navigate('/admin/login')
+            window.location.reload(false)
+        } else {
+            await api.userLogout();
+            navigate('/login')
+            window.location.reload(false)
+        }
     }
 
     const linkProfile = () => {
-        navigate(`/profile/${user}`)
+        // navigate(`/profile/${user}`)
     }
 
     const linkSettings = () => {
-        navigate('/settings/password')
+        if (admin) {
+            navigate('/admin/settings/password')
+        } else {
+            navigate('/settings/password')
+        }
     }
 
     const linkBugCreate = () => {
@@ -53,11 +65,15 @@ const Navbar = () => {
     }
 
     const linkNotices = () => {
-        navigate('/notices')
+        navigate('/notices/latest')
     }
 
     const linkHome = () => {
-        navigate('/rooms/public/1')
+        if (admin) {
+            navigate('/admin/notices/latest')
+        } else {
+            navigate('/rooms/public/1')
+        }
     }
 
     if (user === undefined) {
@@ -107,8 +123,14 @@ const Navbar = () => {
 
                 <Grid item xs={4}>
                     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
-                        <BugReportIcon onClick={linkBugCreate} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
-                        <NotificationsIcon onClick={linkNotices} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
+                        {admin ? 
+                            '' :
+                            <Box>
+                                <BugReportIcon onClick={linkBugCreate} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
+                                <NotificationsIcon onClick={linkNotices} fontSize='small' style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
+                            </Box>
+                        }
+                        
                         <SettingsIcon onClick={linkSettings} fontSize="small" style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
 
                         <Box sx={{ margin: '0px 15px 0px 0px'}}>

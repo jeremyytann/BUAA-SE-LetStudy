@@ -1,3 +1,4 @@
+import './AdminUser.css'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
@@ -7,9 +8,8 @@ import Navbar from '../Components/Navbar';
 import { Alert, Box } from '@mui/material';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
-import './GeneralUser.css'
 
-const UserLoginPage = () => {
+const AdminLoginPage = () => {
     // navigate user to login if not logged in yet
     const [username, setUsername] = useState([]);
     const [password, setPassword] = useState([]);
@@ -18,27 +18,27 @@ const UserLoginPage = () => {
 
     useEffect(() => {
         let color_1 = "FFFFFF";
-        let color_2 = "DDC3A5";
+        let color_2 = "D5D5D5";
         document.body.style.background = "linear-gradient(to bottom right, #"+ color_1 +", #"+ color_2 +")";
     }, []);
 
     // login page details
     const Login = async(e) => {
         e.preventDefault();
-        const data = await api.userLogin(username, password);
+        const data = await api.adminLogin(username, password);
 
         if (data.errorCode === 403) {
             setPassword('');
             setError('用户名或密码错误');
         } else {
-            navigate('/rooms/public/1');
+            navigate('/admin/notices/latest');
         }
     }
 
     // redirect logged in user to home page
     let user = Cookies.get('username');
     let admin = Cookies.get('admin')
-
+    
     if (user !== undefined && admin) {
         return <Navigate to='/admin/notices/latest' />
     } else if (user !== undefined && !admin) {
@@ -50,14 +50,14 @@ const UserLoginPage = () => {
     }
 
     return (
-        <Box>
+        <Box height='100%'>
             <Navbar />
             
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 14}}>
                 <Box sx={{backgroundColor: 'white', width: '40%', minWidth: '400px', borderRadius: '30px', height: '650px'}}>
                     <form onSubmit={Login}>
                         <Box sx={{mt: 6}}>
-                            <h1 className='login-text'>登录</h1>
+                            <h1 className='admin-login-text'>管理员登录</h1>
                         </Box>
                         
                         { error?
@@ -76,7 +76,7 @@ const UserLoginPage = () => {
                                 
                                 <Box>
                                     <input 
-                                    className='login-input-box'
+                                    className='admin-login-input-box'
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
@@ -90,7 +90,7 @@ const UserLoginPage = () => {
                                 
                                 <Box>
                                     <input 
-                                    className='login-input-box'
+                                    className='admin-login-input-box'
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
@@ -106,7 +106,7 @@ const UserLoginPage = () => {
                             
                             <Box sx={{mt: 3}}>
                                 <input 
-                                className='login-input-box'
+                                className='admin-login-input-box'
                                 value={password}
                                 onChange={event => setPassword(event.target.value)}
                                 type='password'
@@ -117,20 +117,20 @@ const UserLoginPage = () => {
                         { error? 
                             <Box>
                                 <Box sx={{mt: 10}}>
-                                    <button onSubmit={Login} type='submit' className='login-button'>登录</button>
+                                    <button onSubmit={Login} type='submit' className='admin-login-button'>登录</button>
                                 </Box>
 
                                 <Box sx={{mt: 3}}>
-                                    <small onClick={linkRegister} className='register-link'>没有账户？点此注册</small>
+                                    <small onClick={linkRegister} className='admin-register-link'>没有账户？点此注册</small>
                                 </Box>
                             </Box> :
                             <Box>
                                 <Box sx={{mt: 15}}>
-                                    <button onSubmit={Login} type='submit' className='login-button'>登录</button>
+                                    <button onSubmit={Login} type='submit' className='admin-login-button'>登录</button>
                                 </Box>
 
                                 <Box sx={{mt: 3}}>
-                                    <small onClick={linkRegister} className='register-link'>没有账户？点此注册</small>
+                                    <small onClick={linkRegister} className='admin-register-link'>没有账户？点此注册</small>
                                 </Box>
                             </Box> 
                         }
@@ -141,4 +141,5 @@ const UserLoginPage = () => {
     )
 }
 
-export default UserLoginPage
+export default AdminLoginPage
+
