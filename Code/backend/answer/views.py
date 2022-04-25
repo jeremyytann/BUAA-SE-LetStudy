@@ -1,3 +1,4 @@
+from itertools import count
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -38,10 +39,21 @@ def answerGet(request, pk):
     return jsons([dict(answer.body())])
 
 def answerGetByPage(request, questionId, page):
-    question = Question.objects.get(id = questionId)
-    answers = Answer.objects.filter(question = question).order_by('-createdDate')
-    total = answers.count()
-    pages = (answers.count() + 4) / 5
-    answers = answers[((page - 1) * 5) : (page * 5)]
+    try:
+        question = Question.objects.get(id = questionId)
+        answers = Answer.objects.filter(question = question).order_by('-createdDate')
+        total = answers.count()
+        pages = (answers.count() + 4) / 5
+        answers = answers[((page - 1) * 5) : (page * 5)]
+    except Question.DoesNotExist:
+        return jsons([], 404, 0)
 
-    return jsons([dict(answer.body()) for answer in answers], 0, pages, total)
+    return jsons([dict(answer.body()) for answer in answers], 0, pages, 0)
+
+def answerGetCount(reqeust, questionId):
+    try:
+        question = Question.objects.get(id = questionId)
+        count = Answer.objects.filter(question = question).count()
+        return jsons([], 0, 0, count)
+    except Question.DoesNotExist:
+        return jsons([], 404, 0)

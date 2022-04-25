@@ -24,6 +24,7 @@ import AdminReportPage from './Pages/AdminReportPage';
 import AdminBugPage from './Pages/AdminBugPage';
 import AdminUserPage from './Pages/AdminUserPage';
 import AdminSettingsPage from './Pages/AdminSettingsPage';
+import NoticeCreatePage from './Pages/NoticeCreatePage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -49,10 +50,11 @@ function App() {
                 <Routes>
                     <Route path='/admin' element={<AdminLandPage />}/>
                     <Route path='/admin/login' element={<AdminLoginPage />}/>
-                    <Route path='/admin/notices/:tab' element={<AdminNoticePage />}/>
-                    <Route path='/admin/reports/:tab' element={<AdminReportPage />}/>
-                    <Route path='/admin/bugs/:tab' element={<AdminBugPage />}/>
-                    <Route path='/admin/users/:tab' element={<AdminUserPage />}/>
+                    <Route path='/admin/notices/create' element={<NoticeCreatePage />}/>
+                    <Route path='/admin/notices/:tab/:page' element={<AdminNoticePage />}/>
+                    <Route path='/admin/reports/:tab/:page' element={<AdminReportPage />}/>
+                    <Route path='/admin/bugs/:tab/:page' element={<AdminBugPage />}/>
+                    <Route path='/admin/users/:tab/:page' element={<AdminUserPage />}/>
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
                     <Route path='/' element={<UserLandPage />}/>

@@ -40,7 +40,7 @@ const UserLoginPage = () => {
     let admin = Cookies.get('admin')
 
     if (user !== undefined && admin) {
-        return <Navigate to='/admin/notices/latest' />
+        return <Navigate to='/admin/notices/latest/1' />
     } else if (user !== undefined && !admin) {
         return <Navigate to='/rooms/public/1' />
     }

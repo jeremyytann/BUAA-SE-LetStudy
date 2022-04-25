@@ -1,18 +1,77 @@
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Pagination } from '@mui/material'
+import { useState, useEffect } from 'react'
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useParams, useNavigate } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import api from '../Api/api'
+import UserNotice from '../Components/UserNotice';
 
 const UserNoticePage = () => {
     const { tab } = useParams();
+    const [page, setPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(1);
+    const [notices, setNotices] = useState();
     const navigate = useNavigate();
 
+    const theme = createTheme ({
+        typography: {
+            button: {
+                textTransform: 'none',
+            }
+        },
+
+        palette: {
+            gold: {
+                main: '#E0A96D',
+                contrastText: '#fff',
+            },
+            black: {
+                main: '#000000',
+                contrastText: '#fff',
+            },
+            pink: {
+                main: '#FA9285',
+                contrastText: '#fff',
+            },
+            yellow: {
+                main: '#F2DB36'
+            }
+        }
+    }); 
+
+    useEffect(() => {
+        const fetchAllNoticesByPage = async() => {
+            const data = await api.noticeGetAllByPage(page, 4);
+            setNotices(data.data);
+            setMaxPage(data.page);
+        }
+
+        const fetchLatestNoticesByPage = async() => {
+            const data = await api.noticeGetLatestByPage(page, 4);
+            setNotices(data.data);
+            setMaxPage(data.page);
+        }
+
+        if (tab === 'all') {
+            fetchAllNoticesByPage();
+        } else if (tab === 'latest') {
+            fetchLatestNoticesByPage();
+        }
+    }, [tab, page])
+
     const linkNoticeLatest = () => {
-        navigate('/notices/latest')
+        setPage(1);
+        navigate('/notices/latest');
     }
 
     const linkNoticeAll = () => {
-        navigate('/notices/all')
+        setPage(1);
+        navigate('/notices/all');
+    }
+
+    const handlePageChange = (event, value) => {
+        setPage(value)
     }
 
     return (
@@ -50,8 +109,28 @@ const UserNoticePage = () => {
                                     <Box paddingTop={9}sx={{width: '100%'}}>
                                         <Box display='flex' paddingLeft={10}>
                                             <Box>
-                                                <Box display='flex' sx={{fontSize: '40px', fontWeight: 'bold'}}>
-                                                    <small>最新公告</small>
+                                                <Box display='flex'>
+                                                    <Box display='flex' sx={{fontSize: '40px', fontWeight: 'bold'}}>
+                                                        <small>最新公告</small>
+                                                    </Box>
+                                                    
+                                                    <Box mt={0.5} ml={4}>
+                                                        <ThemeProvider theme={theme}>
+                                                            <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                                        </ThemeProvider>
+                                                    </Box>
+                                                </Box>
+
+                                                <Box mt={5}>
+                                                    { notices !== undefined ? 
+                                                        <Box>
+                                                            <Box height={550} maxHeight={550}>
+                                                                { notices.map((notice, index) => (
+                                                                    <UserNotice key={index} notice={notice} />
+                                                                )) }
+                                                            </Box>
+                                                        </Box> : ''
+                                                    }
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -62,8 +141,28 @@ const UserNoticePage = () => {
                                     <Box paddingTop={9}sx={{width: '100%'}}>
                                         <Box display='flex' paddingLeft={10}>
                                             <Box>
-                                                <Box display='flex' sx={{fontSize: '40px', fontWeight: 'bold'}}>
-                                                    <small>全部公告</small>
+                                                <Box display='flex'>
+                                                    <Box display='flex' sx={{fontSize: '40px', fontWeight: 'bold'}}>
+                                                        <small>全部公告</small>
+                                                    </Box>
+                                                    
+                                                    <Box mt={0.5} ml={4}>
+                                                        <ThemeProvider theme={theme}>
+                                                            <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                                        </ThemeProvider>
+                                                    </Box>
+                                                </Box>
+
+                                                <Box mt={5}>
+                                                    { notices !== undefined ? 
+                                                        <Box>
+                                                            <Box height={550} maxHeight={550}>
+                                                                { notices.map((notice, index) => (
+                                                                    <UserNotice key={index} notice={notice} />
+                                                                )) }
+                                                            </Box>
+                                                        </Box> : ''
+                                                    }
                                                 </Box>
                                             </Box>
                                         </Box>

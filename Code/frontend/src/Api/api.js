@@ -97,6 +97,11 @@ class Api {
         return data;
     }
 
+    answerGetCount = async(questionId) => {
+        let data = await this.get(`/answer/${questionId}/count/`);
+        return data;
+    }
+
     /* ———————————————————— Bug API ———————————————————— */
     bugCreate = async(type, title, description) => {
         let data = await this.post('/bug/create/', {type, title, description});
@@ -294,6 +299,32 @@ class Api {
         return data;
     }
 
+    /* ———————————————————— Notice API ———————————————————— */
+    noticeCreate = async(title, description) => {
+        let data = await this.post('/notice/create/', {title, description})
+        return data;
+    }
+    
+    noticeGetAllByPage = async(page, count) => {
+        let data = await this.get(`/notice/all/page/${page}/${count}/`);
+        return data;
+    }
+
+    noticeGetAllPageCount = async(count) => {
+        let data = await this.get(`/notice/all/page_count/${count}/`);
+        return data;
+    }
+
+    noticeGetLatestByPage = async(page, count) => {
+        let data = await this.get(`/notice/latest/page/${page}/${count}/`);
+        return data;
+    }
+
+    noticeGetLatestPageCount = async(count) => {
+        let data = await this.get(`/notice/latest/page_count/${count}/`);
+        return data;
+    }
+
     /* ———————————————————— Question API ———————————————————— */
     questionCreate = async(title, description, category) => {
         let data = await this.post('/question/create/', {title, description, category})
@@ -343,6 +374,26 @@ class Api {
     /* ———————————————————— Report API ———————————————————— */
     reportCreate = async(type, id, description) => {
         let data = await this.post('/report/create/', {type, id, description});
+        return data;
+    }
+
+    reportGetAllByPage = async(page, count) => {
+        let data = await this.get(`/report/all/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    reportGetAllPageCount = async(count) => {
+        let data = await this.get(`/report/all/page_count/count/${count}/`);
+        return data;
+    }
+
+    reportGetByStatusAndPage = async(status, page, count) => {
+        let data = await this.get(`/report/status/${status}/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    reportGetStatusPageCount = async(status, count) => {
+        let data = await this.get(`/report/status/${status}/page_count/count/${count}/`);
         return data;
     }
 }

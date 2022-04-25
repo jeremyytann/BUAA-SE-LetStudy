@@ -294,3 +294,7 @@ input[type='file'] {
     color: grey;
     border: 0px;
 }
+
+.notice-view-background {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+}

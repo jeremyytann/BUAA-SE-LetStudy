@@ -49,7 +49,9 @@ const Navbar = () => {
     }
 
     const linkProfile = () => {
-        // navigate(`/profile/${user}`)
+        if (!admin) {
+            navigate(`/profile/${user}`)
+        }
     }
 
     const linkSettings = () => {
@@ -70,7 +72,7 @@ const Navbar = () => {
 
     const linkHome = () => {
         if (admin) {
-            navigate('/admin/notices/latest')
+            navigate('/admin/notices/latest/1')
         } else {
             navigate('/rooms/public/1')
         }

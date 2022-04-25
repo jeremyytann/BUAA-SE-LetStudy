@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Question from './Question'
 import api from '../Api/api'
 
@@ -9,7 +9,6 @@ const UserQuestionBody = () => {
     // const navigate = useNavigate();
     const { tab, page } = useParams();
     const [questions, setQuestions] = useState();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAllQuestionsByPage = async() => {
@@ -19,7 +18,7 @@ const UserQuestionBody = () => {
 
         const fetchPopularQuestionsByPage = async() => {
             const data = await api.questionGetPopularByPage(page);
-            setQuestions(data.data)
+            setQuestions(data.data);
         }
 
         const fetchLatestQuestionsByPage = async() => {

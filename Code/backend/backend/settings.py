@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'like',
     'note',
     'note_image',
+    'notice',
     'question',
     'report',
     'user',

@@ -6,19 +6,19 @@ const AdminHomeTab = ({ url }) => {
     const navigate = useNavigate();
 
     const linkNotices = () => {
-        navigate('/admin/notices/latest');
+        navigate('/admin/notices/latest/1');
     }
 
     const linkReports = () => {
-        navigate('/admin/reports/unfinished');
+        navigate('/admin/reports/unfinished/1');
     }
 
     const linkBugs = () => {
-        navigate('/admin/bugs/unfinished');
+        navigate('/admin/bugs/unfinished/1');
     }
 
     const linkUsers = () => {
-        navigate('/admin/users/all');
+        navigate('/admin/users/all/1');
     }
 
     return (

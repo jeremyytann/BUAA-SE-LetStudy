@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Box, Button, Pagination } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 

@@ -11,16 +11,68 @@ class Report(models.Model):
     type = models.IntegerField(default = 0)
     description = models.TextField(null=False)
     status = models.IntegerField(default = 0)
-    note = models.ForeignKey(Note, on_delete=models.CASCADE, null=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True)
-    profile = models.ForeignKey(GeneralUser, on_delete=models.CASCADE, null=True, related_name='report_profile')
+    note = models.ForeignKey(Note, on_delete=models.CASCADE, null=True, blank=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, blank=True)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True)
+    profile = models.ForeignKey(GeneralUser, on_delete=models.CASCADE, null=True, blank=True, related_name='report_profile')
     user = models.ForeignKey(GeneralUser, on_delete=models.CASCADE, null=False)
     createdDate = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
         return self.description
+
+    def body(self):
+        if self.type == 1:
+            return {
+                'id': self.id,
+                'type': self.type,
+                'description': self.description,
+                'status': self.status,
+                'note': self.note.body(),
+                'user': self.user.body(),
+                'created_date': self.createdDate
+            }
+        elif self.type == 2:
+            return {
+                'id': self.id,
+                'type': self.type,
+                'description': self.description,
+                'status': self.status,
+                'comment': self.comment.body(),
+                'user': self.user.body(),
+                'created_date': self.createdDate
+            }
+        elif self.type == 3:
+            return {
+                'id': self.id,
+                'type': self.type,
+                'description': self.description,
+                'status': self.status,
+                'question': self.question.body(),
+                'user': self.user.body(),
+                'created_date': self.createdDate
+            }
+        elif self.type == 4:
+            return {
+                'id': self.id,
+                'type': self.type,
+                'description': self.description,
+                'status': self.status,
+                'answer': self.answer.body(),
+                'user': self.user.body(),
+                'created_date': self.createdDate
+            }
+        elif self.type == 5:
+            return {
+                'id': self.id,
+                'type': self.type,
+                'description': self.description,
+                'status': self.status,
+                'profile': self.profile.body(),
+                'user': self.user.body(),
+                'created_date': self.createdDate
+            }
 
     def getNoteBody(self):
         return {

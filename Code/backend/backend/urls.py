@@ -32,6 +32,7 @@ urlpatterns = [
     path('like/', include('like.urls')),
     path('note/', include('note.urls')),
     path('note_image/', include('note_image.urls')),
+    path('notice/', include('notice.urls')),
     path('question/', include('question.urls')),
     path('report/', include('report.urls')),
     path('user/', include('user.urls'))

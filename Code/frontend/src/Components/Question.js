@@ -11,9 +11,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const Question = ({ question }) => {
     let date = question.created_date.split('T')
-    let time = date[1].split('.')
     const [answersCount, setAnswersCount] = useState(0)
-
     const navigate = useNavigate();
 
     const linkQuestion = () => {
@@ -22,8 +20,8 @@ const Question = ({ question }) => {
 
     useEffect(() => {
         const fetchAllAnswerByPage = async() => {
-            const data = await api.answerGetAllByPage(question.id, 1);
-
+            const data = await api.answerGetCount(question.id);
+    
             if (data.count > 999 && data.count <= 9999) {
                 setAnswersCount((data.count / 1000).toFixed(1) + "k")
             } else if (data.count > 9999) {
