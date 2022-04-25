@@ -31,10 +31,6 @@ const Notice = ({ notice }) => {
                         <Box ml={1} fontSize={15}>
                             {date[0]}
                         </Box>
-
-                        <Box ml={1} fontSize={15}>
-                            {time[0]}
-                        </Box>
                     </Box>
                 </Box>
             </Box>

@@ -25,3 +25,29 @@ def bugCreate(request):
             return jsons([dict(bug.body())])
         except GeneralUser.DoesNotExist:
             jsons([], 404, 0)
+
+def bugGetAllByPage(request, page, count):
+    bugs = Bug.objects.all().order_by('-createdDate')
+    pages = (bugs.count() + (count - 1)) / count
+    bugs = bugs[((page - 1) * count) : (page * count)]
+
+    return jsons([dict(bug.body()) for bug in bugs], 0, pages)
+
+def bugGetAllPageCount(request, count):
+    bugs = Bug.objects.all().order_by('-createdDate')
+    pages = (bugs.count() + (count - 1)) / count
+
+    return jsons([], 0, pages)
+
+def bugGetByStatusAndPage(request, status, page, count):
+    bugs = Bug.objects.filter(status = status).order_by('-createdDate')
+    pages = (bugs.count() + (count - 1)) / count
+    bugs = bugs[((page - 1) * count) : (page * count)]
+
+    return jsons([dict(bug.body()) for bug in bugs], 0, pages)
+
+def bugGetStatusPageCount(request, status, count):
+    bugs = Bug.objects.filter(status = status)
+    pages = (bugs.count() + (count - 1)) / count
+
+    return jsons([], 0, pages)

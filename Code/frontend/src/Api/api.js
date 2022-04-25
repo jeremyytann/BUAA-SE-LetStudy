@@ -108,6 +108,26 @@ class Api {
         return data;
     }
 
+    bugGetAllByPage = async(page, count) => {
+        let data = await this.get(`/bug/all/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    bugGetAllPageCount = async(count) => {
+        let data = await this.get(`/bug/all/page_count/count/${count}/`);
+        return data;
+    }
+
+    bugGetByStatusAndPage = async(status, page, count) => {
+        let data = await this.get(`/bug/status/${status}/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    bugGetStatusPageCount = async(status, count) => {
+        let data = await this.get(`/bug/status/${status}/page_count/count/${count}/`);
+        return data;
+    }
+
     /* ———————————————————— Collection API ———————————————————— */
     collectionCreate = async(noteId, noteUserId) => {
         let data = await this.post('/collection/create/', {noteId, noteUserId});

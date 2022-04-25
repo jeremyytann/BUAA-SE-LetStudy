@@ -8,57 +8,36 @@ import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PendingIcon from '@mui/icons-material/Pending';
 
-const Report = ({ report }) => {
-    let date = report.created_date.split('T')
+const Bug = ({ bug }) => {
+    let date = bug.created_date.split('T')
     let time = date[1].split('.')
-    const [title, setTitle] = useState('')
-    const [category, setCategory] = useState('')
     const [status, setStatus] = useState('')
     const navigate = useNavigate();
 
-    const linkReport = () => {
-        navigate(`/admin/report/${report.id}`)
+    const linkBug = () => {
+        navigate(`/admin/bug/${bug.id}`)
     }
 
     useEffect(() => {
-        if (report.type === 1) {
-            setCategory('笔记')
-            setTitle(report.note.title)
-        } else if (report.type === 2) {
-            setCategory('留言')
-            setTitle(report.comment.description)
-        } else if (report.type === 3) {
-            setCategory('问题')
-            setTitle(report.question.title)
-        } else if (report.type === 4) {
-            setCategory('回答')
-            setTitle(report.answer.description)
-        } else if (report.type === 5) {
-            setCategory('用户')
-            setTitle(report.profile.username)
-        } 
-
-        if (report.status === 0) {
+        if (bug.status === 0) {
             setStatus('未处理')
-        } else if (report.status === 1) {
+        } else if (bug.status === 1) {
             setStatus('已处理')
-        } else if (report.status === 2) {
-            setStatus('已拒绝')
         }
-    }, [report])
+    }, [bug])
 
     return (
-        <Box className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} onClick={linkReport} sx={{cursor: 'pointer'}}>
+        <Box className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} onClick={linkBug} sx={{cursor: 'pointer'}}>
             <Box mt={2.5} mx={3} display='flex'>
                 <Box display='flex' width={680}>
                     <Box className='question-view-title' maxWidth={650} fontWeight='bold' fontSize={18}>
-                        {title}
+                        {bug.title}
                     </Box>
                 </Box>
             </Box>
 
             <Box className='question-view-description' ml={3} mt={2} textAlign='left' width={750} maxWidth={750} height={30}>
-                {report.description}
+                {bug.description}
             </Box>
 
             <Box display='flex' alignItems='center'>
@@ -79,7 +58,7 @@ const Report = ({ report }) => {
                         </Box>
                         
                         <Box ml={1}>
-                            {category}
+                            {bug.type}
                         </Box>
                     </Box>
 
@@ -89,7 +68,7 @@ const Report = ({ report }) => {
                         </Box>
                         
                         <Box ml={1}>
-                            {report.user.username}
+                            {bug.user.username}
                         </Box>
                     </Box>
                 </Box>
@@ -111,12 +90,6 @@ const Report = ({ report }) => {
                                 {status}
                             </Box> : ''
                         }
-
-                        { status === '已拒绝' ?
-                            <Box fontWeight='bold' sx={{color: '#BC544B'}}>
-                                {status}
-                            </Box> : ''
-                        }
                     </Box>
                 </Box>
             </Box>
@@ -124,4 +97,4 @@ const Report = ({ report }) => {
     )
 }
 
-export default Report
+export default Bug

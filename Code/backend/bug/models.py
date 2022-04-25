@@ -18,6 +18,7 @@ class Bug(models.Model):
         return {
             'id': self.id,
             'type': self.type,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'user': self.user.body(),

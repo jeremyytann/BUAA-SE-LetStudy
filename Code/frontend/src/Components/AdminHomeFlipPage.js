@@ -56,12 +56,27 @@ const AdminHomeFlipPage = ({ url }) => {
             }
         }
 
+        const fetchBugStatusPageCount = async() => {
+            if (tab === 'unfinished') {
+                const data = await api.bugGetStatusPageCount(0, 8);
+                setMaxPage(data.page);
+            } else if (tab === 'completed') {
+                const data = await api.bugGetStatusPageCount(1, 8);
+                setMaxPage(data.page);
+            } else if (tab === 'all') {
+                const data = await api.bugGetAllPageCount(8);
+                setMaxPage(data.page);
+            }
+        }
+
         if (url === 'notices' && tab === 'latest') {
             fetchNoticeLatestPageCount();
         } else if (url === 'notices' && tab === 'all') {
             fetchNoticeAllPageCount();
         } else if (url === 'reports') {
             fetchReportStatusPageCount();
+        } else if (url === 'bugs') {
+            fetchBugStatusPageCount();
         }
     }, [tab, url])
 
