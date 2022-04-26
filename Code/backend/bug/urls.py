@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('create/', views.bugCreate),
 
+    path('all/page/<int:page>/', views.bugGetAllByUser),
     path('all/page/<int:page>/count/<int:count>/', views.bugGetAllByPage),
     path('all/page_count/count/<int:count>/', views.bugGetAllPageCount),
 

@@ -85,21 +85,21 @@ const ReportCreatePage = () => {
             setError('请输入举报内容');
         } else {
             if (type === 'note') {
-                const report = await api.reportCreate(1, id, description);
+                const report = await api.reportCreate(1, id, description, reportTitle);
                 navigate(`/note/${id}`);
             } else if (type === 'comment') {
-                const report = await api.reportCreate(2, id, description);
+                const report = await api.reportCreate(2, id, description, reportTitle);
                 let noteId = report.data[0].comment.note.id;
                 navigate(`/note/${noteId}`);
             } else if (type === 'question') {
-                const report = await api.reportCreate(3, id, description);
+                const report = await api.reportCreate(3, id, description, reportTitle);
                 navigate(`/question/${id}`);
             } else if (type === 'answer') {
-                const report = await api.reportCreate(4, id, description);
+                const report = await api.reportCreate(4, id, description, reportTitle);
                 let questionId = report.data[0].answer.question.id;
                 navigate(`/question/${questionId}`);
             } else if (type === 'user') {
-                const report = await api.reportCreate(5, id, description);
+                const report = await api.reportCreate(5, id, description, reportTitle);
                 let username = report.data[0].profile.username;
                 navigate(`/profile/${username}`);
             }

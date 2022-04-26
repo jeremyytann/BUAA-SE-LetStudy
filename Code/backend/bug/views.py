@@ -26,6 +26,16 @@ def bugCreate(request):
         except GeneralUser.DoesNotExist:
             jsons([], 404, 0)
 
+def bugGetAllByUser(request, page):
+    try:
+        user = GeneralUser.objects.get(id = request.user.id)
+        bugs = Bug.objects.filter(user = user).order_by('-createdDate')
+        pages = (bugs.count() + 3) / 4
+        bugs = bugs[((page - 1) * 4) : (page * 4)]
+        return jsons([dict(bug.body()) for bug in bugs], 0, pages)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404, 0)
+
 def bugGetAllByPage(request, page, count):
     bugs = Bug.objects.all().order_by('-createdDate')
     pages = (bugs.count() + (count - 1)) / count

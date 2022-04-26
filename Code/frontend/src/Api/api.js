@@ -108,6 +108,11 @@ class Api {
         return data;
     }
 
+    bugGetAllByUser = async(page) => {
+        let data = await this.get(`/bug/all/page/${page}/`);
+        return data;
+    }
+
     bugGetAllByPage = async(page, count) => {
         let data = await this.get(`/bug/all/page/${page}/count/${count}/`);
         return data;
@@ -392,8 +397,13 @@ class Api {
     }
 
     /* ———————————————————— Report API ———————————————————— */
-    reportCreate = async(type, id, description) => {
-        let data = await this.post('/report/create/', {type, id, description});
+    reportCreate = async(type, id, description, title) => {
+        let data = await this.post('/report/create/', {type, id, description, title});
+        return data;
+    }
+
+    reportGetAllByUser = async(page) => {
+        let data = await this.get(`/report/all/page/${page}/`);
         return data;
     }
 

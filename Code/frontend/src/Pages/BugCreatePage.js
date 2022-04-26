@@ -13,10 +13,10 @@ import './GeneralUser.css'
 const BugCreatePage = () => {
     const categories = [
         '系统漏洞',
-        '账户相关问题',
-        '房间相关问题',
-        '笔记相关问题',
-        '问答相关问题'
+        '账户问题',
+        '房间问题',
+        '笔记问题',
+        '问答问题'
     ]
 
     const [selectedCategory, setSelectedCategory] = useState(categories[0]);

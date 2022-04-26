@@ -234,6 +234,12 @@ input[type='file'] {
     text-overflow: ellipsis;
 }
 
+.report-view-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .note-description-text {
     line-height: 2;
 }
@@ -297,4 +303,9 @@ input[type='file'] {
 
 .notice-view-background {
     background: linear-gradient(to bottom right, white, #D5D5D5);
+}
+
+.report-view-background {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    cursor: pointer;
 }

@@ -93,7 +93,7 @@ const AdminHomeFlipPage = ({ url }) => {
             { page > 1 ?
                 <Box mr={2}>
                     <ThemeProvider theme={theme}>
-                        <Button onClick={previousPage} variant="contained" color="gold" size="small" style={{ borderRadius: 10 }}>
+                        <Button onClick={previousPage} variant="contained" color="black" size="small" style={{ borderRadius: 10 }}>
                             <Box sx={{fontSize: 15, fontWeight: 'bold', margin: '0px 8px 0px 8px', minWidth: '50px'}}>上一页</Box>
                         </Button>
                     </ThemeProvider> 
@@ -104,7 +104,7 @@ const AdminHomeFlipPage = ({ url }) => {
                 <Box>
                     { parseInt(page) !== maxPage ? 
                         <ThemeProvider theme={theme}>
-                            <Button onClick={nextPage} variant="contained" color="gold" size="small" style={{ borderRadius: 10 }}>
+                            <Button onClick={nextPage} variant="contained" color="black" size="small" style={{ borderRadius: 10 }}>
                                 <Box sx={{fontSize: 15, fontWeight: 'bold', margin: '0px 8px 0px 8px', minWidth: '50px'}}>下一页</Box>
                             </Button>
                         </ThemeProvider> : ''

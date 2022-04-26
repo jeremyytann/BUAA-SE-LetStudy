@@ -28,12 +28,14 @@ def reportCreate(request):
                 # note
                 note = Note.objects.get(id = data['id'])
                 report = Report.objects.create(type = type, note = note, user = user)
+                report.title = data['title']
                 report.description = data['description']
                 report.save()
                 return jsons([dict(report.getNoteBody())])
             elif type == 2:
                 comment = Comment.objects.get(id = data['id'])
                 report = Report.objects.create(type = type, comment = comment, user = user)
+                report.title = data['title']
                 report.description = data['description']
                 report.save()
                 return jsons([dict(report.getCommentBody())])
@@ -41,23 +43,36 @@ def reportCreate(request):
                 # question
                 question = Question.objects.get(id = data['id'])
                 report = Report.objects.create(type = type, question = question, user = user)
+                report.title = data['title']
                 report.description = data['description']
                 report.save()
                 return jsons([dict(report.getQuestionBody())])
             elif type == 4:
                 answer = Answer.objects.get(id = data['id'])
                 report = Report.objects.create(type = type, answer = answer, user = user)
+                report.title = data['title']
                 report.description = data['description']
                 report.save()
                 return jsons([dict(report.getAnswerBody())])
             elif type == 5:
                 profile = GeneralUser.objects.get(id = data['id'])
                 report = Report.objects.create(type = type, profile = profile, user = user)
+                report.title = data['title']
                 report.description = data['description']
                 report.save()
                 return jsons([dict(report.getProfileBody())])
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0)
+
+def reportGetAllByUser(request, page):
+    try:
+        user = GeneralUser.objects.get(id = request.user.id)
+        reports = Report.objects.filter(user = user).order_by('-createdDate')
+        pages = (reports.count() + 3) / 4
+        reports = reports[((page - 1) * 4) : (page * 4)]
+        return jsons([dict(report.body()) for report in reports], 0, pages)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404, 0)
 
 def reportGetAllByPage(request, page, count):
     reports = Report.objects.all().order_by('-createdDate')

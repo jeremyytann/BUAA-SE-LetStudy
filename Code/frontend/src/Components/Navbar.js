@@ -133,7 +133,7 @@ const Navbar = () => {
                             </Box>
                         }
                         
-                        <SettingsIcon onClick={linkSettings} fontSize="small" style={{ margin: '4px 15px 0px 0px', cursor: 'pointer'}}/>
+                        <SettingsIcon onClick={linkSettings} fontSize="small" style={{ margin: '0px 15px 0px 0px', cursor: 'pointer'}}/>
 
                         <Box sx={{ margin: '0px 15px 0px 0px'}}>
                             <ThemeProvider theme={theme}>

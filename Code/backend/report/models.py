@@ -9,6 +9,7 @@ from django.utils import timezone
 # Create your models here.
 class Report(models.Model):
     type = models.IntegerField(default = 0)
+    title = models.CharField(max_length=30, null=False)
     description = models.TextField(null=False)
     status = models.IntegerField(default = 0)
     note = models.ForeignKey(Note, on_delete=models.CASCADE, null=True, blank=True)
@@ -27,6 +28,7 @@ class Report(models.Model):
             return {
                 'id': self.id,
                 'type': self.type,
+                'title': self.title,
                 'description': self.description,
                 'status': self.status,
                 'note': self.note.body(),
@@ -37,6 +39,7 @@ class Report(models.Model):
             return {
                 'id': self.id,
                 'type': self.type,
+                'title': self.title,
                 'description': self.description,
                 'status': self.status,
                 'comment': self.comment.body(),
@@ -47,6 +50,7 @@ class Report(models.Model):
             return {
                 'id': self.id,
                 'type': self.type,
+                'title': self.title,
                 'description': self.description,
                 'status': self.status,
                 'question': self.question.body(),
@@ -57,6 +61,7 @@ class Report(models.Model):
             return {
                 'id': self.id,
                 'type': self.type,
+                'title': self.title,
                 'description': self.description,
                 'status': self.status,
                 'answer': self.answer.body(),
@@ -67,6 +72,7 @@ class Report(models.Model):
             return {
                 'id': self.id,
                 'type': self.type,
+                'title': self.title,
                 'description': self.description,
                 'status': self.status,
                 'profile': self.profile.body(),
@@ -77,6 +83,7 @@ class Report(models.Model):
     def getNoteBody(self):
         return {
             'id': self.id,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'note': self.note.body(),
@@ -87,6 +94,7 @@ class Report(models.Model):
     def getCommentBody(self):
         return {
             'id': self.id,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'comment': self.comment.body(),
@@ -97,6 +105,7 @@ class Report(models.Model):
     def getQuestionBody(self):
         return {
             'id': self.id,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'question': self.question.body(),
@@ -107,6 +116,7 @@ class Report(models.Model):
     def getAnswerBody(self):
         return {
             'id': self.id,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'answer': self.answer.body(),
@@ -117,6 +127,7 @@ class Report(models.Model):
     def getProfileBody(self):
         return {
             'id': self.id,
+            'title': self.title,
             'description': self.description,
             'status': self.status,
             'profile': self.profile.body(),

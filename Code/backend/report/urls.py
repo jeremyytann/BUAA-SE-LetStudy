@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('create/', views.reportCreate),
 
+    path('all/page/<int:page>/', views.reportGetAllByUser),
     path('all/page/<int:page>/count/<int:count>/', views.reportGetAllByPage),
     path('all/page_count/count/<int:count>/', views.reportGetAllPageCount),
 
