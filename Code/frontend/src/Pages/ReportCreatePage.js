@@ -106,8 +106,21 @@ const ReportCreatePage = () => {
         }
     }
 
-    const linkPreviousPage = () => {
-        
+    const linkPreviousPage = async() => {
+        if (type === 'note') {
+            navigate(`/note/${id}`);
+        } else if (type === 'comment') {
+            const comment = await api.commentGet(id);
+            navigate(`/note/${comment.data[0].note.id}`);
+        } else if (type === 'question') {
+            navigate(`/question/${id}`);
+        } else if (type === 'answer') {
+            const answer = await api.answerGet(id);
+            navigate(`/question/${answer.data[0].question.id}`);
+        } else if (type === 'user') {
+            const user = await api.userGet(id);
+            navigate(`/profile/${user.data[0].username}`);
+        }
     }
 
     return (

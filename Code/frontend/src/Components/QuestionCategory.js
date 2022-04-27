@@ -10,8 +10,8 @@ const QuestionCategory = ({ question }) => {
     }
 
     return (
-        <Box onClick={linkQuestion} className='same-type-questions' mb={1.6} fontSize={18} mx={5} textAlign='left' width={350} sx={{cursor: 'pointer'}}>
-            {question.title}
+        <Box onClick={linkQuestion} display='flex' mb={1.6} fontSize={18} mx={5} textAlign='left' maxWidth={350} sx={{cursor: 'pointer'}}>
+            <Box className='same-type-questions' borderBottom={1}>{question.title}</Box>
         </Box>
     )
 }

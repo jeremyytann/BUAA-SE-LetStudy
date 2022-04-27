@@ -16,6 +16,7 @@ const AdminReportViewPage = () => {
     const [path, setPath] = useState('');
     const [status, setStatus] = useState('')
     const [open, setOpen] = useState(false);
+    const [dialog, setDialog] = useState(false)
     const navigate = useNavigate();
 
     const handleClickOpen = () => {
@@ -154,6 +155,14 @@ const AdminReportViewPage = () => {
         }
     }
 
+    const toggleDialog = () => {
+        setDialog(!dialog);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
     const linkReport = () => {
         navigate('/admin/reports/unfinished/1');
     }
@@ -255,7 +264,7 @@ const AdminReportViewPage = () => {
                             <Box display='flex'>
                                 <Box>
                                     <ThemeProvider theme={theme}>
-                                        <Button onClick={completeReport} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
+                                        <Button onClick={toggleDialog} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
                                             { reportType === '笔记' ? <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>删除笔记</Box> : ''}
                                             { reportType === '留言' ? <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>删除留言</Box> : ''}
                                             { reportType === '问题' ? <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>删除问题</Box> : ''}
@@ -314,6 +323,30 @@ const AdminReportViewPage = () => {
                     <DialogActions>
                         <Button onClick={handleClose}>取消</Button>
                         <Button onClick={rejectReport}>提交</Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+
+            <Box>
+                <Dialog
+                    fullWidth={true}
+                    open={dialog}
+                    maxWidth='xs'
+                    onClose={closeDialog}>
+                    <DialogTitle id="alert-dialog-title">
+                        {"注意事项"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            是否确定执行此操作？
+                        </DialogContentText>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={closeDialog}>取消</Button>
+                        <Button onClick={completeReport} autoFocus>
+                            确定
+                        </Button>
                     </DialogActions>
                 </Dialog>
             </Box>
