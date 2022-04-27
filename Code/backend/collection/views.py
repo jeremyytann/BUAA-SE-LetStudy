@@ -57,6 +57,14 @@ def collectionGetCount(request, noteId):
 
     count = Collection.objects.filter(note = note).count()
     return jsons([], 0, 0, count)
+
+def collectionGetCountByUser(request, username):
+    try:
+        user = GeneralUser.objects.get(username = username)
+        count = Collection.objects.filter(noteUser = user).count()
+        return jsons([], 0, 0, count)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403, 0, 0)
     
 @login_required
 def collectionDelete(request, noteId):

@@ -7,6 +7,7 @@ import { Grid, Box } from '@mui/material';
 import Cookies from 'js-cookie'
 import { Navigate } from 'react-router-dom';
 import ProfileDescription from '../Components/ProfileDescription';
+import ProfileAchievement from '../Components/ProfileAchievement';
 
 const UserProfilePage = () => {
     const { username } = useParams();
@@ -42,7 +43,7 @@ const UserProfilePage = () => {
                             </Box>
 
                             <Box mt={5} borderRadius={10} sx={{backgroundColor: 'white', height: '320px', width: '90%'}}>
-                            
+                                <ProfileAchievement user={user} />
                             </Box>
                         </Grid>
 

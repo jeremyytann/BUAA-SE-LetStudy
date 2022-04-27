@@ -59,6 +59,14 @@ def likeGetCount(request, noteId):
     count = Like.objects.filter(note = note).count()
     return jsons([], 0, 0, count)
 
+def likeGetCountByUser(request, username):
+    try:
+        user = GeneralUser.objects.get(username = username)
+        count = Like.objects.filter(noteUser = user).count()
+        return jsons([], 0, 0, count)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403, 0, 0)
+
 @login_required
 def likeDelete(request, noteId):
     try:

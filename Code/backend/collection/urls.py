@@ -6,5 +6,6 @@ urlpatterns = [
 
     path('<int:noteId>/', views.collectionGet),
     path('count/<int:noteId>/', views.collectionGetCount),
+    path('count/<str:username>/', views.collectionGetCountByUser),
     path('delete/<int:noteId>/', views.collectionDelete)
 ]

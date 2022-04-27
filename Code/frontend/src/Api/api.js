@@ -164,6 +164,11 @@ class Api {
         return data;
     }
 
+    collectionGetCountByUser = async(username) => {
+        let data = await this.get(`/collection/count/${username}/`);
+        return data;
+    }
+
     collectionDelete = async(noteId) => {
         let data = await this.delete(`/collection/delete/${noteId}`);
         return data;
@@ -198,6 +203,11 @@ class Api {
 
     followshipGet = async(followingUsername) => {
         let data = await this.get(`/followship/${followingUsername}/`);
+        return data;
+    }
+
+    followshipGetCountByUser = async(username) => {
+        let data = await this.get(`/followship/count/${username}/`);
         return data;
     }
 
@@ -286,6 +296,11 @@ class Api {
         return data;
     }
 
+    likeGetCountByUser = async(username) => {
+        let data = await this.get(`/like/count/${username}/`);
+        return data;
+    }
+
     likeDelete = async(noteId) => {
         let data = await this.delete(`/like/delete/${noteId}`);
         return data;
@@ -314,6 +329,11 @@ class Api {
 
     noteGetAllPageCount = async() => {
         let data = await this.get('/note/all/page_count/');
+        return data;
+    }
+
+    noteGetAllCountByUser = async(username) => {
+        let data = await this.get(`/note/all/count/${username}/`)
         return data;
     }
 

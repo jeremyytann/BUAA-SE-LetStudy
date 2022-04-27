@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('all/page/<int:page>/', views.noteGetAllByPage),
     path('all/page_count/', views.noteGetAllPageCount),
+    path('all/count/<str:username>/', views.noteGetAllCountByUser),
 
     path('popular/page/<int:page>/', views.noteGetPopularByPage),
     path('popular/page_count/', views.noteGetPopularPageCount),

@@ -8,11 +8,11 @@ from django.db.models import Count
 import json, random
 
 # Create your views here.
-def jsons(data = None, errorCode = 0, page=0):
+def jsons(data = None, errorCode = 0, page=0, count=0):
     if data is None:
         data = []
     
-    return JsonResponse({'errorCode': errorCode, 'data': data, 'page': int(page)})
+    return JsonResponse({'errorCode': errorCode, 'data': data, 'page': int(page), 'count': int(count)})
 
 @login_required
 def noteCreate(request):
@@ -55,6 +55,15 @@ def noteGetAllByPage(request, page):
     notes = randoms[((page - 1) * 16) : (page * 16)]
 
     return jsons([dict(note.body()) for note in notes], 0, pages)
+
+def noteGetAllCountByUser(request, username):
+    try:
+        user = GeneralUser.objects.get(username = username)
+        count = Note.objects.filter(user = user).count()
+
+        return jsons([], 0, 0, count)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403, 0)
 
 def noteGetPopularByPage(request, page):
     notes = Note.objects.annotate(num_likes = Count('liked_note')).order_by('-num_likes')

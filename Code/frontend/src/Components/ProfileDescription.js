@@ -7,7 +7,8 @@ import Cookies from 'js-cookie'
 import api from '../Api/api'
 
 const ProfileDescription = ({ user, days }) => {
-    const [following, setFollowing] = useState([])
+    const [following, setFollowing] = useState([]);
+    const [follower, setFollower] = useState();
     const navigate = useNavigate();
     let currentUser = Cookies.get('username');
 
@@ -48,10 +49,20 @@ const ProfileDescription = ({ user, days }) => {
             }
         }
 
+        const fetchFollowerCount = async() => {
+            const data = await api.followshipGetCountByUser(user.username);
+
+            if (data.errorCode === 0) {
+                setFollower(data.count);
+            }
+        }
+
         if (user.username !== currentUser) {
             fetchFollowship();
         }
-    }, [user, currentUser])
+
+        fetchFollowerCount();
+    }, [user, currentUser, following])
 
     const handleFollowship = async() => {
         if (following) {
@@ -92,7 +103,7 @@ const ProfileDescription = ({ user, days }) => {
             </Box>
 
             <Box fontSize={18} mt={5}>
-                已有 0 人关注
+                已有 {follower} 人关注
             </Box>
 
             <Box display='flex' justifyContent='center' mt={4}>

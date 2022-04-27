@@ -6,11 +6,11 @@ from django.http import JsonResponse
 import json
 
 # Create your views here.
-def jsons(data = None, errorCode = 0, page=0):
+def jsons(data = None, errorCode = 0, page=0, count=0):
     if data is None:
         data = []
     
-    return JsonResponse({'errorCode': errorCode, 'data': data, 'page': int(page)})
+    return JsonResponse({'errorCode': errorCode, 'data': data, 'page': int(page), 'count': int(count)})
 
 @login_required
 def followshipCreate(request):
@@ -52,6 +52,15 @@ def followshipGet(request, followingUsername):
         return jsons([], 404, 0)
 
     return jsons([dict(followship.body())])
+
+def followshipGetCountByUser(request, username):
+    try:
+        user = GeneralUser.objects.get(username = username)
+        count = Followship.objects.filter(followingUser = user).count()
+
+        return jsons([], 0, 0, count)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403, 0)
 
 @login_required
 def followshipDelete(request, followingId):
