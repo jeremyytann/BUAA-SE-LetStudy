@@ -269,6 +269,26 @@ class Api {
         let data = await this.get(`/user/${username}/`);
         return data;
     }
+    
+    userGetAllByPage = async(page, count) => {
+        let data = await this.get(`/user/all/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    userGetAllPageCount = async(count) => {
+        let data = await this.get(`/user/all/page_count/count/${count}/`);
+        return data;
+    }
+
+    userGetByStatus = async(status, page, count) => {
+        let data = await this.get(`/user/${status}/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    userGetStatusPageCount = async(status, count) => {
+        let data = await this.get(`/user/${status}/page_count/count/${count}/`);
+        return data;
+    }
 
     userBan = async(id) => {
         let data = await this.put(`/user/${id}/ban/`);

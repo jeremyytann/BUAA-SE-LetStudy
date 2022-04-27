@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Alert, Box } from '@mui/material';
@@ -15,6 +15,12 @@ const UserRegisterPage = () => {
     const [conpassword, setConPassword] = useState([]);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        let color_1 = "FFFFFF";
+        let color_2 = "DDC3A5";
+        document.body.style.background = "linear-gradient(to bottom right, #"+ color_1 +", #"+ color_2 +")";
+    }, []);
 
     const validUsername = /^[A-Za-z0-9._]+$/;
     const validPassword = /^[A-Za-z0-9._]+$/;
@@ -33,7 +39,7 @@ const UserRegisterPage = () => {
             console.log(data.data[0]);
 
             if (data.errorCode === 400) {
-                setError('Username already exists.');
+                setError('用户名已被注册');
             } else {
                 Cookies.set('user_id', data.data[0].id);
                 Cookies.set('username', data.data[0].username);

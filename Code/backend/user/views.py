@@ -7,11 +7,11 @@ import json
 from datetime import date, datetime
 
 # Create your views here.
-def jsons(data = None, errorCode = 0, cookies = '', days = 0):
+def jsons(data = None, errorCode = 0, cookies = '', days = 0, page = 0):
     if data is None:
         data = []
     
-    return JsonResponse({'errorCode': errorCode, 'data': data, 'cookies': cookies, 'days': days})
+    return JsonResponse({'errorCode': errorCode, 'data': data, 'cookies': cookies, 'days': days, 'page': page})
 
 # Register
 def userRegister(request):
@@ -134,3 +134,35 @@ def userGetByUsername(request, username):
         return jsons([], 404)
 
     return jsons([dict(generalUser.body())], 0, '', days)
+
+def userGetAllByPage(request, page, count):
+    try:
+        admin = AdminUser.objects.get(id = request.user.id)
+        users = GeneralUser.objects.all().order_by('username')
+        pages = (users.count() + (count - 1)) / count
+        users = users[((page - 1) * count) : (page * count)]
+
+        return jsons([dict(user.body()) for user in users], 0, '', 0, pages)
+    except AdminUser.DoesNotExist:
+        return jsons([], 403)
+    
+def userGetAllPageCount(request, count):
+    users = GeneralUser.objects.all().order_by('-joinDate')
+    pages = int((users.count() + (count - 1)) / count)
+    return jsons([], 0, '', 0, pages)
+    
+def userGetByStatus(request, status, page, count):
+    try:
+        admin = AdminUser.objects.get(id = request.user.id)
+        users = GeneralUser.objects.filter(status = status).order_by('username')
+        pages = (users.count() + (count - 1)) / count
+        users = users[((page - 1) * count) : (page * count)]
+
+        return jsons([dict(user.body()) for user in users], 0, '', 0, pages)
+    except AdminUser.DoesNotExist:
+        return jsons([], 403)
+
+def userGetStatusPageCount(request, status, count):
+    users = GeneralUser.objects.filter(status = status).order_by('-joinDate')
+    pages = int((users.count() + (count - 1)) / count)
+    return jsons([], 0, '', 0, pages)

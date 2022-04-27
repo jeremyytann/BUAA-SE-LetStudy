@@ -69,6 +69,19 @@ const AdminHomeFlipPage = ({ url }) => {
             }
         }
 
+        const fetchUserStatusPageCount = async() => {
+            if (tab === 'all') {
+                const data = await api.userGetAllPageCount(12);
+                setMaxPage(data.page);
+            } else if (tab === 'active') {
+                const data = await api.userGetStatusPageCount(1, 12);
+                setMaxPage(data.page);
+            } else if (tab === 'banned') {
+                const data = await api.userGetStatusPageCount(0, 12);
+                setMaxPage(data.page);
+            }
+        }
+
         if (url === 'notices' && tab === 'latest') {
             fetchNoticeLatestPageCount();
         } else if (url === 'notices' && tab === 'all') {
@@ -77,6 +90,8 @@ const AdminHomeFlipPage = ({ url }) => {
             fetchReportStatusPageCount();
         } else if (url === 'bugs') {
             fetchBugStatusPageCount();
+        } else if (url === 'users') {
+            fetchUserStatusPageCount();
         }
     }, [tab, url])
 

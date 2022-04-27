@@ -11,5 +11,9 @@ urlpatterns = [
     path('login/', views.userLogin),
     path('logout/', views.userLogout),
 
+    path('all/page/<int:page>/count/<int:count>/', views.userGetAllByPage),
+    path('all/page_count/count/<int:count>/', views.userGetAllPageCount),
+    path('<int:status>/page/<int:page>/count/<int:count>/', views.userGetByStatus),
+    path('<int:status>/page_count/count/<int:count>/', views.userGetStatusPageCount),
     path('<str:username>/', views.userGetByUsername)
 ]

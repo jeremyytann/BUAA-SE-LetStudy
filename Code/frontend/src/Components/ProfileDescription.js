@@ -7,10 +7,11 @@ import Cookies from 'js-cookie'
 import api from '../Api/api'
 
 const ProfileDescription = ({ user, days }) => {
-    const [following, setFollowing] = useState([]);
+    const [following, setFollowing] = useState(false);
     const [follower, setFollower] = useState();
     const navigate = useNavigate();
     let currentUser = Cookies.get('username');
+    let admin = Cookies.get('admin');
 
     const theme = createTheme ({
         typography: {
@@ -42,7 +43,7 @@ const ProfileDescription = ({ user, days }) => {
         const fetchFollowship = async() => {
             const data = await api.followshipGet(user.username);
             
-            if (data.errorCode === 404) {
+            if (data.errorCode === 404 || data.errorCode === 403) {
                 setFollowing(false);
             } else {
                 setFollowing(true);
@@ -108,7 +109,7 @@ const ProfileDescription = ({ user, days }) => {
 
             <Box display='flex' justifyContent='center' mt={4}>
                 <Box>
-                    { user.username === currentUser ? 
+                    { (user.username === currentUser) || admin ? 
                         <ThemeProvider theme={theme}>
                             <Button disabled variant="contained" size="small" style={{ borderRadius: 13, width: 100, height: 35 }}> 
                                 <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>关注</Box>
@@ -133,7 +134,7 @@ const ProfileDescription = ({ user, days }) => {
                 </Box>
                 
                 <Box ml={3}>
-                    { user.username === currentUser ? 
+                    { (user.username === currentUser) || admin ? 
                         <ThemeProvider theme={theme}>
                             <Button disabled onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
                                 <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
