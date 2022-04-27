@@ -309,3 +309,91 @@ input[type='file'] {
     background: linear-gradient(to bottom right, white, #D5D5D5);
     cursor: pointer;
 }
+
+.report-view-username {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1470px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: grey;
+    border: 0px;
+}
+
+.report-view-title {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1445px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: 0px;
+}
+
+.report-description {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1445px;
+    height: 75px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+    border: 0px;
+    color: grey;
+}
+
+.report-view-status {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1470px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: grey;
+    border: 0px;
+}
+
+.report-view-reason {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1470px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: black;
+    border: 0px;
+}
+
+.bug-view-reason {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 1470px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: black;
+    border: 0px;
+}

@@ -3,14 +3,12 @@ import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import '../Pages/GeneralUser.css'
 import { useState, useEffect } from 'react'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PendingIcon from '@mui/icons-material/Pending';
 
 const UserReport = ({ report }) => {
     let date = report.created_date.split('T')
-    let time = date[1].split('.')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [status, setStatus] = useState('')
@@ -19,19 +17,19 @@ const UserReport = ({ report }) => {
     useEffect(() => {
         if (report.type === 1) {
             setCategory('笔记')
-            setTitle(report.note.title)
+            setTitle(report.title)
         } else if (report.type === 2) {
             setCategory('留言')
-            setTitle(report.comment.description)
+            setTitle(report.title)
         } else if (report.type === 3) {
             setCategory('问题')
-            setTitle(report.question.title)
+            setTitle(report.title)
         } else if (report.type === 4) {
             setCategory('回答')
-            setTitle(report.answer.description)
+            setTitle(report.title)
         } else if (report.type === 5) {
             setCategory('用户')
-            setTitle(report.profile.username)
+            setTitle(report.title)
         } 
 
         if (report.status === 0) {
@@ -50,11 +48,11 @@ const UserReport = ({ report }) => {
     return (
         <Box className='report-view-background' onClick={linkReport} borderRadius={5} mb={3} height={130} maxHeight={130} width={1150} maxWidth={1150} border={1}>
             <Box display='flex' textAlign='left' fontWeight='bold' fontSize={16} mt={2.5} ml={2.5}>
-                {report.title}
+                {title}
             </Box>
 
             <Box className='report-view-description' textAlign='left' mx={2.5} mt={2} height={40} fontSize={16}>
-                {report.description}
+                {report !== undefined ? report.description : ''}
             </Box>
 
             <Box display='flex' alignItems='center'>

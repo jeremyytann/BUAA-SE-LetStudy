@@ -92,6 +92,11 @@ class Api {
         return data;
     }
 
+    answerDelete = async(answerId) => {
+        let data = await this.delete(`/answer/${answerId}/delete/`);
+        return data;
+    }
+
     answerGetAllByPage = async(questionId, page) => {
         let data = await this.get(`/answer/${questionId}/page/${page}/`);
         return data;
@@ -105,6 +110,16 @@ class Api {
     /* ———————————————————— Bug API ———————————————————— */
     bugCreate = async(type, title, description) => {
         let data = await this.post('/bug/create/', {type, title, description});
+        return data;
+    }
+
+    bugEdit = async(id, status, reason) => {
+        let data = await this.put(`/bug/${id}/edit/`, {status, reason});
+        return data;
+    }
+
+    bugGet = async(bugId) => {
+        let data = await this.get(`/bug/${bugId}/`);
         return data;
     }
 
@@ -162,6 +177,11 @@ class Api {
 
     commentGet = async(commentId) => {
         let data = await this.get(`/comment/${commentId}/`);
+        return data;
+    }
+
+    commentDelete = async(commentId) => {
+        let data = await this.delete(`/comment/${commentId}/delete/`);
         return data;
     }
 
@@ -240,6 +260,16 @@ class Api {
         return data;
     }
 
+    userBan = async(id) => {
+        let data = await this.put(`/user/${id}/ban/`);
+        return data;
+    }
+
+    userUnban = async(id) => {
+        let data = await this.put(`/user/${id}/unban/`);
+        return data;
+    }
+
     /* ———————————————————— Like API ———————————————————— */
     likeCreate = async(noteId, noteUserId) => {
         let data = await this.post('/like/create/', {noteId, noteUserId});
@@ -269,6 +299,11 @@ class Api {
 
     noteGet = async(noteId) => {
         let data = await this.get(`/note/${noteId}/`);
+        return data;
+    }
+
+    noteDelete = async(noteId) => {
+        let data = await this.delete(`/note/${noteId}/delete/`);
         return data;
     }
 
@@ -361,6 +396,11 @@ class Api {
         return data;
     }
 
+    questionDelete = async(questionId) => {
+        let data = await this.delete(`/question/${questionId}/delete/`);
+        return data;
+    }
+
     questionGetAllByPage = async(page) => {
         let data = await this.get(`/question/all/page/${page}/`);
         return data;
@@ -399,6 +439,16 @@ class Api {
     /* ———————————————————— Report API ———————————————————— */
     reportCreate = async(type, id, description, title) => {
         let data = await this.post('/report/create/', {type, id, description, title});
+        return data;
+    }
+
+    reportGet = async(id) => {
+        let data = await this.get(`/report/${id}/`);
+        return data;
+    }
+
+    reportEdit = async(id, status, reason) => {
+        let data = await this.put(`/report/${id}/edit/`, {status, reason});
         return data;
     }
 

@@ -39,6 +39,14 @@ def questionGet(request, pk):
     
     return jsons([dict(question.body())])
 
+def questionDelete(request, pk):
+    try:
+        question = Question.objects.get(id = pk)
+        question.delete()
+        return jsons()
+    except Question.DoesNotExist:
+        return jsons([], 404, 0)
+
 def questionGetAllByPage(request, page):
     questions = Question.objects.all()
     questionsList = list(questions)

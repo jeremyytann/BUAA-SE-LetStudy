@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from user.models import GeneralUser
 from .models import Bug
 import json
@@ -25,6 +26,28 @@ def bugCreate(request):
             return jsons([dict(bug.body())])
         except GeneralUser.DoesNotExist:
             jsons([], 404, 0)
+
+@login_required
+def bugEdit(request, pk):
+    if request.method == 'PUT':
+        bug = Bug.objects.get(id = pk)
+        data = json.loads(request.body)
+
+        bug.status = data['status']
+
+        if int(data['status'] == 1):
+            bug.reason = data['reason']
+
+        bug.save()
+
+        return jsons([dict(bug.body())])
+
+def bugGet(request, pk):
+    try:
+        bug = Bug.objects.get(id = pk)
+        return jsons([dict(bug.body())], 0, 0)
+    except Bug.DoesNotExist:
+        return jsons([], 404, 0)
 
 def bugGetAllByUser(request, page):
     try:

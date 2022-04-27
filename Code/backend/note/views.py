@@ -39,6 +39,14 @@ def noteGet(request, pk):
 
     return jsons([dict(note.body())])
 
+def noteDelete(request, pk):
+    try:
+        note = Note.objects.get(id = pk)
+        note.delete()
+        return jsons()
+    except Note.DoesNotExist:
+        return jsons([], 404, 0)
+
 def noteGetAllByPage(request, page):
     notes = Note.objects.all()
     notesList = list(notes)

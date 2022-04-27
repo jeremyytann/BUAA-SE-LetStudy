@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLoginPage from './Pages/AdminLoginPage';
 import UserLoginPage from './Pages/UserLoginPage';
@@ -25,6 +25,10 @@ import AdminBugPage from './Pages/AdminBugPage';
 import AdminUserPage from './Pages/AdminUserPage';
 import AdminSettingsPage from './Pages/AdminSettingsPage';
 import NoticeCreatePage from './Pages/NoticeCreatePage';
+import ReportViewPage from './Pages/ReportViewPage';
+import AdminReportViewPage from './Pages/AdminReportViewPage';
+import AdminBugViewPage from './Pages/AdminBugViewPage';
+import BugViewPage from './Pages/BugViewPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -42,7 +46,7 @@ function App() {
                 document.body.style.background = "linear-gradient(to bottom right, #"+ color_1 +", #"+ color_2 +")";
             }
         }
-    }, []);
+    }, [admin, user]);
 
     return (
         <Router>
@@ -53,12 +57,15 @@ function App() {
                     <Route path='/admin/notices/create' element={<NoticeCreatePage />}/>
                     <Route path='/admin/notices/:tab/:page' element={<AdminNoticePage />}/>
                     <Route path='/admin/reports/:tab/:page' element={<AdminReportPage />}/>
+                    <Route path='/admin/report/:id' element={<AdminReportViewPage />}/>
                     <Route path='/admin/bugs/:tab/:page' element={<AdminBugPage />}/>
+                    <Route path='/admin/bug/:id' element={<AdminBugViewPage />}/>
                     <Route path='/admin/users/:tab/:page' element={<AdminUserPage />}/>
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
                     <Route path='/' element={<UserLandPage />}/>
                     <Route path='/bugs/create' element={<BugCreatePage />}/>
+                    <Route path='/bug/:id' element={<BugViewPage />} /> 
                     <Route path='/login' element={<UserLoginPage />}/>
                     <Route path='/register' element={<UserRegisterPage />}/>
                     <Route path='/profile/:username' element={<UserProfilePage />}/>
@@ -72,6 +79,7 @@ function App() {
                     <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
                     <Route path='/question/:id' element={<QuestionViewPage />}/>
                     <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
+                    <Route path='/report/:id' element={<ReportViewPage />} /> 
                 </Routes>
             </div>
         </Router>

@@ -10,7 +10,6 @@ import PendingIcon from '@mui/icons-material/Pending';
 
 const Report = ({ report }) => {
     let date = report.created_date.split('T')
-    let time = date[1].split('.')
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [status, setStatus] = useState('')
@@ -23,19 +22,19 @@ const Report = ({ report }) => {
     useEffect(() => {
         if (report.type === 1) {
             setCategory('笔记')
-            setTitle(report.note.title)
+            setTitle(report.title)
         } else if (report.type === 2) {
             setCategory('留言')
-            setTitle(report.comment.description)
+            setTitle(report.title)
         } else if (report.type === 3) {
             setCategory('问题')
-            setTitle(report.question.title)
+            setTitle(report.title)
         } else if (report.type === 4) {
             setCategory('回答')
-            setTitle(report.answer.description)
+            setTitle(report.title)
         } else if (report.type === 5) {
             setCategory('用户')
-            setTitle(report.profile.username)
+            setTitle(report.title)
         } 
 
         if (report.status === 0) {
@@ -58,7 +57,7 @@ const Report = ({ report }) => {
             </Box>
 
             <Box className='question-view-description' ml={3} mt={2} textAlign='left' width={750} maxWidth={750} height={30}>
-                {report.description}
+                {report !== undefined ? report.description : ''}
             </Box>
 
             <Box display='flex' alignItems='center'>
@@ -89,7 +88,7 @@ const Report = ({ report }) => {
                         </Box>
                         
                         <Box ml={1}>
-                            {report.user.username}
+                            {report !== undefined ? report.user.username : ''}
                         </Box>
                     </Box>
                 </Box>

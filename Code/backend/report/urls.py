@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('create/', views.reportCreate),
+    path('<int:pk>/', views.reportGet),
+    path('<int:pk>/edit/', views.reportEdit),
 
     path('all/page/<int:page>/', views.reportGetAllByUser),
     path('all/page/<int:page>/count/<int:count>/', views.reportGetAllByPage),

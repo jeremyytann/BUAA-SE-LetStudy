@@ -2,6 +2,7 @@ from .models import GeneralUser
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from admin_user.models import AdminUser
 import json
 from datetime import date, datetime
 
@@ -58,6 +59,29 @@ def userEditOrDelete(request, pk):
         
         user.delete()
         return jsons()
+
+@login_required
+def userBan(request, pk):
+    try:
+        admin = AdminUser.objects.get(id = request.user.id)
+        user = GeneralUser.objects.get(id = pk)
+
+        user.status = 0
+        user.save()
+        return jsons([], 0)
+    except AdminUser.DoesNotExist:
+        return jsons([], 403)
+
+def userUnban(request, pk):
+    try:
+        admin = AdminUser.objects.get(id = request.user.id)
+        user = GeneralUser.objects.get(id = pk)
+
+        user.status = 1
+        user.save()
+        return jsons([], 0)
+    except AdminUser.DoesNotExist:
+        return jsons([], 403)
 
 # Login
 def userLogin(request):

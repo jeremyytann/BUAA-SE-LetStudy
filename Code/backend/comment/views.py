@@ -37,6 +37,14 @@ def commentGet(request, pk):
     
     return jsons([dict(comment.body())])
 
+def commentDelete(request, pk):
+    try:
+        comment = Comment.objects.get(id = pk)
+        comment.delete()
+        return jsons()
+    except Comment.DoesNotExist:
+        return jsons([], 404, 0)
+
 def commentGetByPage(request, noteId, page):
     note = Note.objects.get(id = noteId)
     comments = Comment.objects.filter(note = note).order_by('-createdDate')

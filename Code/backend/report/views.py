@@ -64,6 +64,28 @@ def reportCreate(request):
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0)
 
+@login_required
+def reportEdit(request, pk):
+    if request.method == 'PUT':
+        report = Report.objects.get(id = pk)
+        data = json.loads(request.body)
+
+        report.status = data['status']
+
+        if int(data['status'] == 2):
+            report.reason = data['reason']
+
+        report.save()
+
+        return jsons([dict(report.body())])
+
+def reportGet(request, pk):
+    try:
+        report = Report.objects.get(id = pk)
+        return jsons([dict(report.body())], 0, 0)
+    except Report.DoesNotExist:
+        return jsons([], 404, 0)
+
 def reportGetAllByUser(request, page):
     try:
         user = GeneralUser.objects.get(id = request.user.id)

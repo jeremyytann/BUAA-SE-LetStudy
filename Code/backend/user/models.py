@@ -5,6 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class GeneralUser(User):
     joinDate = models.DateField(default = timezone.now)
+    status = models.IntegerField(default = 1)
 
     def __str__(self):
         return self.username
@@ -13,5 +14,6 @@ class GeneralUser(User):
         return {
             'id': self.id, 
             'username': self.username,
-            'created_date': self.joinDate
+            'created_date': self.joinDate,
+            'status': self.status
         }

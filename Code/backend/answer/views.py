@@ -38,6 +38,14 @@ def answerGet(request, pk):
     
     return jsons([dict(answer.body())])
 
+def answerDelete(request, pk):
+    try:
+        answer = Answer.objects.get(id = pk)
+        answer.delete()
+        return jsons()
+    except Answer.DoesNotExist:
+        return jsons([], 404, 0)
+
 def answerGetByPage(request, questionId, page):
     try:
         question = Question.objects.get(id = questionId)

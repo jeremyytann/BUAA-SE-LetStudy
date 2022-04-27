@@ -9,6 +9,7 @@ class Bug(models.Model):
     description = models.TextField(null=False)
     status = models.IntegerField(default = 0)
     user = models.ForeignKey(GeneralUser, on_delete=models.CASCADE, null=False)
+    reason = models.CharField(max_length=30, null=True, blank=True)
     createdDate = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
@@ -22,5 +23,6 @@ class Bug(models.Model):
             'description': self.description,
             'status': self.status,
             'user': self.user.body(),
+            'reason': self.reason,
             'created_date': self.createdDate
         }
