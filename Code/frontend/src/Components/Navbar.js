@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BugReportIcon from '@mui/icons-material/BugReport';
+import '../Pages/GeneralUser.css'
 
 const Navbar = () => {
     let user = Cookies.get('username')
@@ -50,7 +51,7 @@ const Navbar = () => {
 
     const linkProfile = () => {
         if (!admin) {
-            navigate(`/profile/${user}`)
+            navigate(`/profile/${user}/notes`)
         }
     }
 
@@ -90,7 +91,7 @@ const Navbar = () => {
                         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <MenuBookRoundedIcon color="action" fontSize="large"/>
                             
-                            <Box sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px'}}>
+                            <Box className='web-title' sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px'}}>
                                 共同学习
                             </Box>
                         </Box>
@@ -117,7 +118,7 @@ const Navbar = () => {
                     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <MenuBookRoundedIcon onClick={linkHome} color="action" fontSize="large" style={{ cursor: 'pointer' }}/>
                         
-                        <Box onClick={linkHome} sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px', cursor: 'pointer'}}>
+                        <Box className='web-title' onClick={linkHome} sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px', cursor: 'pointer'}}>
                             共同学习
                         </Box>
                     </Box>

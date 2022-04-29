@@ -106,7 +106,7 @@ const QuestionViewPage = () => {
     }
 
     const linkUserProfile = () => {
-        navigate(`/profile/${question.user.username}`);
+        navigate(`/profile/${question.user.username}/notes`);
     }
 
     const linkReport = () => {
@@ -194,7 +194,6 @@ const QuestionViewPage = () => {
                                             </Box> : ''
                                         }
                                     </Box>
-                                    
 
                                     <Box display='flex' mx={5} mt={3} sx={{fontSize: '40px', fontWeight: 'bold', borderTop: '1px solid black'}}>
                                     </Box>

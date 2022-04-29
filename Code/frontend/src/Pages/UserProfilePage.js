@@ -8,10 +8,14 @@ import Cookies from 'js-cookie'
 import { Navigate } from 'react-router-dom';
 import ProfileDescription from '../Components/ProfileDescription';
 import ProfileAchievement from '../Components/ProfileAchievement';
+import UserProfileTab from '../Components/UserProfileTab';
+import UserProfileNotes from '../Components/UserProfileNotes';
+import UserProfileQuestions from '../Components/UserProfileQuestions';
+import UserProfileCollections from '../Components/UserProfileCollections';
 
 const UserProfilePage = () => {
-    const { username } = useParams();
-    const [user, setUser] = useState([]);
+    const { username, tab } = useParams();
+    const [user, setUser] = useState();
     const [days, setDays] = useState(0);
 
     useEffect(() => {
@@ -49,7 +53,19 @@ const UserProfilePage = () => {
 
                         <Grid item xs={9.5}>
                             <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '100%'}}>
+                                <UserProfileTab />
                                 
+                                { tab === 'notes' ?
+                                    <UserProfileNotes /> : ''
+                                }
+
+                                { tab === 'questions' ?
+                                    <UserProfileQuestions /> : ''
+                                }
+
+                                { tab === 'collections' ?
+                                    <UserProfileCollections /> : ''
+                                }
                             </Box>
                         </Grid>
                     </Grid>

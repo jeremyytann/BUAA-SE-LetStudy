@@ -72,7 +72,7 @@ const NoteViewPage = () => {
     }, [id])
 
     const linkUser = () => {
-        navigate(`/profile/${note.user.username}`);
+        navigate(`/profile/${note.user.username}/notes`);
     }
 
     const linkReport = () => {

@@ -49,6 +49,17 @@ def collectionGet(request, noteId):
     
     return jsons([dict(collection.body())])
 
+def collectionGetAllByUser(request, username, page):
+    try:
+        user = GeneralUser.objects.get(username = username)
+        collections = Collection.objects.filter(collectionUser = user).order_by('-createdDate')
+        pages = int((collections.count() + 11) / 12)
+        collections = collections[((page - 1) * 12) : (page * 12)]
+
+        return jsons([dict(collection.body()) for collection in collections], 0, pages)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403, 0)
+
 def collectionGetCount(request, noteId):
     try:
         note = Note.objects.get(id = noteId)

@@ -56,6 +56,18 @@ def noteGetAllByPage(request, page):
 
     return jsons([dict(note.body()) for note in notes], 0, pages)
 
+def noteGetAllByUser(request, username, page):
+    try:
+        user = GeneralUser.objects.get(username = username)
+
+        notes = Note.objects.filter(user = user).order_by('-createdDate')
+        pages = int((notes.count() + 11) / 12)
+        notes = notes[((page - 1) * 12) : (page * 12)]
+
+        return jsons([dict(note.body()) for note in notes], 0, pages)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403)
+
 def noteGetAllCountByUser(request, username):
     try:
         user = GeneralUser.objects.get(username = username)

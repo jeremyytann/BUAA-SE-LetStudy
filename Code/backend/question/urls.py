@@ -7,6 +7,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.questionDelete),
     path('random/<int:count>/', views.questionGetByRandom),
 
+    path('all/user/<str:username>/page/<int:page>/', views.questionGetAllByUser),
     path('all/page/<int:page>/', views.questionGetAllByPage),
     path('all/page_count/', views.questionGetAllPageCount),
 

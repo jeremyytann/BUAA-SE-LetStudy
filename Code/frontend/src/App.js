@@ -68,7 +68,7 @@ function App() {
                     <Route path='/bug/:id' element={<BugViewPage />} /> 
                     <Route path='/login' element={<UserLoginPage />}/>
                     <Route path='/register' element={<UserRegisterPage />}/>
-                    <Route path='/profile/:username' element={<UserProfilePage />}/>
+                    <Route path='/profile/:username/:tab' element={<UserProfilePage />}/>
                     <Route path='/settings/:tab' element={<UserSettingsPage />}/>
                     <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
                     <Route path='/notes/create' element={<NoteCreatePage />}/>

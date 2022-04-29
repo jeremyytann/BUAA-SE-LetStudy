@@ -56,6 +56,18 @@ def questionGetAllByPage(request, page):
 
     return jsons([dict(question.body()) for question in questions], 0, pages)
 
+def questionGetAllByUser(request, username, page):
+    try:
+        user = GeneralUser.objects.get(username = username)
+
+        questions = Question.objects.filter(user = user).order_by('-createdDate')
+        pages = int((questions.count() + 3) / 4)
+        questions = questions[((page - 1) * 4) : (page * 4)]
+
+        return jsons([dict(question.body()) for question in questions], 0, pages)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 403)
+
 def questionGetAllPageCount(request):
     questions = Question.objects.all()
     pages = (questions.count() + 7) / 8

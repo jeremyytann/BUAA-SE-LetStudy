@@ -159,6 +159,11 @@ class Api {
         return data;
     }
 
+    collectionGetAllByUser = async(username, page) => {
+        let data = await this.get(`/collection/all/user/${username}/page/${page}/`);
+        return data;
+    }
+
     collectionGetCount = async(noteId) => {
         let data = await this.get(`/collection/count/${noteId}/`);
         return data;
@@ -347,6 +352,11 @@ class Api {
         return data;
     }
 
+    noteGetAllByUser = async(username, page) => {
+        let data = await this.get(`/note/all/user/${username}/page/${page}/`);
+        return data;
+    }
+
     noteGetAllPageCount = async() => {
         let data = await this.get('/note/all/page_count/');
         return data;
@@ -443,6 +453,11 @@ class Api {
 
     questionGetAllByPage = async(page) => {
         let data = await this.get(`/question/all/page/${page}/`);
+        return data;
+    }
+
+    questionGetAllByUser = async(username, page) => {
+        let data = await this.get(`/question/all/user/${username}/page/${page}/`);
         return data;
     }
 
