@@ -152,7 +152,7 @@ const ReportCreatePage = () => {
 
                                 <Box display='flex' alignItems='center'>
                                     <Box className='create-report-title'>
-                                        <span>{reportTitle}</span>
+                                        <span className='create-report-title-text'>{reportTitle}</span>
                                     </Box>
                                 </Box>
                             </Box>

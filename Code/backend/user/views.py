@@ -139,7 +139,7 @@ def userGetAllByPage(request, page, count):
     try:
         admin = AdminUser.objects.get(id = request.user.id)
         users = GeneralUser.objects.all().order_by('username')
-        pages = (users.count() + (count - 1)) / count
+        pages = int((users.count() + (count - 1)) / count)
         users = users[((page - 1) * count) : (page * count)]
 
         return jsons([dict(user.body()) for user in users], 0, '', 0, pages)
@@ -155,7 +155,7 @@ def userGetByStatus(request, status, page, count):
     try:
         admin = AdminUser.objects.get(id = request.user.id)
         users = GeneralUser.objects.filter(status = status).order_by('username')
-        pages = (users.count() + (count - 1)) / count
+        pages = int((users.count() + (count - 1)) / count)
         users = users[((page - 1) * count) : (page * count)]
 
         return jsons([dict(user.body()) for user in users], 0, '', 0, pages)

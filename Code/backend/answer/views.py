@@ -51,7 +51,7 @@ def answerGetByPage(request, questionId, page):
         question = Question.objects.get(id = questionId)
         answers = Answer.objects.filter(question = question).order_by('-createdDate')
         total = answers.count()
-        pages = (answers.count() + 4) / 5
+        pages = int((answers.count() + 4) / 5)
         answers = answers[((page - 1) * 5) : (page * 5)]
     except Question.DoesNotExist:
         return jsons([], 404, 0)

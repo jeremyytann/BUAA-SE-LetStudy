@@ -29,10 +29,25 @@ def noticeCreate(request):
         except AdminUser.DoesNotExist:
             return jsons([], 403, 0)
 
+def noticeGet(request, pk):
+    try:
+        notice = Notice.objects.get(id = pk)
+        return jsons([dict(notice.body())], 0, 0)
+    except Notice.DoesNotExist:
+        return jsons([], 404, 0)
+
+def noticeDelete(request, pk):
+    try:
+        notice = Notice.objects.get(id = pk)
+        notice.delete()
+        return jsons([])
+    except Notice.DoesNotExist:
+        return jsons([], 404, 0)
+
 def noticeGetAllByPage(request, page, count):
     notices = Notice.objects.all().order_by('-createdDate')
 
-    pages = (notices.count() + (count-1)) / count
+    pages = int((notices.count() + (count-1)) / count)
     notices = notices[((page - 1) * count) : (page * count)]
 
     return jsons([dict(notice.body()) for notice in notices], 0, pages)
@@ -40,7 +55,7 @@ def noticeGetAllByPage(request, page, count):
 def noticeGetAllPageCount(request, count):
     notices = Notice.objects.all().order_by('-createdDate')
 
-    pages = (notices.count() + (count - 1)) / count
+    pages = int((notices.count() + (count - 1)) / count)
 
     return jsons([], 0, pages)
 
@@ -50,7 +65,7 @@ def noticeGetLatestByPage(request, page, count):
     end = timezone.now()
     notices = notices.filter(createdDate__gte=start, createdDate__lte=end)
 
-    pages = (notices.count() + (count - 1)) / count
+    pages = int((notices.count() + (count - 1)) / count)
     notices = notices[((page - 1) * count) : (page * count)]
 
     return jsons([dict(notice.body()) for notice in notices], 0, pages)
@@ -61,6 +76,6 @@ def noticeGetLatestPageCount(request, count):
     end = timezone.now()
     notices = notices.filter(createdDate__gte=start, createdDate__lte=end)
 
-    pages = (notices.count() + (count - 1)) / count
+    pages = int((notices.count() + (count - 1)) / count)
 
     return jsons([], 0, pages)

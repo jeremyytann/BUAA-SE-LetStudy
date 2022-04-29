@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useState, useEffect } from 'react'
-import { Box, Grid, Button, Pagination } from '@mui/material'
+import { Box, Grid, Button, Pagination, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useParams, useNavigate } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
@@ -11,6 +11,7 @@ import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import QuestionAnswer from '../Components/QuestionAnswer'
 import QuestionsCategory from '../Components/QuestionsCategory'
+import Cookies from 'js-cookie'
 
 const QuestionViewPage = () => {
     const { id } = useParams();
@@ -23,6 +24,8 @@ const QuestionViewPage = () => {
     const [maxPage, setMaxPage] = useState(0)
     const [status, setStatus] = useState(false)
     const navigate = useNavigate();
+    const [dialog, setDialog] = useState(false)
+    let username = Cookies.get('username');
 
     const theme = createTheme ({
         typography: {
@@ -97,6 +100,14 @@ const QuestionViewPage = () => {
         getAllAnswerByPage();
     }, [id, page, status])
 
+    const toggleDialog = () => {
+        setDialog(!dialog);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
     const linkQuestionCreate = () => {
         navigate('/questions/create');
     }
@@ -111,6 +122,14 @@ const QuestionViewPage = () => {
 
     const linkReport = () => {
         navigate(`/report/create/question/${id}`);
+    }
+
+    const questionDelete = async() => {
+        const data = await api.questionDelete(id);
+
+        if (data.errorCode === 0) {
+            navigate('/questions/all/1');
+        }
     }
 
     return (
@@ -129,11 +148,18 @@ const QuestionViewPage = () => {
                                         </Box>
 
                                         <Box ml={2} paddingTop={3.5}>
-                                            <ThemeProvider theme={theme}>
-                                                <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
-                                                    <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                                                </Button>
-                                            </ThemeProvider>
+                                            { username === question.user.username ? 
+                                                <ThemeProvider theme={theme}>
+                                                    <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
+                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
+                                                    </Button>
+                                                </ThemeProvider> :
+                                                <ThemeProvider theme={theme}>
+                                                    <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                    </Button>
+                                                </ThemeProvider>
+                                            }
                                         </Box>
                                     </Box>
 
@@ -261,6 +287,28 @@ const QuestionViewPage = () => {
                     </Grid>
                 </Box> : ''
             }
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"删除问题注意事项"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        你是否确定要删除此问题？
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>不了</Button>
+                    <Button onClick={questionDelete} autoFocus>
+                        确定
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

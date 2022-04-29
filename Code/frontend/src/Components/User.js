@@ -54,7 +54,7 @@ const User = ({ user }) => {
     }, [user])
 
     const linkProfile = () => {
-        navigate(`/profile/${user.username}`)
+        navigate(`/profile/${user.username}/notes`)
     }
 
     return (

@@ -50,7 +50,7 @@ def questionDelete(request, pk):
 def questionGetAllByPage(request, page):
     questions = Question.objects.all()
     questionsList = list(questions)
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     randoms = random.sample(questionsList, questions.count())
     questions = randoms[((page - 1) * 8) : (page * 8)]
 
@@ -70,30 +70,30 @@ def questionGetAllByUser(request, username, page):
 
 def questionGetAllPageCount(request):
     questions = Question.objects.all()
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     return jsons([], 0, pages)
 
 def questionGetPopularByPage(request, page):
     questions = Question.objects.annotate(num_answers = Count('answered_question')).order_by('-num_answers')
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     questions = questions[((page - 1) * 8) : (page * 8)]
     return jsons([dict(question.body()) for question in questions], 0, pages)
 
 def questionGetPopularPageCount(request):
     questions = Question.objects.annotate(num_answers = Count('answered_question')).order_by('-num_answers')
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     return jsons([], 0, pages)
 
 def questionGetLatestByPage(request, page):
     questions = Question.objects.all().order_by('-createdDate')
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     questions = questions[((page - 1) * 8) : (page * 8)]
 
     return jsons([dict(question.body()) for question in questions], 0, pages)
 
 def questionGetLatestPageCount(request):
     questions = Question.objects.all().order_by('-createdDate')[:80]
-    pages = (questions.count() + 7) / 8
+    pages = int((questions.count() + 7) / 8)
     return jsons([], 0, pages)
 
 def questionGetByRandom(request, count):

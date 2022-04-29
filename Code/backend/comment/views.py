@@ -48,7 +48,7 @@ def commentDelete(request, pk):
 def commentGetByPage(request, noteId, page):
     note = Note.objects.get(id = noteId)
     comments = Comment.objects.filter(note = note).order_by('-createdDate')
-    pages = (comments.count() + 4) / 5
+    pages = int((comments.count() + 4) / 5)
     comments = comments[((page - 1) * 5) : (page * 5)]
 
     return jsons([dict(comment.body()) for comment in comments], 0, pages)

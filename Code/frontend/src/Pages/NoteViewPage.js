@@ -1,4 +1,4 @@
-import { Box, Grid, Button } from '@mui/material'
+import { Box, Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useState, useEffect } from 'react'
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -8,12 +8,15 @@ import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './GeneralUser.css'
 import NoteFavLike from '../Components/NoteFavLike'
+import Cookies from 'js-cookie'
 
 const NoteViewPage = () => {
     const { id } = useParams();
     const [note, setNote] = useState()
     const [image, setImage] = useState([])
     const navigate = useNavigate();
+    const [dialog, setDialog] = useState(false)
+    let username = Cookies.get('username')
 
     const theme = createTheme ({
         typography: {
@@ -71,12 +74,28 @@ const NoteViewPage = () => {
         getNoteImage();
     }, [id])
 
+    const toggleDialog = () => {
+        setDialog(!dialog);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
     const linkUser = () => {
         navigate(`/profile/${note.user.username}/notes`);
     }
 
     const linkReport = () => {
         navigate(`/report/create/note/${id}`);
+    }
+
+    const noteDelete = async() => {
+        const data = await api.noteDelete(id);
+
+        if (data.errorCode === 0) {
+            navigate('/notes/all/1');
+        }
     }
 
     return (
@@ -122,11 +141,18 @@ const NoteViewPage = () => {
                                             </Box>
 
                                             <Box ml={4}>
-                                                <ThemeProvider theme={theme}>
-                                                    <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
-                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                                                    </Button>
-                                                </ThemeProvider>
+                                                { username === note.user.username ? 
+                                                    <ThemeProvider theme={theme}>
+                                                        <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
+                                                            <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
+                                                        </Button>
+                                                    </ThemeProvider> :
+                                                    <ThemeProvider theme={theme}>
+                                                        <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                            <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                        </Button>
+                                                    </ThemeProvider>
+                                                }
                                             </Box>
                                         </Box>
 
@@ -147,6 +173,28 @@ const NoteViewPage = () => {
                     </Grid>
                 </Box> : ''
             }
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"删除笔记注意事项"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        你是否确定要删除此笔记？
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>不了</Button>
+                    <Button onClick={noteDelete} autoFocus>
+                        确定
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

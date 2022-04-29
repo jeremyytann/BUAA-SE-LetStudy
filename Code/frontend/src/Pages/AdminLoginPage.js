@@ -8,6 +8,7 @@ import Navbar from '../Components/Navbar';
 import { Alert, Box } from '@mui/material';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
+import AdminNavbar from '../Components/AdminNavbar';
 
 const AdminLoginPage = () => {
     // navigate user to login if not logged in yet
@@ -51,7 +52,7 @@ const AdminLoginPage = () => {
 
     return (
         <Box height='100%'>
-            <Navbar />
+            <AdminNavbar />
             
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 14}}>
                 <Box sx={{backgroundColor: 'white', width: '40%', minWidth: '400px', borderRadius: '30px', height: '650px'}}>
@@ -119,18 +120,10 @@ const AdminLoginPage = () => {
                                 <Box sx={{mt: 10}}>
                                     <button onSubmit={Login} type='submit' className='admin-login-button'>登录</button>
                                 </Box>
-
-                                <Box sx={{mt: 3}}>
-                                    <small onClick={linkRegister} className='admin-register-link'>没有账户？点此注册</small>
-                                </Box>
                             </Box> :
                             <Box>
                                 <Box sx={{mt: 15}}>
                                     <button onSubmit={Login} type='submit' className='admin-login-button'>登录</button>
-                                </Box>
-
-                                <Box sx={{mt: 3}}>
-                                    <small onClick={linkRegister} className='admin-register-link'>没有账户？点此注册</small>
                                 </Box>
                             </Box> 
                         }

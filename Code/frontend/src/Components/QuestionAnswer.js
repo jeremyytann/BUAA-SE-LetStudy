@@ -1,13 +1,44 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { useState } from 'react'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import '../Pages/GeneralUser.css'
 import ReportGmailerrorredRoundedIcon from '@mui/icons-material/ReportGmailerrorredRounded';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const QuestionAnswer = ({ answer }) => {
     let date = answer.created_date.split('T')
     let time = date[1].split('.')
+    const [dialog, setDialog] = useState(false)
     const navigate = useNavigate();
+
+    const theme = createTheme ({
+        typography: {
+            button: {
+                textTransform: 'none',
+            }
+        },
+
+        palette: {
+            gold: {
+                main: '#E0A96D',
+                contrastText: '#fff',
+            },
+            black: {
+                main: '#000000',
+                contrastText: '#fff',
+            }
+        }
+    });
+
+    const toggleDialog = () => {
+        setDialog(!dialog);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
+    }
 
     const linkReport = () => {
         navigate(`/report/create/answer/${answer.id}`);
@@ -32,10 +63,41 @@ const QuestionAnswer = ({ answer }) => {
                     <ReportGmailerrorredRoundedIcon color='error' />
                 </Box>
             </Box>
-            
-            <Box mx={1} mt={1} height={25}  className='answer-description-text' display='flex' textAlign='left'>
-                { answer.description }
+
+            <Box display='flex'>
+                <Box mx={1} mt={1} height={25} width={1150} className='answer-description-text' display='flex' textAlign='left'>
+                    { answer.description }
+                </Box>
+
+                { answer.description.length > 70 ? 
+                    <Box mt={1.2} ml={0.8}>
+                        <ThemeProvider theme={theme}>
+                            <MoreHorizIcon onClick={toggleDialog} color='gold' sx={{cursor: 'pointer'}} />
+                        </ThemeProvider>
+                    </Box> : ''
+                }
             </Box>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title" fontWeight='bold'>
+                    { answer.user.username } 的回答
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        { answer.description }
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog} autoFocus>
+                        关闭
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

@@ -2,13 +2,19 @@ import React from 'react'
 import { Box } from '@mui/material'
 import '../Pages/AdminUser.css'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
+import { useNavigate } from 'react-router-dom'
 
 const Notice = ({ notice }) => {
     let date = notice.created_date.split('T')
     let time = date[1].split('.')
+    const navigate = useNavigate();
+
+    const linkNotice = () => {
+        navigate(`/admin/notice/${notice.id}`);
+    }
 
     return (
-        <Box className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} sx={{cursor: 'pointer'}}>
+        <Box onClick={linkNotice} className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} sx={{cursor: 'pointer'}}>
             <Box mt={2.5} mx={3} display='flex'>
                 <Box display='flex' width={680}>
                     <Box className='question-view-title' maxWidth={650} fontWeight='bold' fontSize={18}>

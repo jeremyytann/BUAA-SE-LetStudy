@@ -207,7 +207,7 @@ const AdminReportViewPage = () => {
                         {
                             report !== undefined ? report.status !== 1 ?
                             <Box onClick={linkPath} className='report-view-title'>
-                                <Box borderBottom={1} sx={{cursor: 'pointer'}}>
+                                <Box className='report-view-title-text' borderBottom={1} sx={{cursor: 'pointer'}}>
                                     {report !== undefined ? report.title : ''}
                                 </Box>
                             </Box> :

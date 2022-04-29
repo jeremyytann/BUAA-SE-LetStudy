@@ -90,7 +90,7 @@ def reportGetAllByUser(request, page):
     try:
         user = GeneralUser.objects.get(id = request.user.id)
         reports = Report.objects.filter(user = user).order_by('-createdDate')
-        pages = (reports.count() + 3) / 4
+        pages = int((reports.count() + 3) / 4)
         reports = reports[((page - 1) * 4) : (page * 4)]
         return jsons([dict(report.body()) for report in reports], 0, pages)
     except GeneralUser.DoesNotExist:
@@ -98,26 +98,26 @@ def reportGetAllByUser(request, page):
 
 def reportGetAllByPage(request, page, count):
     reports = Report.objects.all().order_by('-createdDate')
-    pages = (reports.count() + (count - 1)) / count
+    pages = int((reports.count() + (count - 1)) / count)
     reports = reports[((page - 1) * count) : (page * count)]
 
     return jsons([dict(report.body()) for report in reports], 0, pages)
 
 def reportGetAllPageCount(request, count):
     reports = Report.objects.all().order_by('-createdDate')
-    pages = (reports.count() + (count - 1)) / count
+    pages = int((reports.count() + (count - 1)) / count)
 
     return jsons([], 0, pages)
 
 def reportGetByStatusAndPage(request, status, page, count):
     reports = Report.objects.filter(status = status).order_by('-createdDate')
-    pages = (reports.count() + (count - 1)) / count
+    pages = int((reports.count() + (count - 1)) / count)
     reports = reports[((page - 1) * count) : (page * count)]
 
     return jsons([dict(report.body()) for report in reports], 0, pages)
 
 def reportGetStatusPageCount(request, status, count):
     reports = Report.objects.filter(status = status)
-    pages = (reports.count() + (count - 1)) / count
+    pages = int((reports.count() + (count - 1)) / count)
 
     return jsons([], 0, pages)

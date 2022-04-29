@@ -50,7 +50,7 @@ def noteDelete(request, pk):
 def noteGetAllByPage(request, page):
     notes = Note.objects.all()
     notesList = list(notes)
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     randoms = random.sample(notesList, notes.count())
     notes = randoms[((page - 1) * 16) : (page * 16)]
 
@@ -79,28 +79,28 @@ def noteGetAllCountByUser(request, username):
 
 def noteGetPopularByPage(request, page):
     notes = Note.objects.annotate(num_likes = Count('liked_note')).order_by('-num_likes')
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     notes = notes[((page - 1) * 16) : (page * 16)]
     return jsons([dict(note.body()) for note in notes], 0, pages)
 
 def noteGetLatestByPage(request, page):
     notes = Note.objects.all().order_by('-createdDate')
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     notes = notes[((page - 1) * 16) : (page * 16)]
 
     return jsons([dict(note.body()) for note in notes], 0, pages)
 
 def noteGetAllPageCount(request):
     notes = Note.objects.all()
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     return jsons([], 0, pages)
 
 def noteGetPopularPageCount(request):
     notes = Note.objects.annotate(num_likes = Count('liked_note')).order_by('-num_likes')
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     return jsons([], 0, pages)
 
 def noteGetLatestPageCount(request):
     notes = Note.objects.all().order_by('-createdDate')
-    pages = (notes.count() + 15) / 16
+    pages = int((notes.count() + 15) / 16)
     return jsons([], 0, pages)

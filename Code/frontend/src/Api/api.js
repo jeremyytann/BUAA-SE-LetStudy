@@ -148,6 +148,12 @@ class Api {
         return data;
     }
 
+    /* ———————————————————— Category API ———————————————————— */
+    categoryGetAll = async() => {
+        let data = await this.get('/category/');
+        return data;
+    }
+
     /* ———————————————————— Collection API ———————————————————— */
     collectionCreate = async(noteId, noteUserId) => {
         let data = await this.post('/collection/create/', {noteId, noteUserId});
@@ -403,15 +409,19 @@ class Api {
         return data;
     }
 
-    /* ———————————————————— NoteImage API ———————————————————— */
-    categoryGetAll = async() => {
-        let data = await this.get('/category/');
-        return data;
-    }
-
     /* ———————————————————— Notice API ———————————————————— */
     noticeCreate = async(title, description) => {
         let data = await this.post('/notice/create/', {title, description})
+        return data;
+    }
+
+    noticeGet = async(id) => {
+        let data = await this.get(`/notice/${id}/`);
+        return data;
+    }
+
+    noticeDelete = async(id) => {
+        let data = await this.delete(`/notice/${id}/delete/`);
         return data;
     }
     

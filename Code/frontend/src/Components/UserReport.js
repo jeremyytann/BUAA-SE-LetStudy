@@ -47,7 +47,7 @@ const UserReport = ({ report }) => {
 
     return (
         <Box className='report-view-background' onClick={linkReport} borderRadius={5} mb={3} height={130} maxHeight={130} width={1150} maxWidth={1150} border={1}>
-            <Box display='flex' textAlign='left' fontWeight='bold' fontSize={16} mt={2.5} ml={2.5}>
+            <Box className='report-view-title-text' width={1100} textAlign='left' fontWeight='bold' fontSize={16} mt={2.5} ml={2.5}>
                 {title}
             </Box>
 

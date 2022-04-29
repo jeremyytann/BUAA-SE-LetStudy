@@ -79,6 +79,10 @@ const Navbar = () => {
         }
     }
 
+    const linkLogin = () => {
+        navigate('/login');
+    }
+
     if (user === undefined) {
         return (
             <Box sx={{alignItems: 'center', margin: '10px 0px 0px 0px'}}>
@@ -89,9 +93,9 @@ const Navbar = () => {
     
                     <Grid item xs={4}>
                         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                            <MenuBookRoundedIcon color="action" fontSize="large"/>
+                            <MenuBookRoundedIcon onClick={linkLogin} color="action" fontSize="large" style={{ cursor: 'pointer' }}/>
                             
-                            <Box className='web-title' sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px'}}>
+                            <Box className='web-title' onClick={linkLogin} sx={{fontSize: 24, fontWeight: 'bold', color: 'text.secondary', margin: '0px 0px 0px 7px', cursor: 'pointer'}}>
                                 共同学习
                             </Box>
                         </Box>

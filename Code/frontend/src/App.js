@@ -29,6 +29,7 @@ import ReportViewPage from './Pages/ReportViewPage';
 import AdminReportViewPage from './Pages/AdminReportViewPage';
 import AdminBugViewPage from './Pages/AdminBugViewPage';
 import BugViewPage from './Pages/BugViewPage';
+import AdminNoticeViewPage from './Pages/AdminNoticeViewPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -54,6 +55,7 @@ function App() {
                 <Routes>
                     <Route path='/admin' element={<AdminLandPage />}/>
                     <Route path='/admin/login' element={<AdminLoginPage />}/>
+                    <Route path='/admin/notice/:id' element={<AdminNoticeViewPage />}/>
                     <Route path='/admin/notices/create' element={<NoticeCreatePage />}/>
                     <Route path='/admin/notices/:tab/:page' element={<AdminNoticePage />}/>
                     <Route path='/admin/reports/:tab/:page' element={<AdminReportPage />}/>
