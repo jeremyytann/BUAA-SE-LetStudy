@@ -445,6 +445,12 @@ class Api {
         return data;
     }
 
+    /* ———————————————————— Participant API ———————————————————— */
+    participantCountByRoom = async(roomId) => {
+        let data = await this.get(`/participant/room/${roomId}/`);
+        return data;
+    }
+
     /* ———————————————————— Question API ———————————————————— */
     questionCreate = async(title, description, category) => {
         let data = await this.post('/question/create/', {title, description, category})
@@ -539,6 +545,42 @@ class Api {
 
     reportGetStatusPageCount = async(status, count) => {
         let data = await this.get(`/report/status/${status}/page_count/count/${count}/`);
+        return data;
+    }
+
+    /* ———————————————————— Room API ———————————————————— */
+    roomCreate = async(name, type, lock, password) => {
+        let data = await this.post('/room/create/', {name, type, lock, password});
+        return data;
+    }
+
+    roomGet = async(id) => {
+        let data = await this.get(`/room/${id}/`);
+        return data;
+    }
+
+    roomJoin = async(id, lock, password) => {
+        let data = await this.post(`/room/${id}/join/`, {lock, password});
+        return data;
+    }
+
+    roomQuit = async(id, type) => {
+        let data = await this.post(`/room/${id}/quit/`, {type});
+        return data;
+    }
+
+    roomGetPublic = async() => {
+        let data = await this.get('/room/public/');
+        return data;
+    }
+
+    roomGetPrivateByPage = async(page) => {
+        let data = await this.get(`/room/private/${page}/`);
+        return data;
+    }
+
+    roomGetPrivatePageCount = async() => {
+        let data = await this.get('/room/private/page_count');
         return data;
     }
 }

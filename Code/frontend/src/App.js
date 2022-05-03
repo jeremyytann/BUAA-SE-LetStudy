@@ -30,6 +30,8 @@ import AdminReportViewPage from './Pages/AdminReportViewPage';
 import AdminBugViewPage from './Pages/AdminBugViewPage';
 import BugViewPage from './Pages/BugViewPage';
 import AdminNoticeViewPage from './Pages/AdminNoticeViewPage';
+import RoomCreatePage from './Pages/RoomCreatePage';
+import RoomViewPage from './Pages/RoomViewPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -72,7 +74,9 @@ function App() {
                     <Route path='/register' element={<UserRegisterPage />}/>
                     <Route path='/profile/:username/:tab' element={<UserProfilePage />}/>
                     <Route path='/settings/:tab' element={<UserSettingsPage />}/>
+                    <Route path='/rooms/create' element={<RoomCreatePage />}/>
                     <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
+                    <Route path='/room/:id' element={<RoomViewPage />}/>
                     <Route path='/notes/create' element={<NoteCreatePage />}/>
                     <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
                     <Route path='/note/:id' element={<NoteViewPage />}/>

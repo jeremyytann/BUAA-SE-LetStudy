@@ -70,7 +70,7 @@ const NoteViewPage = () => {
             }
         }
 
-        getNote();
+        getNote()
         getNoteImage();
     }, [id])
 

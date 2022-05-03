@@ -33,8 +33,10 @@ urlpatterns = [
     path('note/', include('note.urls')),
     path('note_image/', include('note_image.urls')),
     path('notice/', include('notice.urls')),
+    path('participant/', include('participant.urls')),
     path('question/', include('question.urls')),
     path('report/', include('report.urls')),
+    path('room/', include('room.urls')),
     path('user/', include('user.urls'))
 ]
 

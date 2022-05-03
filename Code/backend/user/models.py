@@ -17,3 +17,6 @@ class GeneralUser(User):
             'created_date': self.joinDate,
             'status': self.status
         }
+
+    def getUsername(self):
+        return self.username

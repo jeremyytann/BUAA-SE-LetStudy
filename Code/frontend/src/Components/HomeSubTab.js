@@ -19,6 +19,10 @@ const HomeSubTab = ({ url }) => {
             gold: {
                 main: '#E0A96D',
                 contrastText: '#fff',
+            },
+            black: {
+                main: '#000000',
+                contrastText: '#fff',
             }
         }
     });
@@ -33,6 +37,10 @@ const HomeSubTab = ({ url }) => {
 
     const linkCreateQuestion = () => {
         navigate('/questions/create');
+    }
+
+    const linkPrivateRooms = () => {
+        navigate('/rooms/private/1');
     }
 
     return (
@@ -61,6 +69,17 @@ const HomeSubTab = ({ url }) => {
                                 </Box>
                             </Box> : ''
                         }
+                    </Box> : ''
+                }
+
+                { url === 'roomsCreate' ?
+                    <Box display='flex'>
+                        <Box onClick={() => navigate('/rooms/public/1')} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                            公共房间
+                        </Box>
+                        <Box onClick={() => navigate('/rooms/private/1')} color='#E0A96D' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                            私人房间
+                        </Box>
                     </Box> : ''
                 }
 
@@ -172,6 +191,16 @@ const HomeSubTab = ({ url }) => {
                             </Button>
                         </ThemeProvider> : ''
                     }
+                </Box> : ''
+            }
+
+            { url === 'roomsCreate' ? 
+                <Box width='8%'>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={linkPrivateRooms} variant="contained" size="small" color="black" style={{ borderRadius: 13, width: 140 }}> 
+                            <Box sx={{fontSize: 18, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>返回</Box>
+                        </Button>
+                    </ThemeProvider>
                 </Box> : ''
             }
 

@@ -5,8 +5,9 @@ import { Navigate } from 'react-router-dom';
 import HomeTab from '../Components/HomeTab';
 import HomeSubTab from '../Components/HomeSubTab';
 import UserRoomBody from '../Components/UserRoomBody';
+import HomeFlipPage from '../Components/HomeFlipPage';
 
-const UserRoomPage = () => {
+const UserRoomPage = ({ type }) => {
     let user = Cookies.get('username');
 
     if (user === undefined) {
@@ -19,6 +20,7 @@ const UserRoomPage = () => {
             <HomeTab url={'rooms'}/>
             <HomeSubTab url={'rooms'}/>
             <UserRoomBody />
+            <HomeFlipPage url={'rooms'}/>
         </div>
     )
 }

@@ -60,6 +60,11 @@ const HomeFlipPage = ({ url }) => {
             return data;
         }
 
+        const fetchPrivateRoomsPageCount = async() => {
+            const data = await api.roomGetPrivatePageCount();
+            setMaxPage(data.page);
+        }
+
         const getNoteAllPageCount = async() => {
             const data = await fetchNoteAllPageCount();
             setMaxPage(data.page);
@@ -92,6 +97,10 @@ const HomeFlipPage = ({ url }) => {
             fetchQuestionPopularPageCount()
         } else if (url === 'questions' && tab === 'latest') {
             getQuestionLatestPageCount()
+        } else if (url === 'rooms' && tab === 'public') {
+            setMaxPage(1)
+        } else if (url === 'rooms' && tab === 'private') {
+            fetchPrivateRoomsPageCount();
         }
     }, [tab, page, url])
     

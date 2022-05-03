@@ -429,3 +429,15 @@ input[type='file'] {
     color: black;
     border: 0px;
 }
+
+.create-room-name {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 800px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding-right: 25px;
+    text-indent: 25px;
+    color: black;
+    border: 0px;
+}
