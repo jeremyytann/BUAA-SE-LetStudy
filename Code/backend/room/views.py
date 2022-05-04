@@ -118,11 +118,11 @@ def roomQuit(request, pk):
     data = json.loads(request.body)
 
     if data['type'] == 0:
-        participant = Participant.objects.get(user = user, room = room)
+        participant = Participant.objects.filter(user = user, room = room)
         participant.delete()
         return jsons()
     elif data['type'] == 1:
-        participant = Participant.objects.get(user = user, room = room)
+        participant = Participant.objects.filter(user = user, room = room)
         participant.delete()
 
         participants = Participant.objects.filter(room = room).count()

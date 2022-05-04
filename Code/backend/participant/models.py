@@ -12,6 +12,5 @@ class Participant(models.Model):
 
     def body(self):
         return {
-            'user': self.user.body(),
-            'room': self.room.body()
+            'user': self.user.body()
         }

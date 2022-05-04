@@ -20,3 +20,12 @@ def getRoomParticipantCount(request, pk):
     
     count = Participant.objects.filter(room = room).count()
     return jsons([], 0, count)
+
+def getRoomParticipant(request, pk):
+    try:
+        room = Room.objects.get(id = pk)
+    except Room.DoesNotExist:
+        return jsons([], 403)
+
+    participants = Participant.objects.filter(room = room)
+    return jsons([dict(participant.body()) for participant in participants], 0)

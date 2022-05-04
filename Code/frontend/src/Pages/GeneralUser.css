@@ -441,3 +441,15 @@ input[type='file'] {
     color: black;
     border: 0px;
 }
+
+.create-room-message {
+    width: 1100px;
+    height: 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-indent: 15px each-line;
+    padding: 15px;
+    color: black;
+    border: 0px;
+    resize: none;
+}

@@ -154,6 +154,17 @@ class Api {
         return data;
     }
 
+    /* ———————————————————— Chat API ———————————————————— */
+    chatCreate = async(roomId, content) => {
+        let data = await this.post(`/chat/create/`, {roomId, content});
+        return data;
+    }
+
+    chatGetByRoom = async(roomId) => {
+        let data = await this.get(`/chat/room/${roomId}/`);
+        return data;
+    }
+
     /* ———————————————————— Collection API ———————————————————— */
     collectionCreate = async(noteId, noteUserId) => {
         let data = await this.post('/collection/create/', {noteId, noteUserId});
@@ -447,8 +458,13 @@ class Api {
 
     /* ———————————————————— Participant API ———————————————————— */
     participantCountByRoom = async(roomId) => {
-        let data = await this.get(`/participant/room/${roomId}/`);
+        let data = await this.get(`/participant/room/${roomId}/count/`);
         return data;
+    }
+
+    participantByRoom = async(roomId) => {
+        let data = await this.get(`/participant/room/${roomId}/`);
+        return data;  
     }
 
     /* ———————————————————— Question API ———————————————————— */

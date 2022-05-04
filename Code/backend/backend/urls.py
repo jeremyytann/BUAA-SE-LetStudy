@@ -26,6 +26,7 @@ urlpatterns = [
     path('answer/', include('answer.urls')),
     path('bug/', include('bug.urls')),
     path('category/', include('category.urls')),
+    path('chat/', include('chat.urls')),
     path('collection/', include('collection.urls')),
     path('comment/', include('comment.urls')),
     path('followship/', include('followship.urls')),

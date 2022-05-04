@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'answer',
     'bug',
     'category',
+    'chat',
     'collection',
     'comment',
     'followship',
