@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Navbar from '../Components/Navbar'
-import { Box, Button, Grid, Dialog, DialogTitle, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
+import { Box, Button, Grid, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
 import PageTitle from '../Components/PageTitle'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './GeneralUser.css'
@@ -16,6 +16,7 @@ const NoteCreatePage = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [dialog, setDialog] = useState(false);
+    const [dialog2, setDialog2] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
@@ -48,6 +49,10 @@ const NoteCreatePage = () => {
         setDialog(false);
     }
 
+    const closeDialog2 = () => {
+        setDialog2(false);
+    }
+
     const handleSelectCategory = (value) => {
         setDialog(false);
         setSelectedCategory(value);
@@ -57,11 +62,14 @@ const NoteCreatePage = () => {
         e.preventDefault();
 
         if (image.length === 0) {
-            setError('请上传照片');
+            setError('照片不能为空哦');
+            setDialog2(true)
         } else if (title === '') {
-            setError('请输入笔记主题');
+            setError('笔记主题不能为空哦');
+            setDialog2(true)
         } else if (description === '') {
-            setError('请输入笔记内容');
+            setError('笔记内容不能为空哦');
+            setDialog2(true)
         } else {
             const form = new FormData();
             form.append('image', image);
@@ -208,6 +216,25 @@ const NoteCreatePage = () => {
                                             </ListItem>
                                         ))}
                                     </List>
+                                </Dialog>
+
+                                <Dialog
+                                    fullWidth={true}
+                                    open={dialog2}
+                                    maxWidth='sm'
+                                    onClose={closeDialog2}>
+                                    <DialogTitle id="alert-dialog-title">
+                                        {"数据错误"}
+                                    </DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                            {error}
+                                        </DialogContentText>
+                                    </DialogContent>
+
+                                    <DialogActions>
+                                        <Button onClick={closeDialog2}>知道了</Button>
+                                    </DialogActions>
                                 </Dialog>
                             </Box>
                         </Grid>

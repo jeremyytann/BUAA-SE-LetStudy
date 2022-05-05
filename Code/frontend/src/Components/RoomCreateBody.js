@@ -1,4 +1,4 @@
-import { Box, Checkbox, Button } from '@mui/material'
+import { Box, Checkbox, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -7,7 +7,9 @@ import api from '../Api/api'
 
 const RoomCreateBody = () => {
     const [name, setName] = useState('')
+    const [dialog, setDialog] = useState(false);
     const [lock, setLock] = useState(false);
+    const [error, setError] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -30,16 +32,40 @@ const RoomCreateBody = () => {
         }
     });
 
+    const toggleDialog = () => {
+        setDialog(!dialog);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
     const handleLockChange = (event) => {
         setLock(event.target.checked)
     }
 
     const createRoom = async() => {
-        const data = await api.roomCreate(name, '1', lock, password);
+        if (name.length === 0) {
+            setError('房间名称不能为空')
+            
+            if (dialog === false) {
+                setDialog(true);
+            }
+        } else if (lock && password.length === 0) {
+            setError('房间密码不能为空')
+            
+            if (dialog === false) {
+                setDialog(true);
+            }
+        } else {
+            const data = await api.roomCreate(name, '1', lock, password);
 
-        if (data.errorCode === 0) {
-            navigate(`/room/${data.data[0].id}`)
+            if (data.errorCode === 0) {
+                navigate(`/room/${data.data[0].id}`)
+            }
         }
+
+        
     }
 
     const linkPrivateRoom = () => {
@@ -130,6 +156,25 @@ const RoomCreateBody = () => {
                     </Box>
                 </Box>
             </form>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

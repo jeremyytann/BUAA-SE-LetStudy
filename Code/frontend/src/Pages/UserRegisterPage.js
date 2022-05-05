@@ -43,7 +43,7 @@ const UserRegisterPage = () => {
             } else {
                 Cookies.set('user_id', data.data[0].id);
                 Cookies.set('username', data.data[0].username);
-                navigate('/rooms/all/1')
+                navigate('/rooms/public/1')
             }
         }
     }

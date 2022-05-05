@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
-import { Box, Button, Pagination } from '@mui/material'
+import { Box, Button, Pagination, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
 import NoteComment from './NoteComment';
 
 const NoteComments = () => {
@@ -11,6 +11,7 @@ const NoteComments = () => {
     const [comments, setComments] = useState()
     const [comment, setComment] = useState('')
     const [error, setError] = useState('')
+    const [dialog, setDialog] = useState('');
     const [page, setPage] = useState(1)
     const [maxPage, setMaxPage] = useState(0)
     const [status, setStatus] = useState(false)
@@ -63,7 +64,8 @@ const NoteComments = () => {
         e.preventDefault();
 
         if (comment.length === 0) {
-            setError('请输入内容');
+            setError('留言内容不能为空哦');
+            setDialog(true);
         } else {
             const tempComment = await api.commentCreate(comment, id);
             
@@ -76,11 +78,15 @@ const NoteComments = () => {
     }
     
     const clearComment = () => {
-        setComment('')
+        setComment('');
     }
 
     const handlePageChange = (event, value) => {
-        setPage(value)
+        setPage(value);
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
     }
 
     return (
@@ -151,6 +157,25 @@ const NoteComments = () => {
                     </Box>
                 </Box>
             </form>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

@@ -109,10 +109,7 @@ def noteGetLatestPageCount(request):
 def noteSearchByPage(request, search, page):
     try:
         count = 16
-        notes1 = Note.objects.filter(title__contains = search)
-        notes2 = Note.objects.filter(description__contains = search)
-        notes = list(chain(notes1, notes2))
-
+        notes = Note.objects.filter(title__contains = search)
         notes = notes[((page - 1) * count) : (page * count)]
     except Note.DoesNotExist:
         return jsons([], 404)

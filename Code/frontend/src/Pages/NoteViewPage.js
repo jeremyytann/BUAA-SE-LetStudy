@@ -128,7 +128,7 @@ const NoteViewPage = () => {
                                             </Box>
 
                                             <Box mt={2} fontSize={16} mx={8}>
-                                                于 {note.created_date} 分享
+                                                于 {note.created_date.split('T')[0]} 分享
                                             </Box>
                                         </Box>
 

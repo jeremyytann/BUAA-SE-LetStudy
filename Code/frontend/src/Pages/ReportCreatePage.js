@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Navbar from '../Components/Navbar'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PageTitle from '../Components/PageTitle'
 import { useParams, useNavigate } from 'react-router-dom';
@@ -12,7 +12,8 @@ const ReportCreatePage = () => {
     const [reportCategory, setReportCategory] = useState('');
     const [reportTitle, setReportTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const [dialog, setDialog] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -78,11 +79,16 @@ const ReportCreatePage = () => {
         }
     });
 
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
     const createReport = async(e) => {
         e.preventDefault();
 
         if (description === '') {
-            setError('请输入举报内容');
+            setError('举报内容不能为空哦');
+            setDialog(true);
         } else {
             if (type === 'note') {
                 const report = await api.reportCreate(1, id, description, reportTitle);
@@ -101,7 +107,7 @@ const ReportCreatePage = () => {
             } else if (type === 'user') {
                 const report = await api.reportCreate(5, id, description, reportTitle);
                 let username = report.data[0].profile.username;
-                navigate(`/profile/${username}`);
+                navigate(`/profile/${username}/notes`);
             }
         }
     }
@@ -171,7 +177,7 @@ const ReportCreatePage = () => {
                                             value={description}
                                             onChange={event => setDescription(event.target.value)}
                                             type='text'
-                                            placeholder='输入问题内容'
+                                            placeholder='输入举报内容'
                                             maxLength='128' required/>
                                     </Box>
                                 </Box>
@@ -198,6 +204,25 @@ const ReportCreatePage = () => {
                     </Box>
                 </Box>
             </form>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

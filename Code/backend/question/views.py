@@ -108,10 +108,7 @@ def questionGetByRandom(request, count):
 def questionSearchByPage(request, search, page):
     try:
         count = 8
-        questions1 = Question.objects.filter(title__contains = search)
-        questions2 = Question.objects.filter(description__contains = search)
-        questions = list(chain(questions1, questions2))
-
+        questions = Question.objects.filter(title__contains = search)
         questions = questions[((page - 1) * count) : (page * count)]
     except Question.DoesNotExist:
         return jsons([], 404)

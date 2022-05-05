@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Box, Button, Dialog, DialogTitle, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
+import { Box, Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
 import Navbar from '../Components/Navbar'
@@ -14,6 +14,7 @@ const QuestionCreatePage = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [dialog, setDialog] = useState(false);
+    const [dialog2, setDialog2] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
@@ -57,9 +58,11 @@ const QuestionCreatePage = () => {
         e.preventDefault();
 
         if (title === '') {
-            setError('请输入笔记主题');
+            setError('问题主题不能为空哦');
+            setDialog2(true);
         } else if (description === '') {
-            setError('请输入笔记内容');
+            setError('问题内容不能为空哦');
+            setDialog2(true);
         } else {
             const question = await api.questionCreate(title, description, selectedCategory)
             
@@ -82,6 +85,10 @@ const QuestionCreatePage = () => {
 
     const linkHomeQuestion = () => {
         navigate('/questions/all/1');
+    }
+    
+    const closeDialog2 = () => {
+        setDialog2(false);
     }
 
     return (
@@ -180,6 +187,25 @@ const QuestionCreatePage = () => {
                                 </ListItem>
                             ))}
                         </List>
+                    </Dialog>
+
+                    <Dialog
+                        fullWidth={true}
+                        open={dialog2}
+                        maxWidth='sm'
+                        onClose={closeDialog2}>
+                        <DialogTitle id="alert-dialog-title">
+                            {"数据错误"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {error}
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={closeDialog2}>知道了</Button>
+                        </DialogActions>
                     </Dialog>
                 </Box>
             </form>

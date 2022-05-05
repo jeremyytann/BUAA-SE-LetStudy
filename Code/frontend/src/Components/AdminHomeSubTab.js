@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +9,8 @@ const AdminHomeSubTab = ({ url }) => {
     const navigate = useNavigate();
     const { tab } = useParams();
     const [search, setSearch] = useState('');
+    const [error, setError] = useState('');
+    const [dialog, setDialog] = useState(false);
 
     const theme = createTheme ({
         typography: {
@@ -27,6 +29,19 @@ const AdminHomeSubTab = ({ url }) => {
 
     const linkCreateNotice = () => {
         navigate('/admin/notices/create');
+    }
+
+    const searchUsers = () => {
+        if (search.length === 0) {
+            setError('搜索栏不能为空哦');
+            setDialog(true);
+        } else {
+            navigate(`/admin/users/search/${search}/1`)
+        }
+    }
+
+    const closeDialog = () => {
+        setDialog(false);
     }
 
     return (
@@ -205,7 +220,7 @@ const AdminHomeSubTab = ({ url }) => {
                                         placeholder='搜索用户的用户名' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchUsers}/>
                                     </Box>  
                                 </Box>
                             </Box>
@@ -232,7 +247,7 @@ const AdminHomeSubTab = ({ url }) => {
                                         placeholder='搜索用户的用户名' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchUsers}/>
                                     </Box>  
                                 </Box>
                             </Box>
@@ -259,7 +274,7 @@ const AdminHomeSubTab = ({ url }) => {
                                         placeholder='搜索用户的用户名' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchUsers}/>
                                     </Box>  
                                 </Box>
                             </Box>
@@ -286,7 +301,7 @@ const AdminHomeSubTab = ({ url }) => {
                                         placeholder='搜索用户的用户名' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchUsers}/>
                                     </Box>  
                                 </Box>
                             </Box>
@@ -305,6 +320,25 @@ const AdminHomeSubTab = ({ url }) => {
                     </ThemeProvider>
                 </Box> : ''
             }
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

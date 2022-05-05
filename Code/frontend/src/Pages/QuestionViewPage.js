@@ -25,6 +25,7 @@ const QuestionViewPage = () => {
     const [status, setStatus] = useState(false)
     const navigate = useNavigate();
     const [dialog, setDialog] = useState(false)
+    const [dialog2, setDialog2] = useState(false);
     let username = Cookies.get('username');
 
     const theme = createTheme ({
@@ -57,7 +58,8 @@ const QuestionViewPage = () => {
         e.preventDefault();
 
         if (answer.length === 0) {
-            setError('请输入内容');
+            setError('回答内容不能为空哦');
+            setDialog2(true);
         } else {
             const tempAnswer = await api.answerCreate(answer, id);
             
@@ -122,6 +124,10 @@ const QuestionViewPage = () => {
 
     const closeDialog = () => {
         setDialog(false);
+    }
+
+    const closeDialog2 = () => {
+        setDialog2(false);
     }
 
     const linkQuestionCreate = () => {
@@ -328,6 +334,25 @@ const QuestionViewPage = () => {
                     <Button onClick={questionDelete} autoFocus>
                         确定
                     </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog2}
+                maxWidth='sm'
+                onClose={closeDialog2}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog2}>知道了</Button>
                 </DialogActions>
             </Dialog>
         </Box>

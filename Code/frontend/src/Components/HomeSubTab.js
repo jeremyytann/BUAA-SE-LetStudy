@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +9,8 @@ const HomeSubTab = ({ url }) => {
     const navigate = useNavigate();
     const { tab } = useParams();
     const [search, setSearch] = useState('');
+    const [error, setError] = useState('');
+    const [dialog, setDialog] = useState(false);
 
     const theme = createTheme ({
         typography: {
@@ -45,6 +47,40 @@ const HomeSubTab = ({ url }) => {
         navigate('/rooms/private/1');
     }
 
+    const closeDialog = () => {
+        setDialog(false);
+    }
+
+    const searchRooms = () => {
+        if (search.length === 0) {
+            setError('搜索栏不能为空哦');
+            setDialog(true);
+        } else {
+            setSearch(''); 
+            navigate(`/rooms/search/${search}/1`);
+        }
+    }
+
+    const searchNotes = () => {
+        if (search.length === 0) {
+            setError('搜索栏不能为空哦');
+            setDialog(true);
+        } else {
+            setSearch(''); 
+            navigate(`/notes/search/${search}/1`);
+        }
+    }
+
+    const searchQuestions = () => {
+        if (search.length === 0) {
+            setError('搜索栏不能为空哦');
+            setDialog(true);
+        } else {
+            setSearch(''); 
+            navigate(`/questions/search/${search}/1`);
+        }
+    }
+
     return (
         <Box mx={10} mt={4} alignItems='center' display='flex'>
             <Box display='flex' width='92%'>
@@ -78,7 +114,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索房间名称' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/rooms/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchRooms}/>
                                     </Box>  
                                 </Box>
                             </Box> : ''
@@ -101,7 +137,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索房间名称' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/rooms/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchRooms}/>
                                     </Box>  
                                 </Box>
                             </Box> : ''
@@ -142,7 +178,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索笔记' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/notes/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchNotes}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -169,7 +205,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索笔记' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/notes/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchNotes}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -196,7 +232,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索笔记' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/notes/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchNotes}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -223,7 +259,7 @@ const HomeSubTab = ({ url }) => {
                                         placeholder='搜索笔记' 
                                         maxLength='15' required/>  
                                     <Box ml={2}>
-                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/notes/search/${search}/1`)}}/>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchNotes}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -254,7 +290,7 @@ const HomeSubTab = ({ url }) => {
                                     placeholder='搜索问题' 
                                     maxLength='15' required/>  
                                 <Box ml={2}>
-                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/questions/search/${search}/1`)}}/>
+                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchQuestions}/>
                                 </Box>
                             </Box>
                         </Box>
@@ -281,7 +317,7 @@ const HomeSubTab = ({ url }) => {
                                     placeholder='搜索问题' 
                                     maxLength='15' required/>  
                                 <Box ml={2}>
-                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/questions/search/${search}/1`)}}/>
+                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchQuestions}/>
                                 </Box>
                             </Box>
                         </Box>
@@ -308,7 +344,7 @@ const HomeSubTab = ({ url }) => {
                                     placeholder='搜索问题' 
                                     maxLength='15' required/>  
                                 <Box ml={2}>
-                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/questions/search/${search}/1`)}}/>
+                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchQuestions}/>
                                 </Box>
                             </Box>
                         </Box>
@@ -335,7 +371,7 @@ const HomeSubTab = ({ url }) => {
                                     placeholder='搜索问题' 
                                     maxLength='15' required/>  
                                 <Box ml={2}>
-                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/questions/search/${search}/1`)}}/>
+                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchQuestions}/>
                                 </Box>
                             </Box>
                         </Box>
@@ -386,6 +422,25 @@ const HomeSubTab = ({ url }) => {
                 </ThemeProvider>
             </Box> : ''
             }
+
+            <Dialog
+                fullWidth={true}
+                open={dialog}
+                maxWidth='sm'
+                onClose={closeDialog}>
+                <DialogTitle id="alert-dialog-title">
+                    {"数据错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {error}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

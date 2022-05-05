@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Box, Button, Dialog, DialogTitle, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
+import { Box, Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
 import Navbar from '../Components/Navbar'
@@ -21,6 +21,8 @@ const BugCreatePage = () => {
 
     const [selectedCategory, setSelectedCategory] = useState(categories[0]);
     const [dialog, setDialog] = useState(false);
+    const [dialog2, setDialog2] = useState(false);
+    const [dialog3, setDialog3] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
@@ -49,13 +51,19 @@ const BugCreatePage = () => {
         e.preventDefault();
 
         if (title === '') {
-            setError('请输入笔记主题');
+            setError('系统反馈主题不能为空哦');
+            setDialog2(true);
         } else if (description === '') {
-            setError('请输入笔记内容');
+            setError('系统反馈内容不能为空哦');
+            setDialog2(true);
         } else {
             const bug = await api.bugCreate(selectedCategory, title, description);
-            
-            navigate(`/rooms/public/1`)
+
+            if (bug.errorCode === 0) {
+                if (dialog3 === false) {
+                    setDialog3(true);
+                }
+            }
         }
     }
 
@@ -65,6 +73,10 @@ const BugCreatePage = () => {
 
     const handleDialogClose = () => {
         setDialog(false);
+    }
+
+    const closeDialog2 = () => {
+        setDialog2(false);
     }
 
     const handleSelectCategory = (value) => {
@@ -145,7 +157,7 @@ const BugCreatePage = () => {
                             <Box>
                                 <ThemeProvider theme={theme}>
                                     <Button onClick={createBugReport} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
-                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>提问</Box>
+                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>提交</Box>
                                     </Button>
                                 </ThemeProvider>
                             </Box>
@@ -172,6 +184,43 @@ const BugCreatePage = () => {
                                 </ListItem>
                             ))}
                         </List>
+                    </Dialog>
+
+                    <Dialog
+                        fullWidth={true}
+                        open={dialog2}
+                        maxWidth='sm'
+                        onClose={closeDialog2}>
+                        <DialogTitle id="alert-dialog-title">
+                            {"数据错误"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {error}
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={closeDialog2}>知道了</Button>
+                        </DialogActions>
+                    </Dialog>
+
+                    <Dialog
+                        fullWidth={true}
+                        open={dialog3}
+                        maxWidth='sm'>
+                        <DialogTitle id="alert-dialog-title">
+                            {"反馈成功"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {'你的反馈已成功提交到管理员手中'}
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={() => navigate('/settings/bugs')}>知道了</Button>
+                        </DialogActions>
                     </Dialog>
                 </Box>
             </form>
