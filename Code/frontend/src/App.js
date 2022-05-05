@@ -66,6 +66,7 @@ function App() {
                     <Route path='/admin/bugs/:tab/:page' element={<AdminBugPage />}/>
                     <Route path='/admin/bug/:id' element={<AdminBugViewPage />}/>
                     <Route path='/admin/users/:tab/:page' element={<AdminUserPage />}/>
+                    <Route path='/admin/users/:tab/:username/:page' element={<AdminUserPage />} />
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
                     <Route path='/' element={<UserLandPage />}/>
@@ -77,13 +78,16 @@ function App() {
                     <Route path='/settings/:tab' element={<UserSettingsPage />}/>
                     <Route path='/rooms/create' element={<RoomCreatePage />}/>
                     <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
+                    <Route path='/rooms/:tab/:roomname/:page' element={<UserRoomPage />}/>
                     <Route path='/room/:id' element={<RoomViewPage />}/>
                     <Route path='/notes/create' element={<NoteCreatePage />}/>
                     <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
+                    <Route path='/notes/:tab/:search/:page' element={<UserNotePage />}/>
                     <Route path='/note/:id' element={<NoteViewPage />}/>
                     <Route path='/notices/:tab' element={<UserNoticePage />}/>
                     <Route path='/questions/create' element={<QuestionCreatePage />}/>
                     <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
+                    <Route path='/questions/:tab/:search/:page' element={<UserQuestionPage />}/>
                     <Route path='/question/:id' element={<QuestionViewPage />}/>
                     <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
                     <Route path='/report/:id' element={<ReportViewPage />} /> 

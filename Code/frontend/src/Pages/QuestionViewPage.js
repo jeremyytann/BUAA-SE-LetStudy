@@ -93,10 +93,22 @@ const QuestionViewPage = () => {
             const answersFromServer = await fetchAllAnswerByPage();
             setAnswers(answersFromServer.data)
             setMaxPage(answersFromServer.page)
-            setAnswersCount(answersFromServer.count)
+        }
+
+        const fetchAnswerCount = async() => {
+            const data = await api.answerGetCount(id);
+    
+            if (data.count > 999 && data.count <= 9999) {
+                setAnswersCount((data.count / 1000).toFixed(1) + "k")
+            } else if (data.count > 9999) {
+                setAnswersCount((data.count / 10000).toFixed(1) + "w")
+            } else if (data.count <= 999) {
+                setAnswersCount(data.count)
+            }
         }
 
         fetchQuestion();
+        fetchAnswerCount();
         getAllAnswerByPage();
     }, [id, page, status])
 
@@ -229,14 +241,19 @@ const QuestionViewPage = () => {
                                     </Box>
 
                                     <Box mx={4} mt={3} height='55%'>
-                                        { answers !== undefined ? 
+                                        { answers !== undefined && answers.length > 0 ? 
                                             <Box>
                                                 <Box height={400} maxHeight={400}>
                                                     { answers.map((answer, index) => (
                                                         <QuestionAnswer key={index} answer={answer} />
                                                     )) }
                                                 </Box>
-                                            </Box> : ''
+                                            </Box> :
+                                            <Box>
+                                                <Box pt={20} fontSize={24} fontWeight='bold' color='darkgrey'>
+                                                    此处未有任何回答
+                                                </Box> 
+                                            </Box>
                                         }
                                     </Box>
                                 </Box>

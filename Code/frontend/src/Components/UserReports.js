@@ -61,21 +61,28 @@ const UserReports = () => {
                             </Box>
 
                             <Box mt={0.5} ml={4}>
-                                <ThemeProvider theme={theme}>
-                                    <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
-                                </ThemeProvider>
+                                { maxPage > 0 ?
+                                    <ThemeProvider theme={theme}>
+                                        <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                    </ThemeProvider> : ''
+                                }
                             </Box>
                         </Box>
 
                         <Box mt={5}>
-                            { reports !== undefined ? 
+                            { reports !== undefined && reports.length > 0 ? 
                                 <Box>
                                     <Box height={550} maxHeight={550}>
                                         { reports.map((report, index) => (
                                             <UserReport key={index} report={report} />
                                         )) }
                                     </Box>
-                                </Box> : ''
+                                </Box> :
+                                <Box>
+                                    <Box display='flex' pt={2} fontSize={24} fontWeight='bold' color='darkgrey'>
+                                        未提交过任何举报
+                                    </Box> 
+                                </Box>
                             }
                         </Box>
                     </Box>

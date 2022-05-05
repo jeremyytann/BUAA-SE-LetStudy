@@ -6,6 +6,7 @@ from user.models import GeneralUser
 from note.models import Note
 from django.db.models import Count
 import json, random
+from itertools import chain
 
 # Create your views here.
 def jsons(data = None, errorCode = 0, page=0, count=0):
@@ -104,3 +105,16 @@ def noteGetLatestPageCount(request):
     notes = Note.objects.all().order_by('-createdDate')
     pages = int((notes.count() + 15) / 16)
     return jsons([], 0, pages)
+
+def noteSearchByPage(request, search, page):
+    try:
+        count = 16
+        notes1 = Note.objects.filter(title__contains = search)
+        notes2 = Note.objects.filter(description__contains = search)
+        notes = list(chain(notes1, notes2))
+
+        notes = notes[((page - 1) * count) : (page * count)]
+    except Note.DoesNotExist:
+        return jsons([], 404)
+    
+    return jsons([dict(note.body()) for note in notes], 0)

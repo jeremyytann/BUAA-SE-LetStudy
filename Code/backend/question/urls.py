@@ -16,4 +16,6 @@ urlpatterns = [
 
     path('latest/page/<int:page>/', views.questionGetLatestByPage),
     path('latest/page_count/', views.questionGetLatestPageCount),
+
+    path('search/<str:search>/page/<int:page>/', views.questionSearchByPage)
 ]

@@ -307,6 +307,16 @@ class Api {
         return data;
     }
 
+    userSearchByUsername = async(username, page, count) => {
+        let data = await this.get(`/user/search/${username}/page/${page}/count/${count}/`);
+        return data;
+    }
+
+    userSearchPageCount = async(username) => {
+        let data = await this.get(`/user/search/${username}/page_count/`)
+        return data;
+    }
+
     userGetStatusPageCount = async(status, count) => {
         let data = await this.get(`/user/${status}/page_count/count/${count}/`);
         return data;
@@ -401,6 +411,11 @@ class Api {
 
     noteGetLatestPageCount = async() => {
         let data = await this.get('/note/latest/page_count/');
+        return data;
+    }
+
+    noteSearchByPage = async(search, page) => {
+        let data = await this.get(`/note/search/${search}/page/${page}/`);
         return data;
     }
 
@@ -522,6 +537,11 @@ class Api {
         let data = await this.get(`/question/random/${count}/`);
         return data;
     }
+    
+    questionSearchByPage = async(search, page) => {
+        let data = await this.get(`/question/search/${search}/page/${page}/`);
+        return data;
+    }
 
     /* ———————————————————— Report API ———————————————————— */
     reportCreate = async(type, id, description, title) => {
@@ -572,6 +592,11 @@ class Api {
 
     roomGet = async(id) => {
         let data = await this.get(`/room/${id}/`);
+        return data;
+    }
+
+    roomSearchByName = async(name, page) => {
+        let data = await this.get(`/room/search/${name}/page/${page}/`);
         return data;
     }
 

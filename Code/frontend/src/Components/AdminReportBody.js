@@ -43,12 +43,17 @@ const AdminReportBody = () => {
 
     return (
         <Box height={580} mt={5} ml={10} mr={2}>
-            { reports !== undefined ?
+            { reports !== undefined && reports.length > 0 ?
                 <Box display='flex' flexWrap='wrap'>
                     {reports.map((report, index) => (
                         <Report key={index} report={report}/>
                     ))}
-                </Box> : ''
+                </Box> :
+                <Box>
+                    <Box display='flex' fontSize={24} fontWeight='bold' color='darkgrey'>
+                        目前还未有此类举报
+                    </Box> 
+                </Box>
             }
         </Box>
     )

@@ -59,6 +59,17 @@ def roomGet(request, pk):
     
     return jsons([dict(room.body())])
 
+def roomSearchByName(request, name, page):
+    try:
+        count = 8
+        rooms = Room.objects.filter(name__contains=name)
+        pages = int((rooms.count() + (count - 1)) / count)
+        rooms = rooms[((page - 1) * count) : (page * count)]
+    except Room.DoesNotExist:
+        return jsons([], 404)
+    
+    return jsons([dict(room.body()) for room in rooms], 0)
+
 def roomGetPublic(request):
     rooms = Room.objects.filter(roomType = 0).order_by('name')
 

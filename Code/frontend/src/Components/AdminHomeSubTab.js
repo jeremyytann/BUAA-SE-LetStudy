@@ -1,11 +1,14 @@
 import React from 'react'
+import { useState } from 'react'
 import { Box, Button } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
 
 const AdminHomeSubTab = ({ url }) => {
     const navigate = useNavigate();
     const { tab } = useParams();
+    const [search, setSearch] = useState('');
 
     const theme = createTheme ({
         typography: {
@@ -184,14 +187,26 @@ const AdminHomeSubTab = ({ url }) => {
                     <Box>
                         { tab === 'all' ?
                             <Box display='flex' alignItems='center'>
-                                <Box onClick={() => navigate('/admin/users/all/1')} fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/all/1')}} fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     全部
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/active/1')} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/active/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     活跃用户
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/banned/1')} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/banned/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     封锁用户
+                                </Box>
+                                <Box ml={35} borderRadius={5} display='flex' alignItems='center'>
+                                    <input 
+                                        className='search-user'
+                                        value={search}
+                                        onChange={event => setSearch(event.target.value)}
+                                        type='text'
+                                        placeholder='搜索用户的用户名' 
+                                        maxLength='15' required/>  
+                                    <Box ml={2}>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                    </Box>  
                                 </Box>
                             </Box>
                             : ''
@@ -199,14 +214,26 @@ const AdminHomeSubTab = ({ url }) => {
 
                         { tab === 'active' ?
                             <Box display='flex' alignItems='center'>
-                                <Box onClick={() => navigate('/admin/users/all/1')} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/all/1')}} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     全部
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/active/1')} fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/active/1')}} fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     活跃用户
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/banned/1')} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/banned/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     封锁用户
+                                </Box>
+                                <Box ml={35} borderRadius={5} display='flex' alignItems='center'>
+                                    <input 
+                                        className='search-user'
+                                        value={search}
+                                        onChange={event => setSearch(event.target.value)}
+                                        type='text'
+                                        placeholder='搜索用户的用户名' 
+                                        maxLength='15' required/>  
+                                    <Box ml={2}>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                    </Box>  
                                 </Box>
                             </Box>
                             : ''
@@ -214,14 +241,53 @@ const AdminHomeSubTab = ({ url }) => {
 
                         { tab === 'banned' ?
                             <Box display='flex' alignItems='center'>
-                                <Box onClick={() => navigate('/admin/users/all/1')} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/all/1')}} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     全部
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/active/1')} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/active/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     活跃用户
                                 </Box>
-                                <Box onClick={() => navigate('/admin/users/banned/1')} fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/banned/1')}} fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     封锁用户
+                                </Box>
+                                <Box ml={35} borderRadius={5} display='flex' alignItems='center'>
+                                    <input 
+                                        className='search-user'
+                                        value={search}
+                                        onChange={event => setSearch(event.target.value)}
+                                        type='text'
+                                        placeholder='搜索用户的用户名' 
+                                        maxLength='15' required/>  
+                                    <Box ml={2}>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                    </Box>  
+                                </Box>
+                            </Box>
+                            : ''
+                        }
+
+                        { tab === 'search' ?
+                            <Box display='flex' alignItems='center'>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/all/1')}} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    全部
+                                </Box>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/active/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    活跃用户
+                                </Box>
+                                <Box onClick={() => {setSearch(''); navigate('/admin/users/banned/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    封锁用户
+                                </Box>
+                                <Box ml={35} borderRadius={5} display='flex' alignItems='center'>
+                                    <input 
+                                        className='search-user'
+                                        value={search}
+                                        onChange={event => setSearch(event.target.value)}
+                                        type='text'
+                                        placeholder='搜索用户的用户名' 
+                                        maxLength='15' required/>  
+                                    <Box ml={2}>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={() => {setSearch(''); navigate(`/admin/users/search/${search}/1`)}}/>
+                                    </Box>  
                                 </Box>
                             </Box>
                             : ''

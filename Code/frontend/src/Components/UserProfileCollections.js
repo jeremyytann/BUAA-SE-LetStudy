@@ -48,12 +48,17 @@ const UserProfileCollections = () => {
     return (
         <Box>
             <Box height={590} ml={4.8} mb={4.5}>
-                { notes !== undefined ?
+                { notes !== undefined && notes.length > 0 ?
                     <Box display='flex' flexWrap='wrap'>
                         {notes.map((note, index) => (
                             <Note key={index} note={note.note}/>
                         ))}
-                    </Box> : ''
+                    </Box> :
+                    <Box>
+                        <Box display='flex' ml={1.5} pt={2} fontSize={24} color='darkgrey'>
+                            此用户未收藏过任何笔记
+                        </Box> 
+                    </Box>
                 }
             </Box>
 

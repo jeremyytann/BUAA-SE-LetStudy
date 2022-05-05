@@ -29,12 +29,17 @@ const AdminNoticeBody = () => {
 
     return (
         <Box height={580} mt={5} ml={10} mr={2}>
-            { notices !== undefined ?
+            { notices !== undefined && notices.length > 0 ?
                 <Box display='flex' flexWrap='wrap'>
                     {notices.map((notice, index) => (
                         <Notice key={index} notice={notice}/>
                     ))}
-                </Box> : ''
+                </Box> :
+                <Box>
+                    <Box display='flex' fontSize={24} fontWeight='bold' color='darkgrey'>
+                        尚未发布任何公告
+                    </Box> 
+                </Box>
             }
         </Box>
     )

@@ -15,5 +15,7 @@ urlpatterns = [
     path('popular/page_count/', views.noteGetPopularPageCount),
 
     path('latest/page/<int:page>/', views.noteGetLatestByPage),
-    path('latest/page_count/', views.noteGetLatestPageCount)
+    path('latest/page_count/', views.noteGetLatestPageCount),
+
+    path('search/<str:search>/page/<int:page>/', views.noteSearchByPage)
 ]

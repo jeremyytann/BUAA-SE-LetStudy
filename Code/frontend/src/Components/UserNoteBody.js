@@ -7,7 +7,7 @@ import Note from './Note'
 
 const UserNoteBody = () => {
     // const navigate = useNavigate();
-    const { tab, page } = useParams();
+    const { tab, page, search } = useParams();
     const [notes, setNotes] = useState()
     const navigate = useNavigate();
 
@@ -27,6 +27,11 @@ const UserNoteBody = () => {
             return data;
         }
 
+        const fetchSearchNotesByPage = async() => {
+            const data = await api.noteSearchByPage(search, page);
+            setNotes(data.data);
+        }
+
         const getAllNotesByPage = async() => {
             const notesFromServer = await fetchAllNotesByPage();
             setNotes(notesFromServer.data);
@@ -43,17 +48,41 @@ const UserNoteBody = () => {
             fetchPopularNotesByPage();
         } else if (tab === 'latest') {
             getLatestNotesByPage();
+        } else if (tab === 'search') {
+            fetchSearchNotesByPage();
         }
-    }, [tab, page])
+    }, [tab, page, search])
 
     return (
         <Box height={580} mt={5} ml={10} mr={5}>
-            { notes !== undefined ?
+            { notes !== undefined && notes.length > 0 ?
                 <Box display='flex' flexWrap='wrap'>
                     {notes.map((note, index) => (
                         <Note key={index} note={note}/>
                     ))}
-                </Box> : ''
+                </Box> :
+                <Box>
+                    { tab === 'search' ? 
+                        <Box>
+                            <Box mt={12} fontSize={150} fontWeight='bold' color='#DDC3A5'>
+                                404
+                            </Box>
+
+                            <Box fontSize={24} fontWeight='bold'>
+                                抱歉，此搜索没有任何结果
+                            </Box> 
+                        </Box> :
+                        <Box>
+                            <Box mt={12} fontSize={150} fontWeight='bold' color='#DDC3A5'>
+                                0
+                            </Box>
+
+                            <Box fontSize={24} fontWeight='bold'>
+                                抱歉，此时还未有任何房间
+                            </Box> 
+                        </Box>
+                    }
+                </Box>
             }
         </Box>
     )

@@ -115,21 +115,28 @@ const UserNoticePage = () => {
                                                     </Box>
                                                     
                                                     <Box mt={0.5} ml={4}>
-                                                        <ThemeProvider theme={theme}>
-                                                            <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
-                                                        </ThemeProvider>
+                                                        { maxPage > 0 ?
+                                                            <ThemeProvider theme={theme}>
+                                                                <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                                            </ThemeProvider> : ''
+                                                        }
                                                     </Box>
                                                 </Box>
 
                                                 <Box mt={5}>
-                                                    { notices !== undefined ? 
+                                                    { notices !== undefined && notices.length > 0 ? 
                                                         <Box>
                                                             <Box height={550} maxHeight={550}>
                                                                 { notices.map((notice, index) => (
                                                                     <UserNotice key={index} notice={notice} />
                                                                 )) }
                                                             </Box>
-                                                        </Box> : ''
+                                                        </Box> :
+                                                        <Box>
+                                                            <Box pt={2} fontSize={24} fontWeight='bold' color='darkgrey'>
+                                                                近期没有发布任何公告
+                                                            </Box> 
+                                                        </Box>
                                                     }
                                                 </Box>
                                             </Box>
@@ -147,21 +154,29 @@ const UserNoticePage = () => {
                                                     </Box>
                                                     
                                                     <Box mt={0.5} ml={4}>
-                                                        <ThemeProvider theme={theme}>
-                                                            <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
-                                                        </ThemeProvider>
+                                                        { maxPage > 0 ?
+                                                            <ThemeProvider theme={theme}>
+                                                                <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                                            </ThemeProvider> : ''
+                                                        }
                                                     </Box>
                                                 </Box>
 
                                                 <Box mt={5}>
-                                                    { notices !== undefined ? 
+                                                    { notices !== undefined && notices.length > 0 ? 
                                                         <Box>
                                                             <Box height={550} maxHeight={550}>
                                                                 { notices.map((notice, index) => (
                                                                     <UserNotice key={index} notice={notice} />
                                                                 )) }
                                                             </Box>
-                                                        </Box> : ''
+                                                        </Box> :
+
+                                                        <Box>
+                                                            <Box pt={2} fontSize={24} fontWeight='bold' color='darkgrey'>
+                                                                暂时还未发布任何公告
+                                                            </Box> 
+                                                        </Box>
                                                     }
                                                 </Box>
                                             </Box>

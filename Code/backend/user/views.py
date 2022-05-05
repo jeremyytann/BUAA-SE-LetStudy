@@ -146,6 +146,27 @@ def userGetAllByPage(request, page, count):
     except AdminUser.DoesNotExist:
         return jsons([], 403)
     
+def userSearchByUsername(request, username, page, count):
+    try:
+        users = GeneralUser.objects.filter(username__contains=username)
+        pages = int((users.count() + (count - 1)) / count)
+        users = users[((page - 1) * count) : (page * count)]
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404)
+    
+    return jsons([dict(user.body()) for user in users], 0)
+    
+def userSearchPageCount(request, username):
+    try:
+        count = 12
+        users = GeneralUser.objects.filter(username__contains=username)
+        pages = int((users.count() + (count - 1)) / count)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404)
+    
+    return jsons([], 0, '', 0, pages)
+        
+
 def userGetAllPageCount(request, count):
     users = GeneralUser.objects.all().order_by('-joinDate')
     pages = int((users.count() + (count - 1)) / count)

@@ -49,12 +49,17 @@ const UserProfileQuestions = () => {
     return (
         <Box>
             <Box height={590} ml={4.8} mb={4.5}>
-                { questions !== undefined ?
+                { questions !== undefined && questions.length > 0 ?
                     <Box display='flex' flexWrap='wrap'>
                         {questions.map((question, index) => (
                             <Question key={index} question={question}/>
                         ))}
-                    </Box> : ''
+                    </Box> :
+                    <Box>
+                        <Box display='flex' ml={1.5} pt={2} fontSize={24} color='darkgrey'>
+                            此用户未提出过任何问题
+                        </Box> 
+                    </Box>
                 }
             </Box>
 

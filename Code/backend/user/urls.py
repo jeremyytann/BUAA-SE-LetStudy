@@ -15,5 +15,7 @@ urlpatterns = [
     path('all/page_count/count/<int:count>/', views.userGetAllPageCount),
     path('<int:status>/page/<int:page>/count/<int:count>/', views.userGetByStatus),
     path('<int:status>/page_count/count/<int:count>/', views.userGetStatusPageCount),
-    path('<str:username>/', views.userGetByUsername)
+    path('<str:username>/', views.userGetByUsername),
+    path('search/<str:username>/page/<int:page>/count/<int:count>/', views.userSearchByUsername),
+    path('search/<str:username>/page_count/', views.userSearchPageCount)
 ]

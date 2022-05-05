@@ -6,7 +6,7 @@ import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const AdminHomeFlipPage = ({ url }) => {
-    const { tab, page } = useParams();
+    const { tab, page, username } = useParams();
     const [maxPage, setMaxPage] = useState(0);
     const navigate = useNavigate();
 
@@ -79,6 +79,9 @@ const AdminHomeFlipPage = ({ url }) => {
             } else if (tab === 'banned') {
                 const data = await api.userGetStatusPageCount(0, 12);
                 setMaxPage(data.page);
+            } else if (tab === 'search') {
+                const data = await api.userSearchPageCount(username);
+                setMaxPage(data.page);
             }
         }
 
@@ -93,14 +96,22 @@ const AdminHomeFlipPage = ({ url }) => {
         } else if (url === 'users') {
             fetchUserStatusPageCount();
         }
-    }, [tab, url])
+    }, [tab, url, username])
 
     const previousPage = () => {
-        navigate(`/admin/${url}/${tab}/${parseInt(page) - 1}`);
+        if (url === 'users' && tab === 'search') {
+            navigate(`/admin/users/search/${username}/${parseInt(page) - 1}`)
+        } else {
+            navigate(`/admin/${url}/${tab}/${parseInt(page) - 1}`);
+        }
     }
 
     const nextPage = () => {
-        navigate(`/admin/${url}/${tab}/${parseInt(page) + 1}`);
+        if (url === 'users' && tab === 'search') {
+            navigate(`/admin/users/search/${username}/${parseInt(page) + 1}`)
+        } else {
+            navigate(`/admin/${url}/${tab}/${parseInt(page) + 1}`);
+        }
     }
     
     return (

@@ -103,11 +103,18 @@ const NoteComments = () => {
                         </Box>
                         
                         <Box mt={2}>
-                            <ThemeProvider theme={theme}>
-                                <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
-                            </ThemeProvider>
+                            { maxPage > 0 ?
+                                <ThemeProvider theme={theme}>
+                                    <Pagination count={maxPage} color='gold' showFirstButton showLastButton page={page} onChange={handlePageChange}/>
+                                </ThemeProvider> : ''
+                            }
                         </Box>
-                    </Box> : ''
+                    </Box> : 
+                    <Box>
+                        <Box pt={25} fontSize={24} fontWeight='bold' color='darkgrey'>
+                            此处未有任何留言
+                        </Box> 
+                    </Box>
                 }
             </Box>
 

@@ -6,6 +6,7 @@ from user.models import GeneralUser
 from .models import Question
 from django.db.models import Count
 import json, random
+from itertools import chain
 
 # Create your views here.
 def jsons(data = None, errorCode = 0, page=0):
@@ -103,3 +104,16 @@ def questionGetByRandom(request, count):
     questions = randoms[:count]
 
     return jsons([dict(question.body()) for question in questions], 0, 0)
+
+def questionSearchByPage(request, search, page):
+    try:
+        count = 8
+        questions1 = Question.objects.filter(title__contains = search)
+        questions2 = Question.objects.filter(description__contains = search)
+        questions = list(chain(questions1, questions2))
+
+        questions = questions[((page - 1) * count) : (page * count)]
+    except Question.DoesNotExist:
+        return jsons([], 404)
+    
+    return jsons([dict(question.body()) for question in questions], 0)

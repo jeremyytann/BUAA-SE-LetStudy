@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:pk>/quit/', views.roomQuit),
     path('public/', views.roomGetPublic),
     path('private/<int:page>/', views.roomGetPrivateByPage),
-    path('private/page_count/', views.roomGetPrivatePageCount)
+    path('private/page_count/', views.roomGetPrivatePageCount),
+    path('search/<str:name>/page/<int:page>/', views.roomSearchByName)
 ]

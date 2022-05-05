@@ -193,6 +193,18 @@ input[type='file'] {
     resize: none;
 }
 
+.search-user {
+    background: linear-gradient(to bottom right, white, #D5D5D5);
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 16px;
+    text-indent: 25px each-line;
+    padding-left: 15px;
+    color: black;
+    border: 1px solid black;
+    resize: none;
+}
 .note-comment-text {
     white-space: nowrap;
     overflow: hidden;
