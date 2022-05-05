@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useState, useEffect } from 'react'
 import { Box, Grid, Button, Pagination, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
 import './GeneralUser.css'
@@ -76,17 +76,17 @@ const QuestionViewPage = () => {
     useEffect(() => {
         const fetchQuestion = async() => {
             const data = await api.questionGet(id);
-            return data;
+
+            if (data.errorCode === 0) {
+                setQuestion(data.data[0]);
+            } else if (data.errorCode === 404) {
+                setError(404);
+            }
         }
 
         const fetchAllAnswerByPage = async() => {
             const data = await api.answerGetAllByPage(id, page);
             return data;
-        }
-
-        const getQuestion = async() => {
-            const questionFromServer = await fetchQuestion();
-            setQuestion(questionFromServer.data[0])
         }
         
         const getAllAnswerByPage = async() => {
@@ -96,9 +96,13 @@ const QuestionViewPage = () => {
             setAnswersCount(answersFromServer.count)
         }
 
-        getQuestion();
+        fetchQuestion();
         getAllAnswerByPage();
     }, [id, page, status])
+
+    if (error === 404) {
+        return <Navigate to='/404' />
+    }
 
     const toggleDialog = () => {
         setDialog(!dialog);

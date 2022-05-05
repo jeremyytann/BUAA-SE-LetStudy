@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material'
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PageTitle from '../Components/PageTitle'
 import api from '../Api/api'
@@ -12,6 +12,7 @@ const BugViewPage = () => {
     const [bug, setBug] = useState();
     const [status, setStatus] = useState('');
     const [bugReason, setBugReason] = useState('');
+    const [error, setError] = useState(0);
     const navigate = useNavigate();
 
     const theme = createTheme ({
@@ -43,13 +44,18 @@ const BugViewPage = () => {
     useEffect(() => {
         const fetchBug = async() => {
             const data = await api.bugGet(id);
-            setBug(data.data[0]);
-            setBugReason(data.data[0].reason);
 
-            if (data.data[0].status === 0) {
-                setStatus('未处理')
-            } else if (data.data[0].status === 1) {
-                setStatus('已处理')
+            if (data.errorCode === 0) {
+                setBug(data.data[0]);
+                setBugReason(data.data[0].reason);
+
+                if (data.data[0].status === 0) {
+                    setStatus('未处理')
+                } else if (data.data[0].status === 1) {
+                    setStatus('已处理')
+                }
+            } else if (data.errorCode === 404) {
+                setError(404);
             }
         }
 
@@ -58,6 +64,10 @@ const BugViewPage = () => {
 
     const linkBug = () => {
         navigate('/settings/bugs');
+    }
+
+    if (error === 404) {
+        return <Navigate to='/404' />
     }
 
     return (

@@ -15,14 +15,20 @@ import UserProfileCollections from '../Components/UserProfileCollections';
 
 const UserProfilePage = () => {
     const { username, tab } = useParams();
+    const [error, setError] = useState(0);
     const [user, setUser] = useState();
     const [days, setDays] = useState(0);
 
     useEffect(() => {
         const fetchUser = async() => {
             const data = await api.userGetByUsername(username);
-            setUser(data.data[0]);
-            setDays(data.days)
+
+            if (data.errorCode === 0) {
+                setUser(data.data[0]);
+                setDays(data.days)
+            } else if (data.errorCode === 404) {
+                setError(404);
+            }
         }
 
         fetchUser();
@@ -32,6 +38,10 @@ const UserProfilePage = () => {
 
     if (currentUser === undefined) {
         return <Navigate to='/login'/>
+    }
+
+    if (error === 404) {
+        return <Navigate to='/404' />
     }
 
     return (

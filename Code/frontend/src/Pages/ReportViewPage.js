@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material'
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PageTitle from '../Components/PageTitle'
 import api from '../Api/api'
@@ -11,6 +11,7 @@ const ReportViewPage = () => {
     const { id } = useParams();
     const [report, setReport] = useState();
     const [reportType, setReportType] = useState('');
+    const [error, setError] = useState(0)
     const [path, setPath] = useState('');
     const [status, setStatus] = useState('')
     const navigate = useNavigate();
@@ -44,50 +45,59 @@ const ReportViewPage = () => {
     useEffect(() => {
         const fetchReport = async() => {
             const data = await api.reportGet(id);
-            setReport(data.data[0]);
 
-            if (data.data[0].status !== 1) {
-                if (data.data[0].type === 1) {
-                    setReportType('笔记');
-                    setPath(`/note/${data.data[0].note.id}`)
-                } else if (data.data[0].type === 2) {
-                    setReportType('留言');
-                    setPath(`/note/${data.data[0].comment.note.id}`)
-                } else if (data.data[0].type === 3) {
-                    setReportType('问题');
-                    setPath(`/question/${data.data[0].question.id}`)
-                } else if (data.data[0].type === 4) {
-                    setReportType('回答');
-                    setPath(`/question/${data.data[0].answer.question.id}`)
-                } else if (data.data[0].type === 5) {
-                    setReportType('用户');
-                    setPath(`/profile/${data.data[0].user.username}`)
-                }
-            } else {
-                if (data.data[0].type === 1) {
-                    setReportType('笔记');
-                } else if (data.data[0].type === 2) {
-                    setReportType('留言');
-                } else if (data.data[0].type === 3) {
-                    setReportType('问题');
-                } else if (data.data[0].type === 4) {
-                    setReportType('回答');
-                } else if (data.data[0].type === 5) {
-                    setReportType('用户');
-                }
-            }
+            if (data.errorCode === 0) {
+                setReport(data.data[0]);
 
-            if (data.data[0].status === 0) {
-                setStatus('未处理')
-            } else if (data.data[0].status === 1) {
-                setStatus('已处理')
-            } else if (data.data[0].status === 2) {
-                setStatus('已拒绝')
+                if (data.data[0].status !== 1) {
+                    if (data.data[0].type === 1) {
+                        setReportType('笔记');
+                        setPath(`/note/${data.data[0].note.id}`)
+                    } else if (data.data[0].type === 2) {
+                        setReportType('留言');
+                        setPath(`/note/${data.data[0].comment.note.id}`)
+                    } else if (data.data[0].type === 3) {
+                        setReportType('问题');
+                        setPath(`/question/${data.data[0].question.id}`)
+                    } else if (data.data[0].type === 4) {
+                        setReportType('回答');
+                        setPath(`/question/${data.data[0].answer.question.id}`)
+                    } else if (data.data[0].type === 5) {
+                        setReportType('用户');
+                        setPath(`/profile/${data.data[0].user.username}`)
+                    }
+                } else {
+                    if (data.data[0].type === 1) {
+                        setReportType('笔记');
+                    } else if (data.data[0].type === 2) {
+                        setReportType('留言');
+                    } else if (data.data[0].type === 3) {
+                        setReportType('问题');
+                    } else if (data.data[0].type === 4) {
+                        setReportType('回答');
+                    } else if (data.data[0].type === 5) {
+                        setReportType('用户');
+                    }
+                }
+
+                if (data.data[0].status === 0) {
+                    setStatus('未处理')
+                } else if (data.data[0].status === 1) {
+                    setStatus('已处理')
+                } else if (data.data[0].status === 2) {
+                    setStatus('已拒绝')
+                }
+            } else if (data.errorCode === 404) {
+                setError(404);
             }
         }
 
         fetchReport();
     }, [id])
+
+    if (error === 404) {
+        return <Navigate to='/404' />
+    }
 
     const linkReport = () => {
         navigate('/settings/reports');

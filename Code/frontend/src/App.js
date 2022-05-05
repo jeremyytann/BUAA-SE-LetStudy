@@ -32,6 +32,7 @@ import BugViewPage from './Pages/BugViewPage';
 import AdminNoticeViewPage from './Pages/AdminNoticeViewPage';
 import RoomCreatePage from './Pages/RoomCreatePage';
 import RoomViewPage from './Pages/RoomViewPage';
+import NotFoundPage from './Pages/NotFoundPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -86,6 +87,7 @@ function App() {
                     <Route path='/question/:id' element={<QuestionViewPage />}/>
                     <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
                     <Route path='/report/:id' element={<ReportViewPage />} /> 
+                    <Route path='/404' element={<NotFoundPage />} />
                 </Routes>
             </div>
         </Router>

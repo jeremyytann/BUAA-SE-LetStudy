@@ -1,7 +1,7 @@
 import { Box, Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import NoteComments from '../Components/NoteComments'
 import api from '../Api/api'
@@ -16,6 +16,7 @@ const NoteViewPage = () => {
     const [image, setImage] = useState([])
     const navigate = useNavigate();
     const [dialog, setDialog] = useState(false)
+    const [error, setError] = useState(0);
     let username = Cookies.get('username')
 
     const theme = createTheme ({
@@ -47,17 +48,17 @@ const NoteViewPage = () => {
     useEffect(() => {
         const fetchNote = async() => {
             const data = await api.noteGet(id);
-            return data;
+
+            if (data.errorCode === 0) {
+                setNote(data.data[0]);
+            } else if (data.errorCode === 404) {
+                setError(404);
+            }
         }
 
         const fetchNoteImage = async() => {
             const data = await api.noteImageGet(id);
             return data;
-        }
-
-        const getNote = async() => {
-            const noteFromServer = await fetchNote();
-            setNote(noteFromServer.data[0])
         }
 
         const getNoteImage = async() => {
@@ -70,9 +71,13 @@ const NoteViewPage = () => {
             }
         }
 
-        getNote()
+        fetchNote()
         getNoteImage();
     }, [id])
+    
+    if (error === 404) {
+        return <Navigate to='/404' />
+    }
 
     const toggleDialog = () => {
         setDialog(!dialog);

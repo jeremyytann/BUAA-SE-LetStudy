@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from '@mui/material'
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import RoomParticipants from '../Components/RoomParticipants'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import Chat from '../Components/Chat'
 const RoomViewPage = () => {
     const { id } = useParams();
     const [room, setRoom] = useState([]);
+    const [error, setError] = useState(0);
     const [message, setMessage] = useState([]);
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
@@ -37,7 +38,12 @@ const RoomViewPage = () => {
     useEffect(() => {
         const fetchRoom = async() => {
             const data = await api.roomGet(id);
-            setRoom(data.data[0]);
+
+            if (data.errorCode === 0) {
+                setRoom(data.data[0]);
+            } else if (data.errorCode === 404) {
+                setError(404);
+            }
         }
 
         const fetchRoomMessages = async() => {
@@ -48,11 +54,17 @@ const RoomViewPage = () => {
         fetchRoom();
 
         const interval = setInterval(() => {
-            fetchRoomMessages();
+            if (error === 0) {
+                fetchRoomMessages();
+            }
         }, 1000)
 
         return () => clearInterval(interval);
-    }, [id])
+    }, [id, error])
+
+    if (error === 404) {
+        return <Navigate to='/404' />
+    }
 
     const quitRoom = async() => {
         if (room.type === 0) {
