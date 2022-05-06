@@ -146,6 +146,10 @@ const QuestionViewPage = () => {
         navigate(`/report/create/question/${id}`);
     }
 
+    const linkQuestionEdit = () => {
+        navigate(`/question/${id}/edit`);
+    }
+
     const questionDelete = async() => {
         const data = await api.questionDelete(id);
 
@@ -165,17 +169,34 @@ const QuestionViewPage = () => {
                             <Box>
                                 <Box borderRadius={10} sx={{backgroundColor: 'white', height: '220px', width: '96%'}}>
                                     <Box display='flex'>
-                                        <Box ml={5} paddingTop={4} fontSize={20} width='85%' fontWeight='bold' display='flex'>
-                                            { question.title }
-                                        </Box>
+                                        { username === question.user.username ? 
+                                            <Box ml={5} paddingTop={4} fontSize={20} width='76%' fontWeight='bold' display='flex'>
+                                                { question.title }
+                                            </Box> :
+                                            <Box ml={5} paddingTop={4} fontSize={20} width='85%' fontWeight='bold' display='flex'>
+                                                { question.title }
+                                            </Box>
+                                        }
 
                                         <Box ml={2} paddingTop={3.5}>
                                             { username === question.user.username ? 
-                                                <ThemeProvider theme={theme}>
-                                                    <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
-                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
-                                                    </Button>
-                                                </ThemeProvider> :
+                                                <Box display='flex'>
+                                                    <Box>
+                                                        <ThemeProvider theme={theme}>
+                                                            <Button onClick={linkQuestionEdit} variant="contained" size='small' height={5} color='black' style={{ borderRadius: 13, width: 100 }}> 
+                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>修改</Box>
+                                                            </Button>
+                                                        </ThemeProvider>
+                                                    </Box>
+
+                                                    <Box ml={2}>
+                                                        <ThemeProvider theme={theme}>
+                                                            <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
+                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
+                                                            </Button>
+                                                        </ThemeProvider>
+                                                    </Box>
+                                                </Box> :
                                                 <ThemeProvider theme={theme}>
                                                     <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
                                                         <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
@@ -197,7 +218,10 @@ const QuestionViewPage = () => {
                                                 </Box>
 
                                                 <Box ml={1} fontSize={15}>
-                                                    { question.created_date.split('T')[0] }
+                                                    { question.edited ? 
+                                                        '已修改于 ' + question.created_date.split('T')[0]
+                                                        : question.created_date.split('T')[0]
+                                                    }
                                                 </Box>
                                             </Box>
 

@@ -40,6 +40,23 @@ def noteGet(request, pk):
 
     return jsons([dict(note.body())])
 
+def noteEdit(request, pk):
+    try:
+        note = Note.objects.get(id = pk)
+    except Note.DoesNotExist:
+        return jsons([], 404, 0)
+
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        category = Category.objects.get(name = data['category'])
+
+        note.title = data['title']
+        note.description = data['description']
+        note.category = category
+        note.save()
+
+        return jsons([dict(note.body())])
+
 def noteDelete(request, pk):
     try:
         note = Note.objects.get(id = pk)

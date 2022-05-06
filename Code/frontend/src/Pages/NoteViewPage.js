@@ -95,6 +95,10 @@ const NoteViewPage = () => {
         navigate(`/report/create/note/${id}`);
     }
 
+    const linkNoteEdit = () => {
+        navigate(`/note/${id}/edit`);
+    }
+
     const noteDelete = async() => {
         const data = await api.noteDelete(id);
 
@@ -141,22 +145,42 @@ const NoteViewPage = () => {
 
                                     <Grid item xs={8}>
                                         <Box mt={5} ml={1} mr={4} display='flex' alignItems='center'>
-                                            <Box display='flex' fontSize={22} width='80%' fontWeight='bold'>
-                                                {note.title}
-                                            </Box>
+                                            { username === note.user.username ? 
+                                                <Box display='flex' fontSize={22} width='69%' fontWeight='bold'>
+                                                    {note.title}
+                                                </Box> :
+                                                <Box display='flex' fontSize={22} width='80%' fontWeight='bold'>
+                                                    {note.title}
+                                                </Box>
+                                            }
 
-                                            <Box ml={4}>
+                                            <Box>
                                                 { username === note.user.username ? 
-                                                    <ThemeProvider theme={theme}>
-                                                        <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
-                                                            <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
-                                                        </Button>
-                                                    </ThemeProvider> :
-                                                    <ThemeProvider theme={theme}>
-                                                        <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
-                                                            <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                                                        </Button>
-                                                    </ThemeProvider>
+                                                    <Box display='flex'>
+                                                        <Box>
+                                                            <ThemeProvider theme={theme}>
+                                                                <Button onClick={linkNoteEdit} variant="contained" size='small' height={5} color='black' style={{ borderRadius: 13, width: 100 }}> 
+                                                                    <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>修改</Box>
+                                                                </Button>
+                                                            </ThemeProvider>
+                                                        </Box>
+
+                                                        <Box ml={2}>
+                                                            <ThemeProvider theme={theme}>
+                                                                <Button onClick={toggleDialog} variant="contained" size='small' height={5} color='error' style={{ borderRadius: 13, width: 100 }}> 
+                                                                    <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>删除</Box>
+                                                                </Button>
+                                                            </ThemeProvider>
+                                                        </Box>
+                                                    </Box>
+                                                    :
+                                                    <Box ml={4}>
+                                                        <ThemeProvider theme={theme}>
+                                                            <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                            </Button>
+                                                        </ThemeProvider>
+                                                    </Box>
                                                 }
                                             </Box>
                                         </Box>

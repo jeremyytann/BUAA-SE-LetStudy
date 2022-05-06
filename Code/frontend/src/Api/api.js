@@ -369,6 +369,11 @@ class Api {
         return data;
     }
 
+    noteEdit = async(noteId, title, description, category) => {
+        let data = await this.put(`/note/${noteId}/edit/`, {title, description, category});
+        return data;
+    }
+
     noteDelete = async(noteId) => {
         let data = await this.delete(`/note/${noteId}/delete/`);
         return data;
@@ -435,6 +440,16 @@ class Api {
         return data;
     }
 
+    noteImageEdit = async(noteId, form) => {
+        let data = await axios({
+            method: 'put',
+            url: `/note_image/${noteId}/edit/`,
+            data: form
+        })
+
+        return data;
+    }
+
     /* ———————————————————— Notice API ———————————————————— */
     noticeCreate = async(title, description) => {
         let data = await this.post('/notice/create/', {title, description})
@@ -490,6 +505,11 @@ class Api {
 
     questionGet = async(questionId) => {
         let data = await this.get(`/question/${questionId}/`);
+        return data;
+    }
+
+    questionEdit = async(questionId, title, description, category) => {
+        let data = await this.put(`/question/${questionId}/edit/`, {title, description, category})
         return data;
     }
 

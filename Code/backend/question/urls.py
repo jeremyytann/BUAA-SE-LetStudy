@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('create/', views.questionCreate),
     path('<int:pk>/', views.questionGet),
+    path('<int:pk>/edit/', views.questionEdit),
     path('<int:pk>/delete/', views.questionDelete),
     path('random/<int:count>/', views.questionGetByRandom),
 

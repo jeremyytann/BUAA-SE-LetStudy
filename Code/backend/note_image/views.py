@@ -28,9 +28,24 @@ def noteImageGet(request, note_id):
     except Note.DoesNotExist:
         return jsons([], 403, 0)
 
-    image = NoteImage.objects.get(note = note)
-
-    if image is None:
+    images = NoteImage.objects.filter(note = note).order_by('-createdDate')
+    
+    if images is None:
         return jsons()
 
+    image = images[0]
     return jsons([dict(image.body())])
+
+def noteImageEdit(request, note_id):
+    try:
+        note = Note.objects.get(id = note_id)
+    except Note.DoesNotExist:
+        return jsons([], 403, 0)
+
+    if (request.method == 'PUT'):
+        image = NoteImage.objects.get(note = note)
+
+        image.image = request.FILES.get('image')
+        image.save()
+
+        return jsons([dict(image.body())])

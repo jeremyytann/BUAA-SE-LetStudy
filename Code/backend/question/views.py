@@ -6,6 +6,7 @@ from user.models import GeneralUser
 from .models import Question
 from django.db.models import Count
 import json, random
+from django.utils import timezone
 from itertools import chain
 
 # Create your views here.
@@ -31,6 +32,24 @@ def questionCreate(request):
             return jsons([dict(question.body())])
         except GeneralUser.DoesNotExist:
             return jsons([], 403, 0)
+        
+def questionEdit(request, pk):
+    if request.method == 'PUT':
+        try:
+            question = Question.objects.get(id = pk)
+        except Question.DoesNotExist:
+            return jsons([], 404, 0)
+        
+        data = json.loads(request.body)
+        category = Category.objects.get(name = data['category'])
+
+        question.title = data['title']
+        question.description = data['description']
+        question.category = category
+        question.edited = 1
+        question.save()
+
+        return jsons([dict(question.body())])
 
 def questionGet(request, pk):
     try:

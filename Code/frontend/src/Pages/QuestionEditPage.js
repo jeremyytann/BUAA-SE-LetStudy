@@ -7,10 +7,11 @@ import Navbar from '../Components/Navbar'
 import PageTitle from '../Components/PageTitle'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import './GeneralUser.css'
 
-const QuestionCreatePage = () => {
+const QuestionEditPage = () => {
+    const { id } = useParams();
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [dialog, setDialog] = useState(false);
@@ -46,10 +47,19 @@ const QuestionCreatePage = () => {
             setSelectedCategory(data.data[0].name);
         }
 
-        fetchAllCategory();
-    }, [])
+        const fetchQuestion = async() => {
+            const data = await api.questionGet(id);
+            console.log(data.data[0]);
+            setTitle(data.data[0].title)
+            setDescription(data.data[0].description)
+            setSelectedCategory(data.data[0].category.name)
+        }
 
-    const createQuestion = async(e) => {
+        fetchQuestion();
+        fetchAllCategory();
+    }, [id])
+
+    const editQuestion = async(e) => {
         e.preventDefault();
 
         if (title === '') {
@@ -59,7 +69,7 @@ const QuestionCreatePage = () => {
             setError('问题内容不能为空哦');
             setDialog2(true);
         } else {
-            const question = await api.questionCreate(title, description, selectedCategory)
+            const question = await api.questionEdit(id, title, description, selectedCategory)
             
             navigate(`/question/${question.data[0].id}`)
         }
@@ -89,9 +99,9 @@ const QuestionCreatePage = () => {
     return (
         <Box>
             <Navbar />
-            <PageTitle title={'创建问题'}/>
+            <PageTitle title={'修改问题'}/>
 
-            <form onSubmit={createQuestion}>
+            <form onSubmit={editQuestion}>
                 <Box borderRadius={10} height={725} display='flex' mt={3} mx={10} sx={{backgroundColor: '#fff'}}>
                     <Box mx={7}>
                         <Box display='flex'>
@@ -154,8 +164,8 @@ const QuestionCreatePage = () => {
                         <Box mt={4} display='flex'>
                             <Box>
                                 <ThemeProvider theme={theme}>
-                                    <Button onClick={createQuestion} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
-                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>提问</Box>
+                                    <Button onClick={editQuestion} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
+                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>修改</Box>
                                     </Button>
                                 </ThemeProvider>
                             </Box>
@@ -208,4 +218,4 @@ const QuestionCreatePage = () => {
     )
 }
 
-export default QuestionCreatePage
+export default QuestionEditPage

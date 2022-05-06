@@ -11,6 +11,7 @@ class Question(models.Model):
     user = models.ForeignKey(GeneralUser, on_delete=models.CASCADE, null=False)
     createdDate = models.DateTimeField(default = timezone.now)
     edited = models.IntegerField(default = 0)
+    editDate = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
         return self.title

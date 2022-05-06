@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('create/', views.noteCreate),
     path('<int:pk>/', views.noteGet),
+    path('<int:pk>/edit/', views.noteEdit),
     path('<int:pk>/delete/', views.noteDelete),
 
     path('all/page/<int:page>/', views.noteGetAllByPage),

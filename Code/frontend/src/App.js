@@ -33,6 +33,8 @@ import AdminNoticeViewPage from './Pages/AdminNoticeViewPage';
 import RoomCreatePage from './Pages/RoomCreatePage';
 import RoomViewPage from './Pages/RoomViewPage';
 import NotFoundPage from './Pages/NotFoundPage';
+import NoteEditPage from './Pages/NoteEditPage';
+import QuestionEditPage from './Pages/QuestionEditPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -84,11 +86,13 @@ function App() {
                     <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
                     <Route path='/notes/:tab/:search/:page' element={<UserNotePage />}/>
                     <Route path='/note/:id' element={<NoteViewPage />}/>
+                    <Route path='/note/:id/edit' element={<NoteEditPage />}/>
                     <Route path='/notices/:tab' element={<UserNoticePage />}/>
                     <Route path='/questions/create' element={<QuestionCreatePage />}/>
                     <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
                     <Route path='/questions/:tab/:search/:page' element={<UserQuestionPage />}/>
                     <Route path='/question/:id' element={<QuestionViewPage />}/>
+                    <Route path='/question/:id/edit' element={<QuestionEditPage />}/>
                     <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
                     <Route path='/report/:id' element={<ReportViewPage />} /> 
                     <Route path='/404' element={<NotFoundPage />} />
