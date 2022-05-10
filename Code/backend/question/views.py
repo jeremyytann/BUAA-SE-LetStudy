@@ -127,9 +127,21 @@ def questionGetByRandom(request, count):
 def questionSearchByPage(request, search, page):
     try:
         count = 8
-        questions = Question.objects.filter(title__contains = search)
+        questions1 = Question.objects.filter(title__contains = search)
+        questions2 = Question.objects.filter(description__contains = search)
+        questions = questions1.union(questions2)
         questions = questions[((page - 1) * count) : (page * count)]
     except Question.DoesNotExist:
         return jsons([], 404)
     
     return jsons([dict(question.body()) for question in questions], 0)
+
+def questionSearchPageCount(request, search):
+    try:
+        questions1 = Question.objects.filter(title__contains = search)
+        questions2 = Question.objects.filter(description__contains = search)
+        questions = questions1.union(questions2)
+        pages = int((questions.count() + 7) / 8)
+        return jsons([], 0, pages)
+    except Question.DoesNotExist:
+        return jsons([], 404)

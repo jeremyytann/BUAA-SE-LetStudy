@@ -18,6 +18,7 @@ const NoteViewPage = () => {
     const [dialog, setDialog] = useState(false)
     const [error, setError] = useState(0);
     let username = Cookies.get('username')
+    let admin = Cookies.get('admin')
 
     const theme = createTheme ({
         typography: {
@@ -58,21 +59,16 @@ const NoteViewPage = () => {
 
         const fetchNoteImage = async() => {
             const data = await api.noteImageGet(id);
-            return data;
-        }
 
-        const getNoteImage = async() => {
-            const image = await fetchNoteImage();
-
-            if (image !== undefined) {
-                setImage(image.data[0]);
+            if (data !== undefined) {
+                setImage(data.data[0]);
             } else {
                 setImage([]);
             }
         }
 
         fetchNote()
-        getNoteImage();
+        fetchNoteImage();
     }, [id])
     
     if (error === 404) {
@@ -174,12 +170,23 @@ const NoteViewPage = () => {
                                                         </Box>
                                                     </Box>
                                                     :
-                                                    <Box ml={4}>
-                                                        <ThemeProvider theme={theme}>
-                                                            <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
-                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                                                            </Button>
-                                                        </ThemeProvider>
+                                                    <Box>
+                                                        { admin ?
+                                                            <Box ml={4}>
+                                                                <ThemeProvider theme={theme}>
+                                                                    <Button disabled onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                                    </Button>
+                                                                </ThemeProvider>
+                                                            </Box> : 
+                                                            <Box ml={4}>
+                                                                <ThemeProvider theme={theme}>
+                                                                    <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                                    </Button>
+                                                                </ThemeProvider>
+                                                            </Box>
+                                                        }
                                                     </Box>
                                                 }
                                             </Box>

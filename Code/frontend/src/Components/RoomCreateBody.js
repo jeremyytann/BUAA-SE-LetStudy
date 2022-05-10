@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const RoomCreateBody = () => {
     const [name, setName] = useState('')
@@ -11,6 +13,7 @@ const RoomCreateBody = () => {
     const [lock, setLock] = useState(false);
     const [error, setError] = useState('');
     const [password, setPassword] = useState('');
+    const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
 
     const theme = createTheme ({
@@ -42,6 +45,11 @@ const RoomCreateBody = () => {
 
     const handleLockChange = (event) => {
         setLock(event.target.checked)
+        
+        if (event.target.checked === false) {
+            setVisible(false);
+            setPassword('');
+        }
     }
 
     const createRoom = async() => {
@@ -64,8 +72,6 @@ const RoomCreateBody = () => {
                 navigate(`/room/${data.data[0].id}`)
             }
         }
-
-        
     }
 
     const linkPrivateRoom = () => {
@@ -128,10 +134,14 @@ const RoomCreateBody = () => {
                                             className='create-room-name'
                                             value={password}
                                             onChange={event => setPassword(event.target.value)}
-                                            type='password'
+                                            type={ visible ? 'text' : 'password' }
                                             placeholder='输入密码' 
                                             maxLength='30' required/>
                                     </Box>
+                                </Box>
+
+                                <Box ml={4}>
+                                    { visible ? <VisibilityIcon onClick={() => setVisible(false)}/> : <VisibilityOffIcon onClick={() => setVisible(true)}/> }
                                 </Box>
                             </Box> : ''
                         }

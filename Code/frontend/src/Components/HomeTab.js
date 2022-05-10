@@ -39,10 +39,10 @@ const HomeTab = ({ url }) => {
 
             { url === 'questions' ? 
                 <Box onClick={linkQuestions} color='#E0A96D' fontSize={40} ml={7} fontWeight='bold' sx={{cursor: 'pointer'}}>
-                    回答
+                    问答
                 </Box> :
                 <Box onClick={linkQuestions} color='#D5D5D5' fontSize={40} ml={7} fontWeight='bold' sx={{cursor: 'pointer'}}>
-                    回答
+                    问答
                 </Box>
             }
         </Box>

@@ -27,6 +27,7 @@ const QuestionViewPage = () => {
     const [dialog, setDialog] = useState(false)
     const [dialog2, setDialog2] = useState(false);
     let username = Cookies.get('username');
+    let admin = Cookies.get('admin');
 
     const theme = createTheme ({
         typography: {
@@ -88,13 +89,8 @@ const QuestionViewPage = () => {
 
         const fetchAllAnswerByPage = async() => {
             const data = await api.answerGetAllByPage(id, page);
-            return data;
-        }
-        
-        const getAllAnswerByPage = async() => {
-            const answersFromServer = await fetchAllAnswerByPage();
-            setAnswers(answersFromServer.data)
-            setMaxPage(answersFromServer.page)
+            setAnswers(data.data)
+            setMaxPage(data.page)
         }
 
         const fetchAnswerCount = async() => {
@@ -111,7 +107,7 @@ const QuestionViewPage = () => {
 
         fetchQuestion();
         fetchAnswerCount();
-        getAllAnswerByPage();
+        fetchAllAnswerByPage();
     }, [id, page, status])
 
     if (error === 404) {
@@ -197,11 +193,20 @@ const QuestionViewPage = () => {
                                                         </ThemeProvider>
                                                     </Box>
                                                 </Box> :
-                                                <ThemeProvider theme={theme}>
-                                                    <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
-                                                        <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                                                    </Button>
-                                                </ThemeProvider>
+                                                <Box>
+                                                    { admin ? 
+                                                        <ThemeProvider theme={theme}>
+                                                            <Button disabled onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                            </Button>
+                                                        </ThemeProvider> :
+                                                        <ThemeProvider theme={theme}>
+                                                            <Button onClick={linkReport} variant="contained" size='small' height={5} color='pink' style={{ borderRadius: 13, width: 100 }}> 
+                                                                <Box sx={{fontSize: 15, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                                            </Button>
+                                                        </ThemeProvider>
+                                                    }
+                                                </Box>
                                             }
                                         </Box>
                                     </Box>

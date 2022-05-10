@@ -6,7 +6,7 @@ import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const HomeFlipPage = ({ url }) => {
-    const { tab, page } = useParams();
+    const { tab, page, search } = useParams();
     const [maxPage, setMaxPage] = useState(0);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const HomeFlipPage = ({ url }) => {
     useEffect(() => {
         const fetchNoteAllPageCount = async() => {
             const data = await api.noteGetAllPageCount();
-            return data;
+            setMaxPage(data.page)
         }
 
         const fetchNotePopularPageCount = async() => {
@@ -42,12 +42,17 @@ const HomeFlipPage = ({ url }) => {
 
         const fetchNoteLatestPageCount = async() => {
             const data = await api.noteGetLatestPageCount();
-            return data;
+            setMaxPage(data.page)
+        }
+
+        const fetchNoteSearchPageCount = async() => {
+            const data = await api.noteGetSearchPageCount(search);
+            setMaxPage(data.page)
         }
 
         const fetchQuestionAllPageCount = async() => {
             const data = await api.questionGetAllPageCount();
-            return data;
+            setMaxPage(data.page)
         }
 
         const fetchQuestionPopularPageCount = async() => {
@@ -57,7 +62,12 @@ const HomeFlipPage = ({ url }) => {
 
         const fetchQuestionLatestPageCount = async() => {
             const data = await api.questionGetLatestPageCount();
-            return data;
+            setMaxPage(data.page)
+        }
+
+        const fetchQuestionSearchPageCount = async() => {
+            const data = await api.questionGetSearchPageCount(search);
+            setMaxPage(data.page);
         }
 
         const fetchPrivateRoomsPageCount = async() => {
@@ -65,51 +75,43 @@ const HomeFlipPage = ({ url }) => {
             setMaxPage(data.page);
         }
 
-        const getNoteAllPageCount = async() => {
-            const data = await fetchNoteAllPageCount();
-            setMaxPage(data.page);
-        }
-
-        const getNoteLatestPageCount = async() => {
-            const data = await fetchNoteLatestPageCount();
-            setMaxPage(data.page);
-        }
-
-        const getQuestionAllPageCount = async() => {
-            const data = await fetchQuestionAllPageCount();
-            setMaxPage(data.page)
-        }
-
-        const getQuestionLatestPageCount = async() => {
-            const data = await fetchQuestionLatestPageCount();
-            setMaxPage(data.page)
-        }
-
         if (url === 'notes' && tab === 'all') {
-            getNoteAllPageCount()
+            fetchNoteAllPageCount()
         } else if (url === 'notes' && tab === 'popular') {
             fetchNotePopularPageCount()
         } else if (url === 'notes' && tab === 'latest') {
-            getNoteLatestPageCount()
+            fetchNoteLatestPageCount()
+        } else if (url === 'notes' && tab === 'search') {
+            fetchNoteSearchPageCount()
         } else if (url === 'questions' && tab === 'all') {
-            getQuestionAllPageCount()
+            fetchQuestionAllPageCount()
         } else if (url === 'questions' && tab === 'popular') {
             fetchQuestionPopularPageCount()
         } else if (url === 'questions' && tab === 'latest') {
-            getQuestionLatestPageCount()
+            fetchQuestionLatestPageCount()
+        } else if (url === 'questions' && tab === 'search') {
+            fetchQuestionSearchPageCount()
         } else if (url === 'rooms' && tab === 'public') {
             setMaxPage(1)
         } else if (url === 'rooms' && tab === 'private') {
             fetchPrivateRoomsPageCount();
         }
-    }, [tab, page, url])
+    }, [tab, page, url, search])
     
     const previousPage = () => {
-        navigate(`/${url}/${tab}/${parseInt(page) - 1}`);
+        if ((url === 'notes' && tab === 'search') || (url === 'questions' && tab === 'search')) {
+            navigate(`/${url}/${tab}/${search}/${parseInt(page) - 1}`);
+        } else {
+            navigate(`/${url}/${tab}/${parseInt(page) - 1}`);
+        }
     }
 
     const nextPage = () => {
-        navigate(`/${url}/${tab}/${parseInt(page) + 1}`);
+        if ((url === 'notes' && tab === 'search') || (url === 'questions' && tab === 'search')) {
+            navigate(`/${url}/${tab}/${search}/${parseInt(page) + 1}`);
+        } else {
+            navigate(`/${url}/${tab}/${parseInt(page) + 1}`);
+        }
     }
 
     return (

@@ -424,6 +424,11 @@ class Api {
         return data;
     }
 
+    noteGetSearchPageCount = async(search) => {
+        let data = await this.get(`/note/search/${search}/page_count/`);
+        return data;
+    }
+
     /* ———————————————————— NoteImage API ———————————————————— */
     noteImageCreate = async(noteId, form) => {
         let data = await axios({
@@ -560,6 +565,11 @@ class Api {
     
     questionSearchByPage = async(search, page) => {
         let data = await this.get(`/question/search/${search}/page/${page}/`);
+        return data;
+    }
+
+    questionGetSearchPageCount = async(search) => {
+        let data = await this.get(`/question/search/${search}/page_count/`);
         return data;
     }
 

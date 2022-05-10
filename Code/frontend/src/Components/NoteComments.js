@@ -45,19 +45,14 @@ const NoteComments = () => {
     useEffect(() => {
         const fetchCommentByPage = async() => {
             const data = await api.commentGetByPage(id, page);
-            return data;
-        }
 
-        const getCommentByPage = async() => {
-            const commentsFromServer = await fetchCommentByPage();
-
-            if (commentsFromServer.data.length > 0) {
-                setComments(commentsFromServer.data)
-                setMaxPage(commentsFromServer.page)
+            if (data.data.length > 0) {
+                setComments(data.data)
+                setMaxPage(data.page)
             }
         }
 
-        getCommentByPage();
+        fetchCommentByPage();
     }, [id, page, status])
 
     const createComment = async(e) => {

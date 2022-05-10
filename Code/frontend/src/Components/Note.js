@@ -15,7 +15,12 @@ const Note = ({ note }) => {
     useEffect(() => {
         const fetchNoteImage = async() => {
             const data = await api.noteImageGet(note.id);
-            return data;
+
+            if (data !== undefined) {
+                setImage(data.data[0]);
+            } else {
+                setImage([]);
+            }
         }
 
         const fetchLikeCount = async() => {
@@ -30,18 +35,8 @@ const Note = ({ note }) => {
             }
         }
 
-        const getNoteImage = async() => {
-            const image = await fetchNoteImage();
-
-            if (image !== undefined) {
-                setImage(image.data[0]);
-            } else {
-                setImage([]);
-            }
-        }
-
         fetchLikeCount();
-        getNoteImage();
+        fetchNoteImage();
     }, [note])
 
     const linkNote = () => {

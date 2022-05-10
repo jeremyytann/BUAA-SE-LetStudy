@@ -14,7 +14,7 @@ const UserNoteBody = () => {
     useEffect(() => {
         const fetchAllNotesByPage = async() => {
             const data = await api.noteGetAllByPage(page);
-            return data;
+            setNotes(data.data)
         }
 
         const fetchPopularNotesByPage = async() => {
@@ -24,7 +24,7 @@ const UserNoteBody = () => {
 
         const fetchLatestNotesByPage = async() => {
             const data = await api.noteGetLatestByPage(page);
-            return data;
+            setNotes(data.data)
         }
 
         const fetchSearchNotesByPage = async() => {
@@ -32,22 +32,12 @@ const UserNoteBody = () => {
             setNotes(data.data);
         }
 
-        const getAllNotesByPage = async() => {
-            const notesFromServer = await fetchAllNotesByPage();
-            setNotes(notesFromServer.data);
-        }
-
-        const getLatestNotesByPage = async() => {
-            const notesFromServer = await fetchLatestNotesByPage();
-            setNotes(notesFromServer.data);
-        }
-
         if (tab === 'all') {
-            getAllNotesByPage();
+            fetchAllNotesByPage();
         } else if (tab === 'popular') {
             fetchPopularNotesByPage();
         } else if (tab === 'latest') {
-            getLatestNotesByPage();
+            fetchLatestNotesByPage();
         } else if (tab === 'search') {
             fetchSearchNotesByPage();
         }

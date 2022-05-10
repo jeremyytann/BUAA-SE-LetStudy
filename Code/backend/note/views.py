@@ -126,9 +126,21 @@ def noteGetLatestPageCount(request):
 def noteSearchByPage(request, search, page):
     try:
         count = 16
-        notes = Note.objects.filter(title__contains = search)
+        notes1 = Note.objects.filter(title__contains = search)
+        notes2 = Note.objects.filter(description__contains = search)
+        notes = notes1.union(notes2)
         notes = notes[((page - 1) * count) : (page * count)]
     except Note.DoesNotExist:
         return jsons([], 404)
     
     return jsons([dict(note.body()) for note in notes], 0)
+
+def noteSearchPageCount(request, search):
+    try:
+        notes1 = Note.objects.filter(title__contains = search)
+        notes2 = Note.objects.filter(description__contains = search)
+        notes = notes1.union(notes2)
+        pages = int((notes.count() + 15) / 16)
+        return jsons([], 0, pages, 0)
+    except Note.DoesNotExist:
+        return jsons([], 404)
