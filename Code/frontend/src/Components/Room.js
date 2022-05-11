@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '../Api/api'
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Room = ({ room }) => {
     const [open, setOpen] = useState(false);
@@ -56,7 +57,21 @@ const Room = ({ room }) => {
 
     return (
         <Box className='question-view-background' border={1} height={130} width={870} mr={2.5} mb={2.2} borderRadius={5} onClick={joinRoom} sx={{cursor: 'pointer'}}>
-            <Box mt={2.5} mx={3} display='flex' height={65}>
+            { room.type === 1 ?
+            <Box mt={2.5} mx={3} display='flex' height={35}>
+                <Box display='flex' width={680}>
+                    <Box className='question-view-title' maxWidth={650} fontWeight='bold' fontSize={18}>
+                        {room.name}
+                    </Box>
+
+                    { room.lock ? 
+                        <Box ml={1}>
+                            <LockRoundedIcon fontSize='small' />
+                        </Box> : ''
+                    }
+                </Box>
+            </Box> :
+            <Box mt={2.5} mx={3} display='flex' height={68}>
                 <Box display='flex' width={680}>
                     <Box className='question-view-title' maxWidth={650} fontWeight='bold' fontSize={18}>
                         {room.name}
@@ -69,9 +84,22 @@ const Room = ({ room }) => {
                     }
                 </Box>
             </Box>
+            }
 
+            { room.type === 1 ? 
+                <Box ml={80} display='flex' alignItems='center' fontWeight='bold'>
+                    <Box mr={1} mt={0.7}>
+                        <PersonIcon />
+                    </Box>
+                    
+                    <Box>
+                        {room.user}
+                    </Box>
+                </Box> : ''
+            }
+            
 
-            <Box ml={88} display='flex' alignItems='center' fontWeight='bold'>
+            <Box ml={80} display='flex' alignItems='center' fontWeight='bold'>
                 <Box mr={1} mt={0.5}>
                     <FiberManualRecordRoundedIcon color='success' />
                 </Box>

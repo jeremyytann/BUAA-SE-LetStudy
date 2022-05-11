@@ -161,7 +161,7 @@ const RoomViewPage = () => {
                         </Grid>
 
                         <Grid item xs={3.5}>
-                            <RoomParticipants />
+                            <RoomParticipants host={room.user} />
                         </Grid>
                     </Grid>
                 </Box> : ''

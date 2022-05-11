@@ -1,6 +1,6 @@
 import { Box, Checkbox, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
@@ -34,10 +34,6 @@ const RoomCreateBody = () => {
             }
         }
     });
-
-    const toggleDialog = () => {
-        setDialog(!dialog);
-    }
 
     const closeDialog = () => {
         setDialog(false);
@@ -141,7 +137,7 @@ const RoomCreateBody = () => {
                                 </Box>
 
                                 <Box ml={4}>
-                                    { visible ? <VisibilityIcon onClick={() => setVisible(false)}/> : <VisibilityOffIcon onClick={() => setVisible(true)}/> }
+                                    { visible ? <VisibilityIcon sx={{cursor: 'pointer'}} onClick={() => setVisible(false)}/> : <VisibilityOffIcon sx={{cursor: 'pointer'}} onClick={() => setVisible(true)}/> }
                                 </Box>
                             </Box> : ''
                         }
