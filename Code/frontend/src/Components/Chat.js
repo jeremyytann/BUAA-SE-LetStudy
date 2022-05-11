@@ -2,11 +2,13 @@ import { Box } from '@mui/material'
 import React from 'react'
 import api from '../Api/api'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const Chat = ({ message }) => {
     let date = message.createdDate.split('T')
     let time = date[1].split('.')
     const navigate = useNavigate();
+    let username = Cookies.get('username')
 
     const linkProfile = async() => {
         if (message.room.type === 0) {
@@ -27,9 +29,15 @@ const Chat = ({ message }) => {
     return (
         <Box mx={2} mb={1.5} height={60}>
             <Box display='flex' alignItems='center' mx={1}>
-                <Box fontWeight='bold' onClick={linkProfile} sx={{cursor: 'pointer'}}>
-                    { message.user.username }
-                </Box>
+                { message.user.username === username ? 
+                    <Box fontWeight='bold' color='#E0A96D' onClick={linkProfile} sx={{cursor: 'pointer'}}>
+                        { message.user.username }
+                    </Box> :
+                    <Box fontWeight='bold' onClick={linkProfile} sx={{cursor: 'pointer'}}>
+                        { message.user.username }
+                    </Box>
+                }
+                
                 
                 <Box ml={2} fontSize={14}>
                     { date[0] }

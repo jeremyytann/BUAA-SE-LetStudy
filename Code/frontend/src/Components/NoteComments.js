@@ -11,7 +11,7 @@ const NoteComments = () => {
     const [comments, setComments] = useState()
     const [comment, setComment] = useState('')
     const [error, setError] = useState('')
-    const [dialog, setDialog] = useState('');
+    const [dialog, setDialog] = useState(false);
     const [page, setPage] = useState(1)
     const [maxPage, setMaxPage] = useState(0)
     const [status, setStatus] = useState(false)

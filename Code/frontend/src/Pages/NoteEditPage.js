@@ -12,7 +12,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const NoteEditPage = () => {
     const { id } = useParams();
-    const [image, setImage] = useState([]);
+    const [image, setImage] = useState();
     const [imagePath, setImagePath] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
@@ -62,21 +62,21 @@ const NoteEditPage = () => {
     const editNote = async(e) => {
         e.preventDefault();
 
-        if (image.length === 0) {
-            setError('照片不能为空哦');
-            setDialog2(true)
-        } else if (title === '') {
+        if (title === '') {
             setError('笔记主题不能为空哦');
             setDialog2(true)
         } else if (description === '') {
             setError('笔记内容不能为空哦');
             setDialog2(true)
         } else {
-            const form = new FormData();
-            form.append('image', image);
-            
             const note = await api.noteEdit(id, title, description, selectedCategory);
-            await api.noteImageCreate(note.data[0].id, form);
+
+            if (image !== undefined) {
+                const form = new FormData();
+                form.append('image', image);
+                
+                await api.noteImageCreate(note.data[0].id, form);
+            }
 
             // should navigate to that note page
             navigate(`/note/${note.data[0].id}`)
