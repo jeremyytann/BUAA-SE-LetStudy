@@ -14,6 +14,8 @@ const ReportCreatePage = () => {
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
     const [dialog, setDialog] = useState('');
+    const [dialog2, setDialog2] = useState('');
+    const [path, setPath] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -83,6 +85,11 @@ const ReportCreatePage = () => {
         setDialog(false);
     }
 
+    const closeDialog2 = () => {
+        setDialog2(false);
+        navigate(path);
+    }
+
     const createReport = async(e) => {
         e.preventDefault();
 
@@ -90,24 +97,30 @@ const ReportCreatePage = () => {
             setError('举报内容不能为空哦');
             setDialog(true);
         } else {
+            let report = null
+
             if (type === 'note') {
-                const report = await api.reportCreate(1, id, description, reportTitle);
-                navigate(`/note/${id}`);
+                report = await api.reportCreate(1, id, description, reportTitle);
+                setPath(`/note/${id}`);
             } else if (type === 'comment') {
-                const report = await api.reportCreate(2, id, description, reportTitle);
+                report = await api.reportCreate(2, id, description, reportTitle);
                 let noteId = report.data[0].comment.note.id;
-                navigate(`/note/${noteId}`);
+                setPath(`/note/${noteId}`);
             } else if (type === 'question') {
-                const report = await api.reportCreate(3, id, description, reportTitle);
-                navigate(`/question/${id}`);
+                report = await api.reportCreate(3, id, description, reportTitle);
+                setPath(`/question/${id}`);
             } else if (type === 'answer') {
-                const report = await api.reportCreate(4, id, description, reportTitle);
+                report = await api.reportCreate(4, id, description, reportTitle);
                 let questionId = report.data[0].answer.question.id;
-                navigate(`/question/${questionId}`);
+                setPath(`/question/${questionId}`);
             } else if (type === 'user') {
-                const report = await api.reportCreate(5, id, description, reportTitle);
+                report = await api.reportCreate(5, id, description, reportTitle);
                 let username = report.data[0].profile.username;
-                navigate(`/profile/${username}/notes`);
+                setPath(`/profile/${username}/notes`);
+            }
+
+            if (report.errorCode === 0) {
+                setDialog2(true);
             }
         }
     }
@@ -188,7 +201,7 @@ const ReportCreatePage = () => {
                             <Box>
                                 <ThemeProvider theme={theme}>
                                     <Button onClick={createReport} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
-                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>提问</Box>
+                                        <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>提交</Box>
                                     </Button>
                                 </ThemeProvider>
                             </Box>
@@ -221,6 +234,25 @@ const ReportCreatePage = () => {
 
                 <DialogActions>
                     <Button onClick={closeDialog}>知道了</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog2}
+                maxWidth='sm'
+                onClose={closeDialog2}>
+                <DialogTitle id="alert-dialog-title">
+                    {"举报成功"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {"你的举报已成功提交，现在将返回至上一个页面。"}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog2}>好的</Button>
                 </DialogActions>
             </Dialog>
         </div>
