@@ -83,6 +83,16 @@ const ProfileDescription = ({ user, days }) => {
         }
     }
 
+    const unbanUser = async() => {
+        await api.userUnban(user.id);
+        window.location.reload()
+    }
+
+    const banUser = async() => {
+        await api.userBan(user.id);
+        window.location.reload()
+    }
+
     const linkReport = () => {
         navigate(`/report/create/user/${user.id}`)
     }
@@ -134,17 +144,29 @@ const ProfileDescription = ({ user, days }) => {
                 </Box>
                 
                 <Box ml={3}>
-                    { (user.username === currentUser) || admin || user.status === 0 ? 
-                        <ThemeProvider theme={theme}>
-                            <Button disabled onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
-                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                            </Button>
-                        </ThemeProvider> :
-                        <ThemeProvider theme={theme}>
-                            <Button onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
-                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
-                            </Button>
-                        </ThemeProvider>
+                    { admin ? 
+                        user.status === 0 ? 
+                            <ThemeProvider theme={theme}>
+                                <Button onClick={unbanUser} variant="contained" size="small" color='black' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                    <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>解封</Box>
+                                </Button>
+                            </ThemeProvider> :
+                            <ThemeProvider theme={theme}>
+                                <Button onClick={banUser} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                    <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>封锁</Box>
+                                </Button>
+                            </ThemeProvider>
+                        : (user.username === currentUser) || user.status === 0 ? 
+                            <ThemeProvider theme={theme}>
+                                <Button disabled onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                    <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                </Button>
+                            </ThemeProvider> :
+                            <ThemeProvider theme={theme}>
+                                <Button onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
+                                    <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>
+                                </Button>
+                            </ThemeProvider>
                     }
                 </Box>
             </Box>
