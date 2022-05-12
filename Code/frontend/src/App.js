@@ -84,13 +84,13 @@ function App() {
                     <Route path='/room/:id' element={<RoomViewPage />}/>
                     <Route path='/notes/create' element={<NoteCreatePage />}/>
                     <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
-                    <Route path='/notes/:tab/:search/:page' element={<UserNotePage />}/>
+                    <Route path='/notes/:tab/:searchVal/:page' element={<UserNotePage />}/>
                     <Route path='/note/:id' element={<NoteViewPage />}/>
                     <Route path='/note/:id/edit' element={<NoteEditPage />}/>
                     <Route path='/notices/:tab' element={<UserNoticePage />}/>
                     <Route path='/questions/create' element={<QuestionCreatePage />}/>
                     <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
-                    <Route path='/questions/:tab/:search/:page' element={<UserQuestionPage />}/>
+                    <Route path='/questions/:tab/:searchVal/:page' element={<UserQuestionPage />}/>
                     <Route path='/question/:id' element={<QuestionViewPage />}/>
                     <Route path='/question/:id/edit' element={<QuestionEditPage />}/>
                     <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>

@@ -7,7 +7,7 @@ import api from '../Api/api'
 
 const UserQuestionBody = () => {
     // const navigate = useNavigate();
-    const { tab, page, search } = useParams();
+    const { tab, page, searchVal } = useParams();
     const [questions, setQuestions] = useState();
 
     useEffect(() => {
@@ -27,7 +27,12 @@ const UserQuestionBody = () => {
         }
 
         const fetchSearchQuestionsByPage = async() => {
-            const data = await api.questionSearchByPage(search, page);
+            const data = await api.questionSearchByPage(searchVal, page);
+            setQuestions(data.data);
+        }
+        
+        const fetchCategoryQuestionsByPage = async() => {
+            const data = await api.questionCategoryByPage(searchVal, page);
             setQuestions(data.data);
         }
 
@@ -39,8 +44,10 @@ const UserQuestionBody = () => {
             fetchLatestQuestionsByPage();
         } else if (tab === 'search') {
             fetchSearchQuestionsByPage();
+        } else if (tab === 'category') {
+            fetchCategoryQuestionsByPage();
         }
-    }, [tab, page, search])
+    }, [tab, page, searchVal])
 
     return (
         <Box height={580} mt={5} ml={10} mr={2}>

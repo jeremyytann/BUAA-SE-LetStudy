@@ -144,3 +144,26 @@ def noteSearchPageCount(request, search):
         return jsons([], 0, pages, 0)
     except Note.DoesNotExist:
         return jsons([], 404)
+
+def noteCategoryByPage(request, search, page):
+    try:
+        category = Category.objects.get(name = search)
+    except Category.DoesNotExist:
+        return jsons([], 403)
+    
+    count = 16
+    notes = Note.objects.filter(category = category)
+    notes = notes[((page - 1) * count) : (page * count)]
+
+    return jsons([dict(note.body()) for note in notes], 0)
+
+def noteCategoryPageCount(request, search):
+    try:
+        category = Category.objects.get(name = search)
+    except Category.DoesNotExist:
+        return jsons([], 403)
+    
+    notes = Note.objects.filter(category = category)
+    pages = int((notes.count() + 15) / 16)
+
+    return jsons([], 0, pages)

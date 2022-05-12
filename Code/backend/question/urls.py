@@ -19,5 +19,8 @@ urlpatterns = [
     path('latest/page_count/', views.questionGetLatestPageCount),
 
     path('search/<str:search>/page/<int:page>/', views.questionSearchByPage),
-    path('search/<str:search>/page_count/', views.questionSearchPageCount)
+    path('search/<str:search>/page_count/', views.questionSearchPageCount),
+
+    path('category/<str:search>/page/<int:page>/', views.questionCategoryByPage),
+    path('category/<str:search>/page_count/', views.questionCategoryPageCount)
 ]

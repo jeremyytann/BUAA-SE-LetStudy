@@ -6,7 +6,7 @@ import api from '../Api/api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const HomeFlipPage = ({ url }) => {
-    const { tab, page, search } = useParams();
+    const { tab, page, searchVal } = useParams();
     const [maxPage, setMaxPage] = useState(0);
     const navigate = useNavigate();
 
@@ -46,7 +46,12 @@ const HomeFlipPage = ({ url }) => {
         }
 
         const fetchNoteSearchPageCount = async() => {
-            const data = await api.noteGetSearchPageCount(search);
+            const data = await api.noteGetSearchPageCount(searchVal);
+            setMaxPage(data.page)
+        }
+
+        const fetchNoteCategoryPageCount = async() => {
+            const data = await api.noteGetCategoryPageCount(searchVal);
             setMaxPage(data.page)
         }
 
@@ -66,7 +71,12 @@ const HomeFlipPage = ({ url }) => {
         }
 
         const fetchQuestionSearchPageCount = async() => {
-            const data = await api.questionGetSearchPageCount(search);
+            const data = await api.questionGetSearchPageCount(searchVal);
+            setMaxPage(data.page);
+        }
+
+        const fetchQuestionCategoryPageCount = async() => {
+            const data = await api.questionGetCategoryPageCount(searchVal);
             setMaxPage(data.page);
         }
 
@@ -83,6 +93,8 @@ const HomeFlipPage = ({ url }) => {
             fetchNoteLatestPageCount()
         } else if (url === 'notes' && tab === 'search') {
             fetchNoteSearchPageCount()
+        } else if (url === 'notes' && tab === 'category') {
+            fetchNoteCategoryPageCount()
         } else if (url === 'questions' && tab === 'all') {
             fetchQuestionAllPageCount()
         } else if (url === 'questions' && tab === 'popular') {
@@ -91,16 +103,18 @@ const HomeFlipPage = ({ url }) => {
             fetchQuestionLatestPageCount()
         } else if (url === 'questions' && tab === 'search') {
             fetchQuestionSearchPageCount()
+        } else if (url === 'questions' && tab === 'category') {
+            fetchQuestionCategoryPageCount()
         } else if (url === 'rooms' && tab === 'public') {
             setMaxPage(1)
         } else if (url === 'rooms' && tab === 'private') {
             fetchPrivateRoomsPageCount();
         }
-    }, [tab, page, url, search])
+    }, [tab, page, url, searchVal])
     
     const previousPage = () => {
         if ((url === 'notes' && tab === 'search') || (url === 'questions' && tab === 'search')) {
-            navigate(`/${url}/${tab}/${search}/${parseInt(page) - 1}`);
+            navigate(`/${url}/${tab}/${searchVal}/${parseInt(page) - 1}`);
         } else {
             navigate(`/${url}/${tab}/${parseInt(page) - 1}`);
         }
@@ -108,7 +122,7 @@ const HomeFlipPage = ({ url }) => {
 
     const nextPage = () => {
         if ((url === 'notes' && tab === 'search') || (url === 'questions' && tab === 'search')) {
-            navigate(`/${url}/${tab}/${search}/${parseInt(page) + 1}`);
+            navigate(`/${url}/${tab}/${searchVal}/${parseInt(page) + 1}`);
         } else {
             navigate(`/${url}/${tab}/${parseInt(page) + 1}`);
         }

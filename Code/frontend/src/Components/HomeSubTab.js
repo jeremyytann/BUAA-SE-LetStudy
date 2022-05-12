@@ -1,16 +1,22 @@
 import React from 'react'
-import { useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { useState, useEffect } from 'react'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import api from '../Api/api'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const HomeSubTab = ({ url }) => {
     const navigate = useNavigate();
-    const { tab } = useParams();
+    const { tab, searchVal } = useParams();
     const [search, setSearch] = useState('');
     const [error, setError] = useState('');
     const [dialog, setDialog] = useState(false);
+    const [dialog2, setDialog2] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('分类');
+    const [categories, setCategories] = useState([]);
 
     const theme = createTheme ({
         typography: {
@@ -51,6 +57,11 @@ const HomeSubTab = ({ url }) => {
         setDialog(false);
     }
 
+    const handleSelectCategory = (value) => {
+        setDialog2(false);
+        navigate(`/${url}/category/${value}/1`);
+    }
+
     const searchRooms = () => {
         if (search.length === 0) {
             setError('搜索栏不能为空哦');
@@ -79,6 +90,23 @@ const HomeSubTab = ({ url }) => {
             setSearch(''); 
             navigate(`/questions/search/${search}/1`);
         }
+    }
+
+    useEffect(() => {
+        const fetchAllCategory = async() => {
+            const data = await api.categoryGetAll();
+            setCategories(data.data);
+        }
+
+        fetchAllCategory();
+    }, [])
+
+    const handleDialogOpen = () => {
+        setDialog2(true);
+    }
+
+    const handleDialogClose = () => {
+        setDialog2(false);
     }
 
     return (
@@ -169,7 +197,20 @@ const HomeSubTab = ({ url }) => {
                                 <Box onClick={() => {setSearch(''); navigate('/notes/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     最新
                                 </Box>
-                                <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+                                
+                                <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                                <Box display='flex' alignItems='center' ml={5} width={355}>
+                                    <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                        {selectedCategory}
+                                    </Box>
+
+                                    <Box display='flex' ml={3} color='#000'>
+                                        <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                    </Box>
+                                </Box>
+
+                                <Box borderRadius={5} display='flex' alignItems='center'>
                                     <input 
                                         className='search-user'
                                         value={search}
@@ -196,7 +237,20 @@ const HomeSubTab = ({ url }) => {
                                 <Box onClick={() => {setSearch(''); navigate('/notes/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     最新
                                 </Box>
-                                <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+                                
+                                <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                                <Box display='flex' alignItems='center' ml={5} width={355}>
+                                    <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                        {selectedCategory}
+                                    </Box>
+
+                                    <Box display='flex' ml={3} color='#000'>
+                                        <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                    </Box>
+                                </Box>
+
+                                <Box borderRadius={5} display='flex' alignItems='center'>
                                     <input 
                                         className='search-user'
                                         value={search}
@@ -223,7 +277,20 @@ const HomeSubTab = ({ url }) => {
                                 <Box onClick={() => {setSearch(''); navigate('/notes/latest/1')}} color='#E0A96D' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     最新
                                 </Box>
-                                <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+                                
+                                <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                                <Box display='flex' alignItems='center' ml={5} width={355}>
+                                    <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                        {selectedCategory}
+                                    </Box>
+
+                                    <Box display='flex' ml={3} color='#000'>
+                                        <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                    </Box>
+                                </Box>
+
+                                <Box borderRadius={5} display='flex' alignItems='center'>
                                     <input 
                                         className='search-user'
                                         value={search}
@@ -250,7 +317,60 @@ const HomeSubTab = ({ url }) => {
                                 <Box onClick={() => {setSearch(''); navigate('/notes/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                     最新
                                 </Box>
-                                <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+                                
+                                <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                                <Box display='flex' alignItems='center' ml={5} width={355}>
+                                    <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                        {selectedCategory}
+                                    </Box>
+
+                                    <Box display='flex' ml={3} color='#000'>
+                                        <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                    </Box>
+                                </Box>
+
+                                <Box borderRadius={5} display='flex' alignItems='center'>
+                                    <input 
+                                        className='search-user'
+                                        value={search}
+                                        onChange={event => setSearch(event.target.value)}
+                                        type='text'
+                                        placeholder='搜索笔记' 
+                                        maxLength='15' required/>  
+                                    <Box ml={2}>
+                                        <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchNotes}/>
+                                    </Box>
+                                </Box>
+                            </Box>
+                            : ''
+                        }
+
+                        { tab === 'category' ?
+                            <Box display='flex' alignItems='center'>
+                                <Box onClick={() => {setSearch(''); navigate('/notes/all/1')}} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    全部
+                                </Box>
+                                <Box onClick={() => {setSearch(''); navigate('/notes/popular/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    热门
+                                </Box>
+                                <Box onClick={() => {setSearch(''); navigate('/notes/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                    最新
+                                </Box>
+                                
+                                <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                                <Box display='flex' alignItems='center' ml={5} width={355}>
+                                    <Box color='#E0A96D' fontSize={35} fontWeight='bold'>
+                                        {searchVal}
+                                    </Box>
+
+                                    <Box display='flex' ml={3} color='#000'>
+                                        <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                    </Box>
+                                </Box>
+
+                                <Box borderRadius={5} display='flex' alignItems='center'>
                                     <input 
                                         className='search-user'
                                         value={search}
@@ -281,7 +401,20 @@ const HomeSubTab = ({ url }) => {
                             <Box onClick={() => {setSearch(''); navigate('/questions/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                 最新
                             </Box>
-                            <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+
+                            <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                            <Box display='flex' alignItems='center' ml={5} width={355}>
+                                <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                    {selectedCategory}
+                                </Box>
+
+                                <Box display='flex' ml={3} color='#000'>
+                                    <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                </Box>
+                            </Box>
+
+                            <Box borderRadius={5} display='flex' alignItems='center'>
                                 <input 
                                     className='search-user'
                                     value={search}
@@ -308,7 +441,20 @@ const HomeSubTab = ({ url }) => {
                             <Box onClick={() => {setSearch(''); navigate('/questions/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                 最新
                             </Box>
-                            <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+
+                            <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                            <Box display='flex' alignItems='center' ml={5} width={355}>
+                                <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                    {selectedCategory}
+                                </Box>
+
+                                <Box display='flex' ml={3} color='#000'>
+                                    <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                </Box>
+                            </Box>
+
+                            <Box borderRadius={5} display='flex' alignItems='center'>
                                 <input 
                                     className='search-user'
                                     value={search}
@@ -335,7 +481,20 @@ const HomeSubTab = ({ url }) => {
                             <Box onClick={() => {setSearch(''); navigate('/questions/latest/1')}} color='#E0A96D' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                 最新
                             </Box>
-                            <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+
+                            <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                            <Box display='flex' alignItems='center' ml={5} width={355}>
+                                <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                    {selectedCategory}
+                                </Box>
+
+                                <Box display='flex' ml={3} color='#000'>
+                                    <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                </Box>
+                            </Box>
+
+                            <Box borderRadius={5} display='flex' alignItems='center'>
                                 <input 
                                     className='search-user'
                                     value={search}
@@ -362,7 +521,60 @@ const HomeSubTab = ({ url }) => {
                             <Box onClick={() => {setSearch(''); navigate('/questions/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
                                 最新
                             </Box>
-                            <Box ml={55} borderRadius={5} display='flex' alignItems='center'>
+
+                            <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                            <Box display='flex' alignItems='center' ml={5} width={355}>
+                                <Box color='#D5D5D5' fontSize={35} fontWeight='bold'>
+                                    {selectedCategory}
+                                </Box>
+
+                                <Box display='flex' ml={3} color='#000'>
+                                    <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                </Box>
+                            </Box>
+
+                            <Box borderRadius={5} display='flex' alignItems='center'>
+                                <input 
+                                    className='search-user'
+                                    value={search}
+                                    onChange={event => setSearch(event.target.value)}
+                                    type='text'
+                                    placeholder='搜索问题' 
+                                    maxLength='15' required/>  
+                                <Box ml={2}>
+                                    <SearchIcon fontSize='medium' sx={{cursor: 'pointer'}} onClick={searchQuestions}/>
+                                </Box>
+                            </Box>
+                        </Box>
+                        : ''
+                    }
+
+                    { tab === 'category' ?
+                        <Box display='flex' alignItems='center'>
+                            <Box onClick={() => {setSearch(''); navigate('/questions/all/1')}} color='#D5D5D5' fontSize={35} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                全部
+                            </Box>
+                            <Box onClick={() => {setSearch(''); navigate('/questions/popular/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                热门
+                            </Box>
+                            <Box onClick={() => {setSearch(''); navigate('/questions/latest/1')}} color='#D5D5D5' fontSize={35} ml={5} fontWeight='bold' sx={{cursor: 'pointer'}}>
+                                最新
+                            </Box>
+
+                            <Box borderRight={1} color='#000' fontSize={35} ml={5} height={40} fontWeight='bold' sx={{cursor: 'pointer'}} />
+                                
+                            <Box display='flex' alignItems='center' ml={5} width={355}>
+                                <Box color='#E0A96D' fontSize={35} fontWeight='bold'>
+                                    {searchVal}
+                                </Box>
+
+                                <Box display='flex' ml={3} color='#000'>
+                                    <MoreHorizRoundedIcon onClick={handleDialogOpen} fontSize='large' sx={{cursor: 'pointer'}} />
+                                </Box>
+                            </Box>
+
+                            <Box borderRadius={5} display='flex' alignItems='center'>
                                 <input 
                                     className='search-user'
                                     value={search}
@@ -440,6 +652,20 @@ const HomeSubTab = ({ url }) => {
                 <DialogActions>
                     <Button onClick={closeDialog}>知道了</Button>
                 </DialogActions>
+            </Dialog>
+
+            <Dialog onClose={handleDialogClose} open={dialog2}>
+                <DialogTitle fontWeight='bold' ml={1} width={300}>请选择您的笔记分类</DialogTitle>
+                <List sx={{ mx: 2, borderRadius: 10, mb: 1 }}>
+                    {categories.map((category) => (
+                        <ListItem button onClick={() => handleSelectCategory(category.name)} key={category.name}>
+                            <ListItemAvatar>
+                                <MenuRoundedIcon ml={5}/>
+                            </ListItemAvatar>
+                            <ListItemText primary={category.name} />
+                        </ListItem>
+                    ))}
+                </List>
             </Dialog>
         </Box>
     )

@@ -90,16 +90,11 @@ const NoteCreatePage = () => {
     useEffect(() => {
         const fetchAllCategory = async() => {
             const data = await api.categoryGetAll();
-            return data.data;
+            setCategories(data.data);
+            setSelectedCategory(data.data[0].name);
         }
 
-        const getAllCategory = async() => {
-            const categoriesFromServer = await fetchAllCategory();
-            setCategories(categoriesFromServer);
-            setSelectedCategory(categoriesFromServer[0].name);
-        }
-
-        getAllCategory();
+        fetchAllCategory();
     }, [])
 
     return (

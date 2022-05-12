@@ -429,6 +429,16 @@ class Api {
         return data;
     }
 
+    noteCategoryByPage = async(search, page) => {
+        let data = await this.get(`/note/category/${search}/page/${page}/`);
+        return data;
+    }
+
+    noteGetCategoryPageCount = async(search) => {
+        let data = await this.get(`/note/category/${search}/page_count/`);
+        return data;
+    }
+
     /* ———————————————————— NoteImage API ———————————————————— */
     noteImageCreate = async(noteId, form) => {
         let data = await axios({
@@ -570,6 +580,16 @@ class Api {
 
     questionGetSearchPageCount = async(search) => {
         let data = await this.get(`/question/search/${search}/page_count/`);
+        return data;
+    }
+
+    questionCategoryByPage = async(search, page) => {
+        let data = await this.get(`/question/category/${search}/page/${page}/`);
+        return data;
+    }
+
+    questionGetCategoryPageCount = async(search) => {
+        let data = await this.get(`/question/category/${search}/page_count/`);
         return data;
     }
 

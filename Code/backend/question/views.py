@@ -145,3 +145,26 @@ def questionSearchPageCount(request, search):
         return jsons([], 0, pages)
     except Question.DoesNotExist:
         return jsons([], 404)
+
+def questionCategoryByPage(request, search, page):
+    try:
+        category = Category.objects.get(name = search)
+    except Category.DoesNotExist:
+        return jsons([], 403)
+    
+    count = 8
+    questions = Question.objects.filter(category = category)
+    questions = questions[((page - 1) * count) : (page * count)]
+
+    return jsons([dict(question.body()) for question in questions], 0)
+
+def questionCategoryPageCount(request, search):
+    try:
+        category = Category.objects.get(name = search)
+    except Category.DoesNotExist:
+        return jsons([], 403)
+    
+    questions = Question.objects.filter(category = category)
+    pages = int((questions.count() + 7) / 8)
+
+    return jsons([], 0, pages)

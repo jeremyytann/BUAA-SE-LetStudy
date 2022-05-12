@@ -1,15 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import api from '../Api/api'
 import Note from './Note'
 
 const UserNoteBody = () => {
     // const navigate = useNavigate();
-    const { tab, page, search } = useParams();
+    const { tab, page, searchVal } = useParams();
     const [notes, setNotes] = useState()
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAllNotesByPage = async() => {
@@ -28,7 +27,12 @@ const UserNoteBody = () => {
         }
 
         const fetchSearchNotesByPage = async() => {
-            const data = await api.noteSearchByPage(search, page);
+            const data = await api.noteSearchByPage(searchVal, page);
+            setNotes(data.data);
+        }
+
+        const fetchCategoryNotesByPage = async() => {
+            const data = await api.noteCategoryByPage(searchVal, page);
             setNotes(data.data);
         }
 
@@ -40,8 +44,10 @@ const UserNoteBody = () => {
             fetchLatestNotesByPage();
         } else if (tab === 'search') {
             fetchSearchNotesByPage();
+        } else if (tab === 'category') {
+            fetchCategoryNotesByPage();
         }
-    }, [tab, page, search])
+    }, [tab, page, searchVal])
 
     return (
         <Box height={580} mt={5} ml={10} mr={5}>
