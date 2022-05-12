@@ -101,14 +101,21 @@ def roomJoin(request, pk):
     data = json.loads(request.body)
     
     if data['lock'] == 0:
-        participant = Participant.objects.create(user = user, room = room)
-        participant.save()
+        try:
+            participant = Participant.objects.get(user = user, room = room)
+        except Participant.DoesNotExist:
+            participant = Participant.objects.create(user = user, room = room)
+            participant.save()
     elif data['lock'] == 1:
         valid = check_password(data['password'], room.password)
 
         if valid:
-            participant = Participant.objects.create(user = user, room = room)
-            participant.save()
+            try:
+                participant = Participant.objects.get(user = user, room = room)
+            except Participant.DoesNotExist:
+                participant = Participant.objects.create(user = user, room = room)
+                participant.save()
+                
             return jsons([], 0)
         else:
             return jsons([], 403)

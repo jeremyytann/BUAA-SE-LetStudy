@@ -176,6 +176,12 @@ input[type='file'] {
     height: 300px;
 }
 
+.user-banned-image {
+    border-radius: 20px;
+    width: 400px;
+    height: 400px;
+}
+
 .note-user-link {
     cursor: pointer;
 }

@@ -11,6 +11,7 @@ const Room = ({ room }) => {
     const [open, setOpen] = useState(false);
     const [password, setPassword] = useState('');
     const [count, setCount] = useState();
+    const [dialog, setDialog] = useState(false)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,11 +49,22 @@ const Room = ({ room }) => {
     }
 
     const joinPrivateRoom = async() => {
-        const data = await api.roomJoin(room.id, 1, password);
+        if (password.length > 0) {
+            const data = await api.roomJoin(room.id, 1, password);
 
-        if (data.errorCode === 0) {
-            navigate(`/room/${room.id}`);
+            if (data.errorCode === 0) {
+                navigate(`/room/${room.id}`);
+            } else if (data.errorCode === 403) {
+                setPassword('');
+                setOpen(false);
+                setDialog(true);
+            }
         }
+    }
+
+    const retryClick = () => {
+        setDialog(false);
+        setOpen(true);
     }
 
     return (
@@ -129,6 +141,25 @@ const Room = ({ room }) => {
                 <DialogActions>
                     <Button onClick={handleClose}>取消</Button>
                     <Button onClick={joinPrivateRoom}>加入</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                open={dialog}
+                >
+                <DialogTitle id="alert-dialog-title">
+                    {"密码错误"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        你所输入的房间密码错误，请重新尝试。
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={retryClick} autoFocus>
+                        知道了
+                    </Button>
                 </DialogActions>
             </Dialog>
         </Box>

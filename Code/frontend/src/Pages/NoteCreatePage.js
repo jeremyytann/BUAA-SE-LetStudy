@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import api from '../Api/api'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import uploadPng from '../Statics/upload.png'
 
 const NoteCreatePage = () => {
     const [image, setImage] = useState([]);
@@ -112,9 +113,14 @@ const NoteCreatePage = () => {
                         <Grid item xs={3}>
                             <Box>
                                 <Box display='flex' justifyContent='center' alignItems='center'>
-                                    <Box border={1} backgroundColor='#D5D5D5' mt={5} borderRadius={10} height={360} width={360}>
-                                        <img className='create-note-image' src={imagePath} alt='preview-img'/>
-                                    </Box>
+                                    { imagePath.length > 0 ?
+                                        <Box border={1} backgroundColor='#D5D5D5' mt={5} borderRadius={10} height={360} width={360}>
+                                            <img className='create-note-image' src={imagePath} alt='preview-img'/>
+                                        </Box> :
+                                        <Box mt={5} borderRadius={10} height={360} width={360}>
+                                            <img className='create-note-image' src={uploadPng} alt='preview-img'/>
+                                        </Box>
+                                    }
                                 </Box>
 
                                 <Box fontSize={20} mt={4}>

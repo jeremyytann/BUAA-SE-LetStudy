@@ -62,21 +62,28 @@ const UserProfilePage = () => {
                         </Grid>
 
                         <Grid item xs={9.5}>
-                            <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '100%'}}>
-                                <UserProfileTab />
-                                
-                                { tab === 'notes' ?
-                                    <UserProfileNotes /> : ''
-                                }
+                            { user.status === 1 ? 
+                                <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '100%'}}>
+                                    <UserProfileTab />
+                                    
+                                    { tab === 'notes' ?
+                                        <UserProfileNotes /> : ''
+                                    }
 
-                                { tab === 'questions' ?
-                                    <UserProfileQuestions /> : ''
-                                }
+                                    { tab === 'questions' ?
+                                        <UserProfileQuestions /> : ''
+                                    }
 
-                                { tab === 'collections' ?
-                                    <UserProfileCollections /> : ''
-                                }
-                            </Box>
+                                    { tab === 'collections' ?
+                                        <UserProfileCollections /> : ''
+                                    }
+                                </Box> :
+                                <Box borderRadius={10} sx={{backgroundColor: 'white', height: '820px', width: '100%'}}>
+                                    <Box ml={11} display='flex' pt={10} fontWeight='bold' fontSize={30} color='#B90E0A'>
+                                        此账户目前处于封锁状态。
+                                    </Box>
+                                </Box>                      
+                            }
                         </Grid>
                     </Grid>
                 </Box> : ''

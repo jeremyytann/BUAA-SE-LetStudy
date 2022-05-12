@@ -109,7 +109,7 @@ const ProfileDescription = ({ user, days }) => {
 
             <Box display='flex' justifyContent='center' mt={4}>
                 <Box>
-                    { (user.username === currentUser) || admin ? 
+                    { (user.username === currentUser) || admin || user.status === 0 ? 
                         <ThemeProvider theme={theme}>
                             <Button disabled variant="contained" size="small" style={{ borderRadius: 13, width: 100, height: 35 }}> 
                                 <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>关注</Box>
@@ -134,7 +134,7 @@ const ProfileDescription = ({ user, days }) => {
                 </Box>
                 
                 <Box ml={3}>
-                    { (user.username === currentUser) || admin ? 
+                    { (user.username === currentUser) || admin || user.status === 0 ? 
                         <ThemeProvider theme={theme}>
                             <Button disabled onClick={linkReport} variant="contained" size="small" color='pink' style={{ borderRadius: 13, width: 100, height: 35 }}> 
                                 <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>举报</Box>

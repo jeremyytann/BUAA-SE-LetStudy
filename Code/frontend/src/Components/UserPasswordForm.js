@@ -19,13 +19,16 @@ const UserPasswordForm = () => {
         e.preventDefault();
 
         if (!validPassword.test(newpass)) {
+            setSuccess('')
             setError('密码仅支持 [A-Z, a-z, 0-9, ., _]');
         } else if (newpass !== conpassword) {
+            setSuccess('')
             setError('密码与确认密码不一致');
         } else {
             let data = await api.userChangePass(user_id, newpass);
             
             if (data.errorCode === 0) {
+                setError('')
                 setSuccess('密码修改成功')
                 setNewPass('')
                 setConPassword('')
@@ -64,7 +67,7 @@ const UserPasswordForm = () => {
                 </Box>
             </Box>
 
-            { success?
+            { success.length > 0 ?
                 <Box sx={{mt: 5, mb: 3}}>
                     <Box paddingLeft={10} sx={{display: 'flex', alignItems: 'center'}}>
                         <Alert sx={{width: '260px', justifyContent: 'center', borderRadius: '15px', height: '35px'}} severity="success" >{success}</Alert>
@@ -72,7 +75,7 @@ const UserPasswordForm = () => {
                 </Box> : ''
             }
 
-            { error?
+            { error.length > 0 ?
                 <Box sx={{mt: 5, mb: 3}}>
                     <Box paddingLeft={10} sx={{display: 'flex', alignItems: 'center'}}>
                         <Alert sx={{width: '260px', justifyContent: 'center', borderRadius: '15px', height: '35px'}} severity="error" >{error}</Alert>
