@@ -2,12 +2,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 axios.defaults.withCredentials = true;
+const proxy = window.location.protocol + '//' + window.location.hostname + '/api'
 
 class Api {
     // GET, POST, PUT, DELETE API
     async get(path) {
         try {
-            const res = await axios.get(path);
+            const res = await axios.get(proxy + path);
             const res_data = await res.data;
             return res_data;
         } catch (err) {
@@ -17,7 +18,7 @@ class Api {
 
     async post(path, item) {
         try {
-            const res = await axios.post(path,item);
+            const res = await axios.post(proxy + path,item);
             const res_data = await res.data;
             return res_data;
         } catch (err) {
@@ -27,7 +28,7 @@ class Api {
 
     async put(path, item) {
         try {
-            const res = await axios.put(path,item);
+            const res = await axios.put(proxy + path,item);
             const res_data = await res.data;
             return res_data;
         } catch (err) {
@@ -38,7 +39,7 @@ class Api {
 
     async delete(path) {
         try {
-            const res = await axios.delete(path);
+            const res = await axios.delete(proxy + path);
             const res_data = await res.data;
             return res_data;
         } catch (err) {
@@ -443,7 +444,7 @@ class Api {
     noteImageCreate = async(noteId, form) => {
         let data = await axios({
             method: 'post',
-            url: `/note_image/${noteId}/create/`,
+            url: `/api/note_image/${noteId}/create/`,
             data: form
         })
 
