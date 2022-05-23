@@ -14,6 +14,7 @@ const RoomViewPage = () => {
     const [error, setError] = useState(0);
     const [message, setMessage] = useState([]);
     const [messages, setMessages] = useState([]);
+    const [checkMessages, setCheckMessages] = useState([]);
     const navigate = useNavigate();
 
     const theme = createTheme ({
@@ -35,6 +36,11 @@ const RoomViewPage = () => {
         }
     });
 
+    function updateScroll(){
+        var element = document.getElementById("scrolling-message");
+        element.scrollTop = element.scrollHeight;
+    }
+
     useEffect(() => {
         const fetchRoom = async() => {
             const data = await api.roomGet(id);
@@ -51,8 +57,15 @@ const RoomViewPage = () => {
             setMessages(data.data);
         }
 
-        fetchRoom();
+        if (room.length === 0) {
+            fetchRoom();
+        }
 
+        if (checkMessages.length !== messages.length) {
+            updateScroll();
+            setCheckMessages(messages);
+        }
+        
         const interval = setInterval(() => {
             if (error === 0) {
                 fetchRoomMessages();
@@ -60,7 +73,7 @@ const RoomViewPage = () => {
         }, 1000)
 
         return () => clearInterval(interval);
-    }, [id, error])
+    }, [id, error, messages, checkMessages.length])
 
     if (error === 404) {
         return <Navigate to='/404' />
@@ -86,7 +99,7 @@ const RoomViewPage = () => {
         const data = await api.chatCreate(room.id, message);
         
         if (data.errorCode === 0) {
-            setMessage('')
+            setMessage('');
         }
     }
 
@@ -117,7 +130,7 @@ const RoomViewPage = () => {
                     <Grid container>
                         <Grid item xs={8.5}>
                             <Box borderRadius={10} sx={{backgroundColor: 'white', height: '725px', width: '95%'}}>
-                                <Box pt={5} mx={4} height={540} borderBottom={1}>
+                                <Box id='scrolling-message' pt={5} mx={4} height={540} overflow='auto' display='flow-root' borderBottom={1}>
                                     {
                                         messages !== undefined ?
                                             messages.map((message, index) => (
