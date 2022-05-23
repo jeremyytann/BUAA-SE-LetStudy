@@ -15,5 +15,5 @@ class NoteImage(models.Model):
         return {
             'id': self.id,
             'note': self.note.body(),
-            'image_url': 'http://18.136.213.75' + self.image.url
+            'image_url': 'http://54.179.228.155' + self.image.url
         }
