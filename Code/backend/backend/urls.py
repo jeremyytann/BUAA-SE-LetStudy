@@ -20,25 +20,25 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('admin/', admin.site.urls),
-    path('admin_user/', include('admin_user.urls')),
-    path('answer/', include('answer.urls')),
-    path('bug/', include('bug.urls')),
-    path('category/', include('category.urls')),
-    path('chat/', include('chat.urls')),
-    path('collection/', include('collection.urls')),
-    path('comment/', include('comment.urls')),
-    path('followship/', include('followship.urls')),
-    path('like/', include('like.urls')),
-    path('note/', include('note.urls')),
-    path('note_image/', include('note_image.urls')),
-    path('notice/', include('notice.urls')),
-    path('participant/', include('participant.urls')),
-    path('question/', include('question.urls')),
-    path('report/', include('report.urls')),
-    path('room/', include('room.urls')),
-    path('user/', include('user.urls'))
+    path('api/accounts/', include('django.contrib.auth.urls')),
+    path('api/admin/', admin.site.urls),
+    path('api/admin_user/', include('admin_user.urls')),
+    path('api/answer/', include('answer.urls')),
+    path('api/bug/', include('bug.urls')),
+    path('api/category/', include('category.urls')),
+    path('api/chat/', include('chat.urls')),
+    path('api/collection/', include('collection.urls')),
+    path('api/comment/', include('comment.urls')),
+    path('api/followship/', include('followship.urls')),
+    path('api/like/', include('like.urls')),
+    path('api/note/', include('note.urls')),
+    path('api/note_image/', include('note_image.urls')),
+    path('api/notice/', include('notice.urls')),
+    path('api/participant/', include('participant.urls')),
+    path('api/question/', include('question.urls')),
+    path('api/report/', include('report.urls')),
+    path('api/room/', include('room.urls')),
+    path('api/user/', include('user.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
