@@ -459,7 +459,7 @@ class Api {
     noteImageEdit = async(noteId, form) => {
         let data = await axios({
             method: 'put',
-            url: `/note_image/${noteId}/edit/`,
+            url: `/api/note_image/${noteId}/edit/`,
             data: form
         })
 
