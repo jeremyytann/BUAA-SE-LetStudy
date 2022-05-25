@@ -138,7 +138,7 @@ const ReportCreatePage = () => {
             navigate(`/question/${answer.data[0].question.id}`);
         } else if (type === 'user') {
             const user = await api.userGet(id);
-            navigate(`/profile/${user.data[0].username}`);
+            navigate(`/profile/${user.data[0].username}/notes`);
         }
     }
 
