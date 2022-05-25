@@ -74,7 +74,7 @@ const UserQuestionBody = () => {
                             </Box>
 
                             <Box fontSize={24} fontWeight='bold'>
-                                抱歉，此时还未有任何房间
+                                抱歉，此时还未有任何问题
                             </Box> 
                         </Box>
                     }
