@@ -12,7 +12,7 @@ const RoomViewPage = () => {
     const { id } = useParams();
     const [room, setRoom] = useState([]);
     const [error, setError] = useState(0);
-    const [message, setMessage] = useState([]);
+    const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [checkMessages, setCheckMessages] = useState([]);
     const navigate = useNavigate();
@@ -96,7 +96,7 @@ const RoomViewPage = () => {
     }
 
     const createMessage = async() => {
-        if (message.length > 0) {
+        if (message.length !== 0) {
             const data = await api.chatCreate(room.id, message);
         
             if (data.errorCode === 0) {
