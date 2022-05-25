@@ -11,7 +11,7 @@ const QuestionsCategory = () => {
 
     useEffect(() => {
         const fetchRandomQuestions = async() => {
-            const data = await api.questionGetByRandom(6);
+            const data = await api.questionGetByRandom(5);
             setQuestions(data.data);
         }
 
