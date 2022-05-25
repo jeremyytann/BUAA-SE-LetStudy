@@ -96,10 +96,12 @@ const RoomViewPage = () => {
     }
 
     const createMessage = async() => {
-        const data = await api.chatCreate(room.id, message);
+        if (message.length > 0) {
+            const data = await api.chatCreate(room.id, message);
         
-        if (data.errorCode === 0) {
-            setMessage('');
+            if (data.errorCode === 0) {
+                setMessage('');
+            }
         }
     }
 
