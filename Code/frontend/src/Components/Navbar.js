@@ -43,15 +43,51 @@ const Navbar = ({ room }) => {
             navigate('/admin/login')
             window.location.reload(false)
         } else {
-            await api.userLogout();
-            navigate('/login')
-            window.location.reload(false)
+            if (room !== undefined) {
+                if (room.type === 0) {
+                    const data = await api.roomQuit(room.id, 0);
+
+                    if (data.errorCode === 0) {
+                        await api.userLogout();
+                        navigate('/login')
+                        window.location.reload(false)
+                    }
+                } else {
+                    const data = await api.roomQuit(room.id, 1);
+
+                    if (data.errorCode === 0) {
+                        await api.userLogout();
+                        navigate('/login')
+                        window.location.reload(false)
+                    }
+                }
+            } else {
+                await api.userLogout();
+                navigate('/login')
+                window.location.reload(false)
+            }
         }
     }
 
     const linkProfile = () => {
         if (!admin) {
-            navigate(`/profile/${user}/notes`)
+            if (room !== undefined) {
+                if (room.type === 0) {
+                    const data = await api.roomQuit(room.id, 0);
+
+                    if (data.errorCode === 0) {
+                        navigate(`/profile/${user}/notes`)
+                    }
+                } else {
+                    const data = await api.roomQuit(room.id, 1);
+
+                    if (data.errorCode === 0) {
+                        navigate(`/profile/${user}/notes`)
+                    }
+                }
+            } else {
+                navigate(`/profile/${user}/notes`)
+            }
         }
     }
 
@@ -59,16 +95,64 @@ const Navbar = ({ room }) => {
         if (admin) {
             navigate('/admin/settings/password')
         } else {
-            navigate('/settings/password')
+            if (room !== undefined) {
+                if (room.type === 0) {
+                    const data = await api.roomQuit(room.id, 0);
+
+                    if (data.errorCode === 0) {
+                        navigate('/settings/password')
+                    }
+                } else {
+                    const data = await api.roomQuit(room.id, 1);
+
+                    if (data.errorCode === 0) {
+                        navigate('/settings/password')
+                    }
+                }
+            } else {
+                navigate('/settings/password')
+            }
         }
     }
 
     const linkBugCreate = () => {
-        navigate('/bugs/create')
+        if (room !== undefined) {
+            if (room.type === 0) {
+                const data = await api.roomQuit(room.id, 0);
+
+                if (data.errorCode === 0) {
+                    navigate('/bugs/create')
+                }
+            } else {
+                const data = await api.roomQuit(room.id, 1);
+
+                if (data.errorCode === 0) {
+                    navigate('/bugs/create')
+                }
+            }
+        } else {
+            navigate('/bugs/create')
+        }
     }
 
     const linkNotices = () => {
-        navigate('/notices/latest')
+        if (room !== undefined) {
+            if (room.type === 0) {
+                const data = await api.roomQuit(room.id, 0);
+
+                if (data.errorCode === 0) {
+                    navigate('/notices/latest')
+                }
+            } else {
+                const data = await api.roomQuit(room.id, 1);
+
+                if (data.errorCode === 0) {
+                    navigate('/notices/latest')
+                }
+            }
+        } else {
+            navigate('/notices/latest')
+        }
     }
 
     const linkHome = async() => {
