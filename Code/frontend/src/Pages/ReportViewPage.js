@@ -11,6 +11,7 @@ const ReportViewPage = () => {
     const { id } = useParams();
     const [report, setReport] = useState();
     const [reportType, setReportType] = useState('');
+    const [reportReason, setReportReason] = useState('');
     const [error, setError] = useState(0)
     const [path, setPath] = useState('');
     const [status, setStatus] = useState('')
@@ -48,6 +49,7 @@ const ReportViewPage = () => {
 
             if (data.errorCode === 0) {
                 setReport(data.data[0]);
+                setReportReason(data.data[0].reason)
 
                 if (data.data[0].status !== 1) {
                     if (data.data[0].type === 1) {
@@ -209,7 +211,7 @@ const ReportViewPage = () => {
 
                             { status === '已拒绝' ?
                                 <Box fontWeight='bold'>
-                                    {status}
+                                    {reportReason}
                                 </Box> : ''
                             }
                         </Box>
