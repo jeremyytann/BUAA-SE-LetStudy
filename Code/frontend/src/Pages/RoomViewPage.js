@@ -158,7 +158,7 @@ const RoomViewPage = () => {
                                     <Box>
                                         <ThemeProvider theme={theme}>
                                             <Button onClick={createMessage} variant="contained" size="small" color='gold' style={{ borderRadius: 13, width: 100, height: 35 }}> 
-                                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>提交</Box>
+                                                <Box sx={{fontSize: 18, minWidth: '50px', fontWeight: 'bold'}}>发送</Box>
                                             </Button>
                                         </ThemeProvider>
                                     </Box>
