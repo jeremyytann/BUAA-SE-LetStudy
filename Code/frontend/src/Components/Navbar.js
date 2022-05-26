@@ -69,7 +69,9 @@ const Navbar = ({ room }) => {
         }
     }
 
-    const linkProfile = () => {
+    const linkProfile = async(e) => {
+        e.preventDefault();
+
         if (!admin) {
             if (room !== undefined) {
                 if (room.type === 0) {
@@ -91,7 +93,9 @@ const Navbar = ({ room }) => {
         }
     }
 
-    const linkSettings = () => {
+    const linkSettings = async(e) => {
+        e.preventDefault();
+
         if (admin) {
             navigate('/admin/settings/password')
         } else {
@@ -115,7 +119,9 @@ const Navbar = ({ room }) => {
         }
     }
 
-    const linkBugCreate = () => {
+    const linkBugCreate = async(e) => {
+        e.preventDefault();
+
         if (room !== undefined) {
             if (room.type === 0) {
                 const data = await api.roomQuit(room.id, 0);
@@ -135,7 +141,9 @@ const Navbar = ({ room }) => {
         }
     }
 
-    const linkNotices = () => {
+    const linkNotices = async(e) => {
+        e.preventDefault();
+
         if (room !== undefined) {
             if (room.type === 0) {
                 const data = await api.roomQuit(room.id, 0);
@@ -155,7 +163,9 @@ const Navbar = ({ room }) => {
         }
     }
 
-    const linkHome = async() => {
+    const linkHome = async(e) => {
+        e.preventDefault();
+        
         if (admin) {
             navigate('/admin/notices/latest/1')
         } else {
