@@ -11,8 +11,8 @@ import './GeneralUser.css'
 
 const UserLoginPage = () => {
     // navigate user to login if not logged in yet
-    const [username, setUsername] = useState([]);
-    const [password, setPassword] = useState([]);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -25,13 +25,20 @@ const UserLoginPage = () => {
     // login page details
     const Login = async(e) => {
         e.preventDefault();
-        const data = await api.userLogin(username, password);
 
-        if (data.errorCode === 403) {
-            setPassword('');
-            setError('用户名或密码错误');
+        if (username === '') {
+            setError('用户名不能为空')
+        } else if (password === '') {
+            setError('密码不能为空')
         } else {
-            navigate('/rooms/public/1');
+            const data = await api.userLogin(username, password);
+
+            if (data.errorCode === 403) {
+                setPassword('');
+                setError('用户名或密码错误');
+            } else {
+                navigate('/rooms/public/1');
+            }
         }
     }
 

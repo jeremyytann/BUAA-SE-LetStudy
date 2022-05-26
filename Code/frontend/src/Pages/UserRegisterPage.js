@@ -10,9 +10,9 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 
 const UserRegisterPage = () => {
-    const [username, setUsername] = useState([]);
-    const [password, setPassword] = useState([]);
-    const [conpassword, setConPassword] = useState([]);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [conpassword, setConPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -28,7 +28,13 @@ const UserRegisterPage = () => {
     const Register = async(e) => {
         e.preventDefault();
 
-        if (!validUsername.test(username)) {
+        if (username === '') {
+            setError('用户名不能为空')
+        } else if (password === '') {
+            setError('密码不能为空')
+        } else if (conpassword === '') {
+            setError('确认密码不能为空')
+        } else if (!validUsername.test(username)) {
             setError('用户名仅支持 [A-Z, a-z, 0-9, ., _]');
         } else if (!validPassword.test(password)) {
             setError('密码仅支持 [A-Z, a-z, 0-9, ., _]');

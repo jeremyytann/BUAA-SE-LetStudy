@@ -8,8 +8,8 @@ import Cookies from 'js-cookie'
 const AdminPasswordForm = () => {
     let user_id = Cookies.get('user_id');
     let user = Cookies.get('username');
-    const [newpass, setNewPass] = useState([]);
-    const [conpassword, setConPassword] = useState([]);
+    const [newpass, setNewPass] = useState('');
+    const [conpassword, setConPassword] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
@@ -18,14 +18,21 @@ const AdminPasswordForm = () => {
     const ChangePassword = async(e) => {
         e.preventDefault();
 
-        if (!validPassword.test(newpass)) {
+        if (newpass === '') {
+            setError('新密码不能为空')
+        } else if (conpassword === '') {
+            setError('确认密码不能为空')
+        } else if (!validPassword.test(newpass)) {
+            setSuccess('')
             setError('密码仅支持 [A-Z, a-z, 0-9, ., _]');
         } else if (newpass !== conpassword) {
+            setSuccess('')
             setError('密码与确认密码不一致');
         } else {
             let data = await api.adminChangePass(user_id, newpass);
             
             if (data.errorCode === 0) {
+                setError('')
                 setSuccess('密码修改成功')
                 setNewPass('')
                 setConPassword('')
