@@ -82,64 +82,124 @@ class Report(models.Model):
                 }
         else:
             if self.type == 1:
-                return {
-                    'id': self.id,
-                    'type': self.type,
-                    'title': self.title,
-                    'description': self.description,
-                    'status': self.status,
-                    'note': self.note.body(),
-                    'user': self.user.body(),
-                    'reason': self.reason,
-                    'created_date': self.createdDate
-                }
+                if self.note:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'note': self.note.body(),
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
+                else:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
             elif self.type == 2:
-                return {
-                    'id': self.id,
-                    'type': self.type,
-                    'title': self.title,
-                    'description': self.description,
-                    'status': self.status,
-                    'comment': self.comment.body(),
-                    'user': self.user.body(),
-                    'reason': self.reason,
-                    'created_date': self.createdDate
-                }
+                if self.comment:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'comment': self.comment.body(),
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
+                else:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
             elif self.type == 3:
-                return {
-                    'id': self.id,
-                    'type': self.type,
-                    'title': self.title,
-                    'description': self.description,
-                    'status': self.status,
-                    'question': self.question.body(),
-                    'user': self.user.body(),
-                    'reason': self.reason,
-                    'created_date': self.createdDate
-                }
+                if self.question:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'question': self.question.body(),
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
+                else:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
             elif self.type == 4:
-                return {
-                    'id': self.id,
-                    'type': self.type,
-                    'title': self.title,
-                    'description': self.description,
-                    'status': self.status,
-                    'answer': self.answer.body(),
-                    'user': self.user.body(),
-                    'reason': self.reason,
-                    'created_date': self.createdDate
-                }
+                if self.answer:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'answer': self.answer.body(),
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
+                else:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
             elif self.type == 5:
-                return {
-                    'id': self.id,
-                    'type': self.type,
-                    'title': self.title,
-                    'description': self.description,
-                    'status': self.status,
-                    'profile': self.profile.body(),
-                    'user': self.user.body(),
-                    'created_date': self.createdDate
-                }
+                if self.profile:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'profile': self.profile.body(),
+                        'user': self.user.body(),
+                        'created_date': self.createdDate
+                    }
+                else:
+                    return {
+                        'id': self.id,
+                        'type': self.type,
+                        'title': self.title,
+                        'description': self.description,
+                        'status': self.status,
+                        'user': self.user.body(),
+                        'reason': self.reason,
+                        'created_date': self.createdDate
+                    }
 
     def getNoteBody(self):
         return {

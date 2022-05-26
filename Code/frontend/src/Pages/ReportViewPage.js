@@ -53,20 +53,45 @@ const ReportViewPage = () => {
 
                 if (data.data[0].status !== 1) {
                     if (data.data[0].type === 1) {
-                        setReportType('笔记');
-                        setPath(`/note/${data.data[0].note.id}`)
+                        if (data.data[0].note !== undefined) {
+                            setReportType('笔记');
+                            setPath(`/note/${data.data[0].note.id}`)
+                        } else {
+                            setReportType('笔记');
+                            setPath('')
+                        }
                     } else if (data.data[0].type === 2) {
-                        setReportType('留言');
-                        setPath(`/note/${data.data[0].comment.note.id}`)
+                        if (data.data[0].comment !== undefined) {
+                            setReportType('留言');
+                            setPath(`/note/${data.data[0].comment.note.id}`)
+                        } else {
+                            setReportType('留言');
+                            setPath('')
+                        }
                     } else if (data.data[0].type === 3) {
-                        setReportType('问题');
-                        setPath(`/question/${data.data[0].question.id}`)
+                        if (data.data[0].question !== undefined) {
+                            setReportType('问题');
+                            setPath(`/question/${data.data[0].question.id}`)
+                        } else {
+                            setReportType('问题');
+                            setPath('')
+                        }
                     } else if (data.data[0].type === 4) {
-                        setReportType('回答');
-                        setPath(`/question/${data.data[0].answer.question.id}`)
+                        if (data.data[0].answer !== undefined) {
+                            setReportType('回答');
+                            setPath(`/question/${data.data[0].answer.question.id}`)
+                        } else {
+                            setReportType('回答');
+                            setPath('')
+                        }
                     } else if (data.data[0].type === 5) {
-                        setReportType('用户');
-                        setPath(`/profile/${data.data[0].user.username}`)
+                        if (data.data[0].user !== undefined) {
+                            setReportType('用户');
+                            setPath(`/profile/${data.data[0].user.username}`)
+                        } else {
+                            setReportType('用户');
+                            setPath('')
+                        }
                     }
                 } else {
                     if (data.data[0].type === 1) {
@@ -133,17 +158,24 @@ const ReportViewPage = () => {
                         </Box>
 
                         {
-                            report !== undefined ? report.status !== 1 ?
-                            <Box onClick={linkPath} className='report-view-title'>
-                                <Box className='report-view-title-text' borderBottom={1} sx={{cursor: 'pointer'}}>
-                                    {report !== undefined ? report.title : ''}
-                                </Box>
-                            </Box> :
-                            <Box>
-                                <Box className='report-view-username'>
-                                    {report !== undefined ? report.title : ''}
-                                </Box>
-                            </Box> : ''
+                            report !== undefined ? 
+                                report.status !== 1 ? 
+                                    path !== '' ?
+                                        <Box onClick={linkPath} className='report-view-title'>
+                                            <Box className='report-view-title-text' borderBottom={1} sx={{cursor: 'pointer'}}>
+                                                {report !== undefined ? report.title : ''}
+                                            </Box>
+                                        </Box> :
+                                        <Box>
+                                            <Box className='report-view-username'>
+                                                {report !== undefined ? report.title : ''}
+                                            </Box>
+                                        </Box> :
+                                        <Box>
+                                            <Box className='report-view-username'>
+                                                {report !== undefined ? report.title : ''}
+                                            </Box>
+                                        </Box> : ''
                         }
                     </Box>
 
