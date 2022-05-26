@@ -68,7 +68,9 @@ const AdminBugViewPage = () => {
     }, [id]) 
 
     const completeBug = async() => {
-        if (reason !== '') {
+        var str = reason;
+
+        if (str.length > 0 && str.replace(/\s/g, '').length !== 0) {
             let data = await api.bugEdit(id, 1, reason);
 
             if (data.errorCode === 0) {
