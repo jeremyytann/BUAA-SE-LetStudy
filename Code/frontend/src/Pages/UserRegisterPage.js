@@ -97,7 +97,7 @@ const UserRegisterPage = () => {
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
                                     placeholder='用户名' 
-                                    maxLength='15' required/>
+                                    maxLength='15'/>
                                 </Box>
                             </Box> :
                             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 10}}>
@@ -112,7 +112,7 @@ const UserRegisterPage = () => {
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
                                     placeholder='用户名'
-                                    maxLength='15' required/>
+                                    maxLength='15'/>
                                 </Box>
                             </Box>
                         }
@@ -129,7 +129,7 @@ const UserRegisterPage = () => {
                                 value={password}
                                 onChange={event => setPassword(event.target.value)}
                                 type='password'
-                                placeholder='密码' required/>
+                                placeholder='密码'/>
                             </Box>
                         </Box>
 
@@ -144,7 +144,7 @@ const UserRegisterPage = () => {
                                 value={conpassword}
                                 onChange={event => setConPassword(event.target.value)}
                                 type='password'
-                                placeholder='确认密码' required/>
+                                placeholder='确认密码'/>
                             </Box>
                         </Box>
                         

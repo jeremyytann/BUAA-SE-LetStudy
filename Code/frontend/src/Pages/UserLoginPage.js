@@ -87,7 +87,7 @@ const UserLoginPage = () => {
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
-                                    placeholder='用户名' required/>
+                                    placeholder='用户名'/>
                                 </Box>
                             </Box> : 
                             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 15}}>
@@ -101,7 +101,7 @@ const UserLoginPage = () => {
                                     value={username}
                                     onChange={event => setUsername(event.target.value)}
                                     type='username'
-                                    placeholder='用户名' required/>
+                                    placeholder='用户名'/>
                                 </Box>
                             </Box>
                         }
@@ -117,7 +117,7 @@ const UserLoginPage = () => {
                                 value={password}
                                 onChange={event => setPassword(event.target.value)}
                                 type='password'
-                                placeholder='密码' required/>
+                                placeholder='密码'/>
                             </Box>
                         </Box>
                         
