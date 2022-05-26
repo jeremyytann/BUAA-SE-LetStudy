@@ -131,7 +131,7 @@ const AdminReportViewPage = () => {
     const completeReport = async() => {
         if (reportType === '笔记') {
             // delete note
-            if (data.data[0].note !== undefined) {
+            if (report.note !== undefined) {
                 const data = await api.noteDelete(report.note.id)
                 const data2 = await api.reportEdit(id, 1, reason);
     
@@ -147,7 +147,7 @@ const AdminReportViewPage = () => {
             }
         } else if (reportType === '留言') {
             // delete comment
-            if (data.data[0].comment !== undefined) {
+            if (report.comment !== undefined) {
                 const data = await api.commentDelete(report.comment.id)
                 const data2 = await api.reportEdit(id, 1, reason);
                 
@@ -163,7 +163,7 @@ const AdminReportViewPage = () => {
             }
         } else if (reportType === '问题') {
             // delete question
-            if (data.data[0].question !== undefined) {
+            if (report.question !== undefined) {
                 const data = await api.questionDelete(report.question.id)
                 const data2 = await api.reportEdit(id, 1, reason);
                 
@@ -179,7 +179,7 @@ const AdminReportViewPage = () => {
             }
         } else if (reportType === '回答') {
             // delete answer
-            if (data.data[0].answer !== undefined) {
+            if (report.answer !== undefined) {
                 const data = await api.answerDelete(report.answer.id)
                 const data2 = await api.reportEdit(id, 1, reason);
                 
@@ -195,7 +195,7 @@ const AdminReportViewPage = () => {
             }
         } else if (reportType === '用户') {
             // ban user
-            if (data.data[0].user !== undefined) {
+            if (report.user !== undefined) {
                 const data = await api.userBan(report.profile.id)
                 const data2 = await api.reportEdit(id, 1, reason);
                 
