@@ -68,10 +68,12 @@ const AdminBugViewPage = () => {
     }, [id]) 
 
     const completeBug = async() => {
-        let data = await api.bugEdit(id, 1, reason);
+        if (reason !== '') {
+            let data = await api.bugEdit(id, 1, reason);
 
-        if (data.errorCode === 0) {
-            window.location.reload(false)
+            if (data.errorCode === 0) {
+                window.location.reload(false)
+            }
         }
     }
 
