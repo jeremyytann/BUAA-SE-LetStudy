@@ -37,6 +37,8 @@ const AdminLoginPage = () => {
             if (data.errorCode === 403) {
                 setPassword('');
                 setError('用户名或密码错误');
+            } else if (data.errorCode === 404) {
+                setError('用户名不存在对应账户')
             } else {
                 navigate('/admin/notices/latest/1');
             }

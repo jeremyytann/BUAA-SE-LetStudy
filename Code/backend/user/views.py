@@ -90,6 +90,11 @@ def userLogin(request):
     username = data['username']
     password = data['password']
 
+    try:
+        user = GeneralUser.objects.get(username = username)
+    except GeneralUser.DoesNotExist:
+        return jsons([], 404)
+
     user = authenticate(request, username=username, password=password)
 
     if user is not None:

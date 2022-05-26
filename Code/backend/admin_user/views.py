@@ -19,6 +19,11 @@ def adminLogin(request):
     username = data['username']
     password = data['password']
 
+    try:
+        admin = AdminUser.objects.get(username = username)
+    except AdminUser.DoesNotExist:
+        return jsons([], 404)
+
     admin = authenticate(request, username=username, password=password)
 
     if admin is not None:
