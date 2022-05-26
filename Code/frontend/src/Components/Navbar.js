@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import '../Pages/GeneralUser.css'
 
-const Navbar = () => {
+const Navbar = ({ room }) => {
     let user = Cookies.get('username')
     const navigate = useNavigate();
 
@@ -71,11 +71,27 @@ const Navbar = () => {
         navigate('/notices/latest')
     }
 
-    const linkHome = () => {
+    const linkHome = async() => {
         if (admin) {
             navigate('/admin/notices/latest/1')
         } else {
-            navigate('/rooms/public/1')
+            if (room !== undefined) {
+                if (room.type === 0) {
+                    const data = await api.roomQuit(room.id, 0);
+
+                    if (data.errorCode === 0) {
+                        navigate('/rooms/public/1');
+                    }
+                } else {
+                    const data = await api.roomQuit(room.id, 1);
+
+                    if (data.errorCode === 0) {
+                        navigate('/rooms/private/1');
+                    }
+                }
+            } else {
+                navigate('/rooms/public/1')
+            }
         }
     }
 

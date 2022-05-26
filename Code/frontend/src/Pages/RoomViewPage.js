@@ -111,7 +111,7 @@ const RoomViewPage = () => {
 
     return (
         <Box>
-            <Navbar />
+            <Navbar room={room}/>
             
             <Box display='flex' mt={6} mx={10}>
                 <Box display='flex' fontSize={40} fontWeight='bold' width={1010}>
