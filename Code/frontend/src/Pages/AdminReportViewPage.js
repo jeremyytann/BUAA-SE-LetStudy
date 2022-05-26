@@ -62,20 +62,45 @@ const AdminReportViewPage = () => {
 
             if (data.data[0].status !== 1) {
                 if (data.data[0].type === 1) {
-                    setReportType('笔记');
-                    setPath(`/note/${data.data[0].note.id}`)
+                    if (data.data[0].note !== undefined) {
+                        setReportType('笔记');
+                        setPath(`/note/${data.data[0].note.id}`)
+                    } else {
+                        setReportType('笔记');
+                        setPath('')
+                    }
                 } else if (data.data[0].type === 2) {
-                    setReportType('留言');
-                    setPath(`/note/${data.data[0].comment.note.id}`)
+                    if (data.data[0].comment !== undefined) {
+                        setReportType('留言');
+                        setPath(`/note/${data.data[0].comment.note.id}`)
+                    } else {
+                        setReportType('留言');
+                        setPath('')
+                    }
                 } else if (data.data[0].type === 3) {
-                    setReportType('问题');
-                    setPath(`/question/${data.data[0].question.id}`)
+                    if (data.data[0].question !== undefined) {
+                        setReportType('问题');
+                        setPath(`/question/${data.data[0].question.id}`)
+                    } else {
+                        setReportType('问题');
+                        setPath('')
+                    }
                 } else if (data.data[0].type === 4) {
-                    setReportType('回答');
-                    setPath(`/question/${data.data[0].answer.question.id}`)
+                    if (data.data[0].answer !== undefined) {
+                        setReportType('回答');
+                        setPath(`/question/${data.data[0].answer.question.id}`)
+                    } else {
+                        setReportType('回答');
+                        setPath('')
+                    }
                 } else if (data.data[0].type === 5) {
-                    setReportType('用户');
-                    setPath(`/profile/${data.data[0].user.username}`)
+                    if (data.data[0].user !== undefined) {
+                        setReportType('用户');
+                        setPath(`/profile/${data.data[0].user.username}`)
+                    } else {
+                        setReportType('用户');
+                        setPath('')
+                    }
                 }
             } else {
                 if (data.data[0].type === 1) {
@@ -106,43 +131,83 @@ const AdminReportViewPage = () => {
     const completeReport = async() => {
         if (reportType === '笔记') {
             // delete note
-            const data = await api.noteDelete(report.note.id)
-            const data2 = await api.reportEdit(id, 1, reason);
-
-            if (data.errorCode === 0 && data2.errorCode === 0) {
-                window.location.reload(false)
+            if (data.data[0].note !== undefined) {
+                const data = await api.noteDelete(report.note.id)
+                const data2 = await api.reportEdit(id, 1, reason);
+    
+                if (data.errorCode === 0 && data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
+            } else {
+                const data2 = await api.reportEdit(id, 1, reason);
+    
+                if (data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
             }
         } else if (reportType === '留言') {
             // delete comment
-            const data = await api.commentDelete(report.comment.id)
-            const data2 = await api.reportEdit(id, 1, reason);
-            
-            if (data.errorCode === 0 && data2.errorCode === 0) {
-                window.location.reload(false)
+            if (data.data[0].comment !== undefined) {
+                const data = await api.commentDelete(report.comment.id)
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data.errorCode === 0 && data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
+            } else {
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
             }
         } else if (reportType === '问题') {
             // delete question
-            const data = await api.questionDelete(report.question.id)
-            const data2 = await api.reportEdit(id, 1, reason);
-            
-            if (data.errorCode === 0 && data2.errorCode === 0) {
-                window.location.reload(false)
+            if (data.data[0].question !== undefined) {
+                const data = await api.questionDelete(report.question.id)
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data.errorCode === 0 && data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
+            } else {
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
             }
         } else if (reportType === '回答') {
             // delete answer
-            const data = await api.answerDelete(report.answer.id)
-            const data2 = await api.reportEdit(id, 1, reason);
-            
-            if (data.errorCode === 0 && data2.errorCode === 0) {
-                window.location.reload(false)
+            if (data.data[0].answer !== undefined) {
+                const data = await api.answerDelete(report.answer.id)
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data.errorCode === 0 && data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
+            } else {
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
             }
         } else if (reportType === '用户') {
             // ban user
-            const data = await api.userBan(report.profile.id)
-            const data2 = await api.reportEdit(id, 1, reason);
-            
-            if (data.errorCode === 0 && data2.errorCode === 0) {
-                window.location.reload(false)
+            if (data.data[0].user !== undefined) {
+                const data = await api.userBan(report.profile.id)
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data.errorCode === 0 && data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
+            } else {
+                const data2 = await api.reportEdit(id, 1, reason);
+                
+                if (data2.errorCode === 0) {
+                    window.location.reload(false)
+                }
             }
         }
     }
@@ -205,17 +270,24 @@ const AdminReportViewPage = () => {
                         </Box>
 
                         {
-                            report !== undefined ? report.status !== 1 ?
-                            <Box onClick={linkPath} className='report-view-title'>
-                                <Box className='report-view-title-text' borderBottom={1} sx={{cursor: 'pointer'}}>
-                                    {report !== undefined ? report.title : ''}
-                                </Box>
-                            </Box> :
-                            <Box>
-                                <Box className='report-view-username'>
-                                    {report !== undefined ? report.title : ''}
-                                </Box>
-                            </Box> : ''
+                            report !== undefined ? 
+                            report.status !== 1 ? 
+                                path !== '' ?
+                                    <Box onClick={linkPath} className='report-view-title'>
+                                        <Box className='report-view-title-text' borderBottom={1} sx={{cursor: 'pointer'}}>
+                                            {report !== undefined ? report.title : ''}
+                                        </Box>
+                                    </Box> :
+                                    <Box>
+                                        <Box className='report-view-username'>
+                                            {report !== undefined ? report.title : ''}
+                                        </Box>
+                                    </Box> :
+                                    <Box>
+                                        <Box className='report-view-username'>
+                                            {report !== undefined ? report.title : ''}
+                                        </Box>
+                                    </Box> : ''
                         }
                     </Box>
 
