@@ -78,6 +78,7 @@ class Report(models.Model):
                     'description': self.description,
                     'status': self.status,
                     'user': self.user.body(),
+                    'reason': self.reason,
                     'created_date': self.createdDate
                 }
         else:
@@ -187,6 +188,7 @@ class Report(models.Model):
                         'status': self.status,
                         'profile': self.profile.body(),
                         'user': self.user.body(),
+                        'reason': self.reason,
                         'created_date': self.createdDate
                     }
                 else:
