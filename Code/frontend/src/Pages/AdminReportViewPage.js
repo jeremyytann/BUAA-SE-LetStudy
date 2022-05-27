@@ -94,7 +94,7 @@ const AdminReportViewPage = () => {
                         setPath('')
                     }
                 } else if (data.data[0].type === 5) {
-                    if (data.data[0].user !== undefined) {
+                    if (data.data[0].profile !== undefined) {
                         setReportType('用户');
                         setPath(`/profile/${data.data[0].profile.username}/notes`)
                     } else {
