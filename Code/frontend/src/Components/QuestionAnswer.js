@@ -84,7 +84,7 @@ const QuestionAnswer = ({ answer }) => {
                     <Box onClick={linkReport} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
                         <ReportGmailerrorredRoundedIcon color='error' />
                     </Box> :
-                    <Box onClick={linkReport} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
+                    <Box onClick={toggleDialog2} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
                         <DeleteOutlineIcon color='error' />
                     </Box>
                 }
