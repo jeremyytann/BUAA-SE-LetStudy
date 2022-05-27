@@ -19,16 +19,21 @@ def userRegister(request):
         data = json.loads(request.body)
 
         try:
-            user = GeneralUser.objects.get(username = data['username'])
-        except GeneralUser.DoesNotExist:
-            generalUser = GeneralUser.objects.create()
-            generalUser.username = data['username']
-            generalUser.set_password(data['password'])
-            generalUser.save()
+            adminUser = AdminUser.objects.get(username = data['username'])
+            return jsons([], 400)
+        except AdminUser.DoesNotExist:
+            try:
+                user = GeneralUser.objects.get(username = data['username'])
+                return jsons([], 400)
+            except GeneralUser.DoesNotExist:
+                generalUser = GeneralUser.objects.create()
+                generalUser.username = data['username']
+                generalUser.set_password(data['password'])
+                generalUser.save()
 
-            login(request, generalUser)
-            
-            return jsons([dict(generalUser.body())])
+                login(request, generalUser)
+                
+                return jsons([dict(generalUser.body())])
     return jsons([], 400)
 
 @login_required

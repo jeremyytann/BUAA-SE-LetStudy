@@ -87,7 +87,7 @@ const ReportViewPage = () => {
                     } else if (data.data[0].type === 5) {
                         if (data.data[0].user !== undefined) {
                             setReportType('用户');
-                            setPath(`/profile/${data.data[0].user.username}`)
+                            setPath(`/profile/${data.data[0].profile.username}/notes`)
                         } else {
                             setReportType('用户');
                             setPath('')
