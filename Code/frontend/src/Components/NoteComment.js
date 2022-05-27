@@ -8,6 +8,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookies from 'js-cookie'
+import api from '../Api/api'
 
 const NoteComment = ({ comment }) => {
     let date = comment.created_date.split('T')
