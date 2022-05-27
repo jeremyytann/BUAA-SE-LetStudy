@@ -4,14 +4,18 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import { useNavigate } from 'react-router-dom';
 import '../Pages/GeneralUser.css'
 import ReportGmailerrorredRoundedIcon from '@mui/icons-material/ReportGmailerrorredRounded';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Cookies from 'js-cookie'
 
 const QuestionAnswer = ({ answer }) => {
     let date = answer.created_date.split('T')
     let time = date[1].split('.')
     const [dialog, setDialog] = useState(false)
+    const [dialog2, setDialog2] = useState(false)
     const navigate = useNavigate();
+    let username = Cookies.get('username')
 
     const theme = createTheme ({
         typography: {
@@ -36,12 +40,28 @@ const QuestionAnswer = ({ answer }) => {
         setDialog(!dialog);
     }
 
+    const toggleDialog2 = () => {
+        setDialog2(!dialog);
+    }
+
     const closeDialog = () => {
         setDialog(false);
     }
 
+    const closeDialog2 = () => {
+        setDialog2(false);
+    }
+
     const linkReport = () => {
         navigate(`/report/create/answer/${answer.id}`);
+    }
+
+    const answerDelete = async() => {
+        const data = await api.answerDelete(answer.id);
+
+        if (data.errorCode === 0) {
+            window.location.reload(false)
+        }
     }
 
     return (
@@ -59,9 +79,14 @@ const QuestionAnswer = ({ answer }) => {
                     { time[0] }
                 </Box>
 
-                <Box onClick={linkReport} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
-                    <ReportGmailerrorredRoundedIcon color='error' />
-                </Box>
+                { answer.user.username !== username ? 
+                    <Box onClick={linkReport} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
+                        <ReportGmailerrorredRoundedIcon color='error' />
+                    </Box> :
+                    <Box onClick={linkReport} ml={1.5} pt={0.3} sx={{cursor: 'pointer'}}>
+                        <DeleteOutlineIcon color='error' />
+                    </Box>
+                }
             </Box>
 
             <Box display='flex'>
@@ -95,6 +120,28 @@ const QuestionAnswer = ({ answer }) => {
                 <DialogActions>
                     <Button onClick={closeDialog} autoFocus>
                         关闭
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                fullWidth={true}
+                open={dialog2}
+                maxWidth='sm'
+                onClose={closeDialog2}>
+                <DialogTitle id="alert-dialog-title">
+                    {"删除回答注意事项"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        你是否确定要删除此回答？
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closeDialog2}>不了</Button>
+                    <Button onClick={answerDelete} autoFocus>
+                        确定
                     </Button>
                 </DialogActions>
             </Dialog>
