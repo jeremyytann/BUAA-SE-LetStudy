@@ -99,8 +99,12 @@ def userLogin(request):
 
     if user is not None:
         # authenticated
-        login(request, user)
         generalUser = GeneralUser.objects.get(username = username)
+        
+        if (generalUser.status == 0):
+            return jsons([], 400)
+
+        login(request, user)
         return jsons([dict(generalUser.body())], 0, {'user_id': user.id, 'username': username})    
     else:
         # not authenticated

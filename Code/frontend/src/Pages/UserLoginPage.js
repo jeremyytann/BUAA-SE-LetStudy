@@ -37,7 +37,10 @@ const UserLoginPage = () => {
                 setPassword('');
                 setError('用户名或密码错误');
             } else if (data.errorCode === 404) {
+                setPassword('');
                 setError('用户名不存在对应账户')
+            } else if (data.errorCode === 400) {
+                setError('此用户已被封锁')
             } else {
                 navigate('/rooms/public/1');
             }
