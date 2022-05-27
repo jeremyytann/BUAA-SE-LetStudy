@@ -146,7 +146,7 @@ const RoomCreateBody = () => {
                     <Box mt={4} ml={2} display='flex'>
                         <Box>
                             <ThemeProvider theme={theme}>
-                                <Button type="submit" onClick={createRoom} variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
+                                <Button type="submit" variant="contained" size="small" color="gold" style={{ borderRadius: 13, width: 140 }}> 
                                     <Box sx={{fontSize: 20, margin: '0px 8px 0px 8px', minWidth: '50px', fontWeight: 'bold'}}>创建</Box>
                                 </Button>
                             </ThemeProvider>
