@@ -56,15 +56,13 @@ function App() {
         }
     }, [admin, user]);
 
-    const isBanned = async(e) => {
-        e.preventDefault();
-
+    const banCheck = async(component) => {
         const data = await api.userGet(user);
         
         if (data.data[0].status === 0) {
-            return false;
+            return <UserBannedPage />;
         } else {
-            return true;
+            return component;
         }
     }
 
@@ -85,31 +83,31 @@ function App() {
                     <Route path='/admin/users/:tab/:username/:page' element={<AdminUserPage />} />
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
-                    <Route path='/' element={ isBanned() ? <UserLandPage /> : <UserBannedPage />}/>
-                    <Route path='/bugs/create' element={<BugCreatePage />}/>
-                    <Route path='/bug/:id' element={<BugViewPage />} /> 
+                    <Route path='/' element={banCheck(<UserLandPage />)}/>
+                    <Route path='/bugs/create' element={banCheck(<BugCreatePage />)}/>
+                    <Route path='/bug/:id' element={banCheck(<BugViewPage />)} /> 
                     <Route path='/login' element={<UserLoginPage />}/>
                     <Route path='/register' element={<UserRegisterPage />}/>
-                    <Route path='/profile/:username/:tab' element={<UserProfilePage />}/>
-                    <Route path='/settings/:tab' element={<UserSettingsPage />}/>
-                    <Route path='/rooms/create' element={<RoomCreatePage />}/>
-                    <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
-                    <Route path='/rooms/:tab/:roomname/:page' element={<UserRoomPage />}/>
-                    <Route path='/room/:id' element={<RoomViewPage />}/>
-                    <Route path='/notes/create' element={<NoteCreatePage />}/>
-                    <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
-                    <Route path='/notes/:tab/:searchVal/:page' element={<UserNotePage />}/>
-                    <Route path='/note/:id' element={<NoteViewPage />}/>
-                    <Route path='/note/:id/edit' element={<NoteEditPage />}/>
-                    <Route path='/notices/:tab' element={<UserNoticePage />}/>
-                    <Route path='/questions/create' element={<QuestionCreatePage />}/>
-                    <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
-                    <Route path='/questions/:tab/:searchVal/:page' element={<UserQuestionPage />}/>
-                    <Route path='/question/:id' element={<QuestionViewPage />}/>
-                    <Route path='/question/:id/edit' element={<QuestionEditPage />}/>
-                    <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
-                    <Route path='/report/:id' element={<ReportViewPage />} /> 
-                    <Route path='/404' element={<NotFoundPage />} />
+                    <Route path='/profile/:username/:tab' element={banCheck(<UserProfilePage />)}/>
+                    <Route path='/settings/:tab' element={banCheck(<UserSettingsPage />)}/>
+                    <Route path='/rooms/create' element={banCheck(<RoomCreatePage />)}/>
+                    <Route path='/rooms/:tab/:page' element={banCheck(<UserRoomPage />)}/>
+                    <Route path='/rooms/:tab/:roomname/:page' element={banCheck(<UserRoomPage />)}/>
+                    <Route path='/room/:id' element={banCheck(<RoomViewPage />)}/>
+                    <Route path='/notes/create' element={banCheck(<NoteCreatePage />)}/>
+                    <Route path='/notes/:tab/:page' element={banCheck(<UserNotePage />)}/>
+                    <Route path='/notes/:tab/:searchVal/:page' element={banCheck(<UserNotePage />)}/>
+                    <Route path='/note/:id' element={banCheck(<NoteViewPage />)}/>
+                    <Route path='/note/:id/edit' element={banCheck(<NoteEditPage />)}/>
+                    <Route path='/notices/:tab' element={banCheck(<UserNoticePage />)}/>
+                    <Route path='/questions/create' element={banCheck(<QuestionCreatePage />)}/>
+                    <Route path='/questions/:tab/:page' element={banCheck(<UserQuestionPage />)}/>
+                    <Route path='/questions/:tab/:searchVal/:page' element={banCheck(<UserQuestionPage />)}/>
+                    <Route path='/question/:id' element={banCheck(<QuestionViewPage />)}/>
+                    <Route path='/question/:id/edit' element={banCheck(<QuestionEditPage />)}/>
+                    <Route path='/report/create/:type/:id' element={banCheck(<ReportCreatePage />)}/>
+                    <Route path='/report/:id' element={banCheck(<ReportViewPage />)} /> 
+                    <Route path='/404' element={banCheck(<NotFoundPage />)} />
                 </Routes>
             </div>
         </Router>
