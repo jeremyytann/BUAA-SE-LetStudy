@@ -56,7 +56,7 @@ def roomGet(request, pk):
         room = Room.objects.get(id = pk)
         user = GeneralUser.objects.get(request.user.id)
 
-        if int(room.roomType) == 1 and room.lock:
+        if int(room.type) == 1 and room.lock:
             try:
                 participant = Participant.objects.get(room = room, user = user)
             except Participant.DoesNotExist:
