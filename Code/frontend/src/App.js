@@ -35,6 +35,8 @@ import RoomViewPage from './Pages/RoomViewPage';
 import NotFoundPage from './Pages/NotFoundPage';
 import NoteEditPage from './Pages/NoteEditPage';
 import QuestionEditPage from './Pages/QuestionEditPage';
+import api from './Api/api';
+import UserBannedPage from './Pages/UserBannedPage';
 
 function App() {
     let admin = Cookies.get('admin')
@@ -54,6 +56,18 @@ function App() {
         }
     }, [admin, user]);
 
+    const isBanned = async(e) => {
+        e.preventDefault();
+
+        const data = await api.userGet(user);
+        
+        if (data.data[0].status === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     return (
         <Router>
             <div className="App">
@@ -71,7 +85,7 @@ function App() {
                     <Route path='/admin/users/:tab/:username/:page' element={<AdminUserPage />} />
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
-                    <Route path='/' element={<UserLandPage />}/>
+                    <Route path='/' element={ isBanned() ? <UserLandPage /> : <UserBannedPage />}/>
                     <Route path='/bugs/create' element={<BugCreatePage />}/>
                     <Route path='/bug/:id' element={<BugViewPage />} /> 
                     <Route path='/login' element={<UserLoginPage />}/>

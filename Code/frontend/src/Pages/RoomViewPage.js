@@ -75,7 +75,7 @@ const RoomViewPage = () => {
         }, 1000)
 
         return () => clearInterval(interval);
-    }, [id, error, messages, checkMessages.length])
+    }, [id, error, messages, checkMessages.length, room.length])
 
     const linkRoom = () => {
         navigate('/rooms/public/1');
