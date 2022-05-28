@@ -54,6 +54,19 @@ def roomCreate(request):
 def roomGet(request, pk):
     try:
         room = Room.objects.get(id = pk)
+        user = GeneralUser.objects.get(request.user.id)
+
+        if room.roomType == 1 and room.lock:
+            try:
+                participant = Participant.objects.get(room = room, user = user)
+            except Participant.DoesNotExist:
+                return jsons([], 400)
+        else:
+            try:
+                participant = Participant.objects.get(room = room, user = user)
+            except Participant.DoesNotExist:
+                participant = Participant.objects.create(user = user, room = room)
+                participant.save()
     except Room.DoesNotExist:
         return jsons([], 404)
     

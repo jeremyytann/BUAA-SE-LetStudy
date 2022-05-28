@@ -49,6 +49,8 @@ const RoomViewPage = () => {
                 setRoom(data.data[0]);
             } else if (data.errorCode === 404) {
                 setError(404);
+            } else if (data.errorCode === 400) {
+                setError(400);
             }
         }
 
@@ -75,8 +77,37 @@ const RoomViewPage = () => {
         return () => clearInterval(interval);
     }, [id, error, messages, checkMessages.length])
 
+    const linkRoom = () => {
+        navigate('/rooms/public/1');
+    }
+
     if (error === 404) {
         return <Navigate to='/404' />
+    } else if (error === 400) {
+        return (
+            <Box>
+                <Navbar room={room}/>
+
+                <Dialog
+                    fullWidth={true}
+                    open={true}
+                    maxWidth='sm'
+                    onClose={linkRoom}>
+                    <DialogTitle id="alert-dialog-title">
+                        {"权限错误"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            你没有此房间的访问权限哦
+                        </DialogContentText>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={linkRoom}>好的</Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        )
     }
 
     const quitRoom = async() => {
