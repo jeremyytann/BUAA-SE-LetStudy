@@ -56,7 +56,7 @@ function App() {
         }
     }, [admin, user]);
 
-    const banCheck = async(component) => {
+    const banCheck = (component) => new Promise(async() => {
         if (user) {
             if (!admin) {
                 const data = await api.userGet(user);
@@ -72,7 +72,8 @@ function App() {
         } else {
             <Navigate to='/login'/>
         }
-    }
+    })
+        
 
     return (
         <Router>
