@@ -7,7 +7,6 @@ import RoomParticipants from '../Components/RoomParticipants'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
 import Chat from '../Components/Chat'
-import Cookies from 'js-cookie'
 
 const RoomViewPage = () => {
     const { id } = useParams();
@@ -17,17 +16,6 @@ const RoomViewPage = () => {
     const [messages, setMessages] = useState([]);
     const [checkMessages, setCheckMessages] = useState([]);
     const navigate = useNavigate();
-    let user = Cookies.get('username')
-
-    const banCheck = async() => {
-        const data = api.userGetByUsername(user)
-
-        if (data.data[0].status === 0) {
-            return <Navigate to='/banned'/>
-        }
-    }
-
-    banCheck();
 
     const theme = createTheme ({
         typography: {
@@ -140,7 +128,6 @@ const RoomViewPage = () => {
 
     const createMessage = async() => {
         if (message.length !== 0) {
-            banCheck();
             const data = await api.chatCreate(room.id, message);
         
             if (data.errorCode === 0) {

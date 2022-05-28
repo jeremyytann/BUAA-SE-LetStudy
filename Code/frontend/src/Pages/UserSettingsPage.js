@@ -8,25 +8,14 @@ import UserPasswordForm from '../Components/UserPasswordForm';
 import UserTerminate from '../Components/UserTerminate';
 import UserReports from '../Components/UserReports';
 import UserBugs from '../Components/UserBugs';
-import api from '../Api/api';
 
 const UserSettingsPage = () => {
     const { tab } = useParams();
     let user = Cookies.get('username');
     const navigate = useNavigate();
 
-    const banCheck = async() => {
-        const data = api.userGetByUsername(user)
-
-        if (data.data[0].status === 0) {
-            return <Navigate to='/banned'/>
-        }
-    }
-
     if (user === undefined) {
         return <Navigate to='/login'/>
-    } else {
-        banCheck();
     }
 
     const linkPassword = () => {

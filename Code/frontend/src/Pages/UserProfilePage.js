@@ -18,15 +18,6 @@ const UserProfilePage = () => {
     const [error, setError] = useState(0);
     const [user, setUser] = useState();
     const [days, setDays] = useState(0);
-    let currentUser = Cookies.get('username');
-    
-    const banCheck = async() => {
-        const data = api.userGetByUsername(currentUser)
-
-        if (data.data[0].status === 0) {
-            return <Navigate to='/banned'/>
-        }
-    }
 
     useEffect(() => {
         const fetchUser = async() => {
@@ -43,14 +34,10 @@ const UserProfilePage = () => {
         fetchUser();
     }, [username])
 
+    let currentUser = Cookies.get('username');
+
     if (currentUser === undefined) {
         return <Navigate to='/login'/>
-    } else {
-        let admin = Cookies.get('admin');
-
-        if (!admin) {
-            banCheck();
-        }
     }
 
     if (error === 404) {

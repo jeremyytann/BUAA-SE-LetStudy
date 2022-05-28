@@ -4,9 +4,8 @@ import Navbar from '../Components/Navbar'
 import { Box, Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PageTitle from '../Components/PageTitle'
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../Api/api'
-import Cookies from 'js-cookie'
 
 const ReportCreatePage = () => {
     const { type, id } = useParams();
@@ -18,18 +17,6 @@ const ReportCreatePage = () => {
     const [dialog2, setDialog2] = useState('');
     const [path, setPath] = useState('');
     const navigate = useNavigate();
-
-    let user = Cookies.get('username')
-
-    const banCheck = async() => {
-        const data = api.userGetByUsername(user)
-
-        if (data.data[0].status === 0) {
-            return <Navigate to='/banned'/>
-        }
-    }
-
-    banCheck();
 
     useEffect(() => {
         const fetchNote = async() => {
