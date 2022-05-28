@@ -6,6 +6,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PageTitle from '../Components/PageTitle'
 import api from '../Api/api'
+import Cookies from 'js-cookie'
 
 const ReportViewPage = () => {
     const { id } = useParams();
@@ -16,6 +17,17 @@ const ReportViewPage = () => {
     const [path, setPath] = useState('');
     const [status, setStatus] = useState('')
     const navigate = useNavigate();
+    let user = Cookies.get('username')
+
+    const banCheck = async() => {
+        const data = api.userGetByUsername(user)
+
+        if (data.data[0].status === 0) {
+            return <Navigate to='/banned'/>
+        }
+    }
+
+    banCheck();
 
     const theme = createTheme ({
         typography: {

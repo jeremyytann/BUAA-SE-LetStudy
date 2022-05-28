@@ -35,24 +35,13 @@ import RoomViewPage from './Pages/RoomViewPage';
 import NotFoundPage from './Pages/NotFoundPage';
 import NoteEditPage from './Pages/NoteEditPage';
 import QuestionEditPage from './Pages/QuestionEditPage';
-import api from './Api/api';
 import UserBannedPage from './Pages/UserBannedPage';
 
 function App() {
     let admin = Cookies.get('admin')
     let user = Cookies.get('user_id')
-    let banned = Cookies.get('banned');
-    const location = useLocation();
 
     useEffect(() => {
-        const fetchUser = async() => {
-            const data = await api.userGet(user);
-
-            if (data.data[0].status === 0) {
-                Cookies.set('banned', true)
-            }
-        }
-
         if (user) {
             if (admin) {
                 let color_1 = "FFFFFF";
@@ -62,12 +51,10 @@ function App() {
                 let color_1 = "FFFFFF";
                 let color_2 = "DDC3A5";
                 document.body.style.background = "linear-gradient(to bottom right, #"+ color_1 +", #"+ color_2 +")";
-
-                fetchUser();
             }
         }
-    }, [admin, user, location]);
-
+    }, [admin, user]);
+    
     return (
         <Router>
             <div className="App">
@@ -85,31 +72,32 @@ function App() {
                     <Route path='/admin/users/:tab/:username/:page' element={<AdminUserPage />} />
                     <Route path='/admin/settings/:tab' element={<AdminSettingsPage />}/>
 
-                    <Route path='/' element={banned ? <UserBannedPage /> : <UserLandPage />}/>
-                    <Route path='/bugs/create' element={banned ? <UserBannedPage /> : <BugCreatePage />}/>
-                    <Route path='/bug/:id' element={banned ? <UserBannedPage /> : <BugViewPage />} /> 
+                    <Route path='/' element={<UserLandPage />}/>
+                    <Route path='/banned' element={<UserBannedPage />}/>
+                    <Route path='/bugs/create' element={<BugCreatePage />}/>
+                    <Route path='/bug/:id' element={<BugViewPage />} /> 
                     <Route path='/login' element={<UserLoginPage />}/>
                     <Route path='/register' element={<UserRegisterPage />}/>
-                    <Route path='/profile/:username/:tab' element={banned ? <UserBannedPage /> : <UserProfilePage />}/>
-                    <Route path='/settings/:tab' element={banned ? <UserBannedPage /> : <UserSettingsPage />}/>
-                    <Route path='/rooms/create' element={banned ? <UserBannedPage /> : <RoomCreatePage />}/>
-                    <Route path='/rooms/:tab/:page' element={banned ? <UserBannedPage /> : <UserRoomPage />}/>
-                    <Route path='/rooms/:tab/:roomname/:page' element={banned ? <UserBannedPage /> : <UserRoomPage />}/>
-                    <Route path='/room/:id' element={banned ? <UserBannedPage /> : <RoomViewPage />}/>
-                    <Route path='/notes/create' element={banned ? <UserBannedPage /> : <NoteCreatePage />}/>
-                    <Route path='/notes/:tab/:page' element={banned ? <UserBannedPage /> : <UserNotePage />}/>
-                    <Route path='/notes/:tab/:searchVal/:page' element={banned ? <UserBannedPage /> : <UserNotePage />}/>
-                    <Route path='/note/:id' element={banned ? <UserBannedPage /> : <NoteViewPage />}/>
-                    <Route path='/note/:id/edit' element={banned ? <UserBannedPage /> : <NoteEditPage />}/>
-                    <Route path='/notices/:tab' element={banned ? <UserBannedPage /> : <UserNoticePage />}/>
-                    <Route path='/questions/create' element={banned ? <UserBannedPage /> : <QuestionCreatePage />}/>
-                    <Route path='/questions/:tab/:page' element={banned ? <UserBannedPage /> : <UserQuestionPage />}/>
-                    <Route path='/questions/:tab/:searchVal/:page' element={banned ? <UserBannedPage /> : <UserQuestionPage />}/>
-                    <Route path='/question/:id' element={banned ? <UserBannedPage /> : <QuestionViewPage />}/>
-                    <Route path='/question/:id/edit' element={banned ? <UserBannedPage /> : <QuestionEditPage />}/>
-                    <Route path='/report/create/:type/:id' element={banned ? <UserBannedPage /> : <ReportCreatePage />}/>
-                    <Route path='/report/:id' element={banned ? <UserBannedPage /> : <ReportViewPage />} /> 
-                    <Route path='/404' element={banned ? <UserBannedPage /> : <NotFoundPage />} />
+                    <Route path='/profile/:username/:tab' element={<UserProfilePage />}/>
+                    <Route path='/settings/:tab' element={<UserSettingsPage />}/>
+                    <Route path='/rooms/create' element={<RoomCreatePage />}/>
+                    <Route path='/rooms/:tab/:page' element={<UserRoomPage />}/>
+                    <Route path='/rooms/:tab/:roomname/:page' element={<UserRoomPage />}/>
+                    <Route path='/room/:id' element={<RoomViewPage />}/>
+                    <Route path='/notes/create' element={<NoteCreatePage />}/>
+                    <Route path='/notes/:tab/:page' element={<UserNotePage />}/>
+                    <Route path='/notes/:tab/:searchVal/:page' element={<UserNotePage />}/>
+                    <Route path='/note/:id' element={<NoteViewPage />}/>
+                    <Route path='/note/:id/edit' element={<NoteEditPage />}/>
+                    <Route path='/notices/:tab' element={<UserNoticePage />}/>
+                    <Route path='/questions/create' element={<QuestionCreatePage />}/>
+                    <Route path='/questions/:tab/:page' element={<UserQuestionPage />}/>
+                    <Route path='/questions/:tab/:searchVal/:page' element={<UserQuestionPage />}/>
+                    <Route path='/question/:id' element={<QuestionViewPage />}/>
+                    <Route path='/question/:id/edit' element={<QuestionEditPage />}/>
+                    <Route path='/report/create/:type/:id' element={<ReportCreatePage />}/>
+                    <Route path='/report/:id' element={<ReportViewPage />} /> 
+                    <Route path='/404' element={<NotFoundPage />} />
                 </Routes>
             </div>
         </Router>

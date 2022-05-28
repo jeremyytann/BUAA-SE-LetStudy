@@ -2,10 +2,11 @@ import { Box, Grid, Pagination } from '@mui/material'
 import { useState, useEffect } from 'react'
 import React from 'react'
 import Navbar from '../Components/Navbar'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import api from '../Api/api'
 import UserNotice from '../Components/UserNotice';
+import Cookies from 'js-cookie'
 
 const UserNoticePage = () => {
     const { tab } = useParams();
@@ -13,6 +14,22 @@ const UserNoticePage = () => {
     const [maxPage, setMaxPage] = useState(1);
     const [notices, setNotices] = useState();
     const navigate = useNavigate();
+    let user = Cookies.get('user_id')
+    
+    if (user) {
+        const banCheck = async() => {
+            const data = api.userGet(user)
+    
+            if (data.data[0].status === 0) {
+                return <Navigate to='/banned'/>
+            }
+        }
+    
+        if (user) {
+            banCheck();
+        }
+    }
+    
 
     const theme = createTheme ({
         typography: {

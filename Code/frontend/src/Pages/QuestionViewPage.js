@@ -29,6 +29,16 @@ const QuestionViewPage = () => {
     let username = Cookies.get('username');
     let admin = Cookies.get('admin');
 
+    const banCheck = async() => {
+        const data = api.userGetByUsername(username)
+
+        if (data.data[0].status === 0) {
+            return <Navigate to='/banned'/>
+        }
+    }
+
+    banCheck();
+
     const theme = createTheme ({
         typography: {
             button: {
@@ -62,6 +72,7 @@ const QuestionViewPage = () => {
             setError('回答内容不能为空哦');
             setDialog2(true);
         } else {
+            banCheck();
             const tempAnswer = await api.answerCreate(answer, id);
             
             if (tempAnswer.errorCode === 0) {
