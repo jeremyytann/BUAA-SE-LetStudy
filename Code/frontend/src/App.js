@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLoginPage from './Pages/AdminLoginPage';
 import UserLoginPage from './Pages/UserLoginPage';
 import UserRegisterPage from './Pages/UserRegisterPage';
@@ -57,12 +57,20 @@ function App() {
     }, [admin, user]);
 
     const banCheck = async(component) => {
-        const data = await api.userGet(user);
+        if (user) {
+            if (!admin) {
+                const data = await api.userGet(user);
         
-        if (data.data[0].status === 0) {
-            return <UserBannedPage />;
+                if (data.data[0].status === 0) {
+                    return <UserBannedPage />;
+                } else {
+                    return component;
+                }
+            } else {
+                return component;
+            }
         } else {
-            return component;
+            <Navigate to='/login'/>
         }
     }
 
