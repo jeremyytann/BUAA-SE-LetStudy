@@ -7,7 +7,6 @@ from .models import Question
 from django.db.models import Count
 import json, random
 from django.utils import timezone
-from itertools import chain
 
 # Create your views here.
 def jsons(data = None, errorCode = 0, page=0):
@@ -47,6 +46,7 @@ def questionEdit(request, pk):
         question.description = data['description']
         question.category = category
         question.edited = 1
+        question.editDate = timezone.now
         question.save()
 
         return jsons([dict(question.body())])

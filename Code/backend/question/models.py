@@ -24,5 +24,6 @@ class Question(models.Model):
             'category': self.category.body(),
             'description': self.description,
             'created_date': self.createdDate,
-            'edited': self.edited
+            'edited': self.edited,
+            'edited_date': self.editDate
         }

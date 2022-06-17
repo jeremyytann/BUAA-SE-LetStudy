@@ -224,7 +224,7 @@ const QuestionViewPage = () => {
 
                                                 <Box ml={1} fontSize={15}>
                                                     { question.edited ? 
-                                                        '已修改于 ' + question.created_date.split('T')[0]
+                                                        '已修改于 ' + question.edited_date.split('T')[0]
                                                         : question.created_date.split('T')[0]
                                                     }
                                                 </Box>
