@@ -46,7 +46,7 @@ def questionEdit(request, pk):
         question.description = data['description']
         question.category = category
         question.edited = 1
-        question.editDate = timezone.now
+        question.editDate = timezone.now()
         question.save()
 
         return jsons([dict(question.body())])
